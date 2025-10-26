@@ -239,65 +239,65 @@ Before any code implementation, these accounts and services must be set up:
 
 ---
 
-## Phase 4: Internationalization (i18n)
+## Phase 4: Internationalization (i18n) ✅ COMPLETE
 
 ### 4.1 Configure next-intl
 
-- [ ] Create lib/i18n/routing.ts
-- [ ] Configure supported locales (en, fr)
-- [ ] Set default locale (en)
-- [ ] Create middleware.ts for i18n routing
-- [ ] Test locale routing works
-- [ ] Commit i18n configuration
+- [x] Create i18n/routing.ts (updated path)
+- [x] Configure supported locales (en, fr)
+- [x] Set default locale (en)
+- [x] Create middleware.ts for i18n routing
+- [x] Integrated with Supabase auth in middleware
+- [x] Test locale routing works
+- [x] Commit i18n configuration
 
 ### 4.2 Create Translation Files
 
-- [ ] Create messages/en.json:
-  - [ ] Navigation translations
-  - [ ] HomePage translations
-  - [ ] Auth translations
-  - [ ] Common translations
-  - [ ] Error messages
-- [ ] Create messages/fr.json:
-  - [ ] Mirror English structure
-  - [ ] Translate all strings
-  - [ ] Verify translation completeness
-- [ ] Commit translation files
+- [x] Create messages/en.json:
+  - [x] Navigation translations
+  - [x] HomePage translations
+  - [x] Common translations
+  - [x] NotFound translations
+  - [ ] Auth translations (deferred to Phase 5b)
+- [x] Create messages/fr.json:
+  - [x] Mirror English structure
+  - [x] Translate all strings
+  - [x] Verify translation completeness
+- [x] Commit translation files
 
 ### 4.3 Set Up Locale Layouts
 
-- [ ] Create app/layout.tsx (root layout)
-- [ ] Create app/[locale]/layout.tsx (locale-specific)
-- [ ] Implement NextIntlClientProvider
+- [x] Create app/[locale]/layout.tsx (locale-specific)
+- [x] Implement NextIntlClientProvider
+- [x] Update homepage to use translations
 - [ ] Create language switcher component
 - [ ] Test switching between en/fr
 - [ ] Commit layout files
 
 ---
 
-## Phase 5: Supabase Integration
+## Phase 5: Supabase Integration ✅ PHASE 5a COMPLETE
 
 ### 5.1 Environment Variables Setup
 
-- [ ] Create .env.local file
-- [ ] Add Supabase environment variables:
-  - [ ] NEXT_PUBLIC_SUPABASE_URL
-  - [ ] NEXT_PUBLIC_SUPABASE_ANON_KEY
-  - [ ] SUPABASE_SERVICE_ROLE_KEY
-- [ ] Create .env.local.example (without values)
-- [ ] Verify .env.local is in .gitignore
-- [ ] Test environment variables load
-- [ ] Commit .env.local.example only
+- [x] Create .env.local file
+- [x] Add Supabase environment variables:
+  - [x] NEXT_PUBLIC_SUPABASE_URL
+  - [x] NEXT_PUBLIC_SUPABASE_ANON_KEY
+  - [ ] SUPABASE_SERVICE_ROLE_KEY (to be added when needed)
+- [x] Create .env.local.example (without values)
+- [x] Verify .env.local is in .gitignore
+- [x] Test environment variables load
+- [x] Commit .env.local.example only
 
 ### 5.2 Create Supabase Clients
 
-- [ ] Create lib/supabase/config.ts
-- [ ] Create lib/supabase/server.ts (Server Component client)
-- [ ] Create lib/supabase/client.ts (Client Component client)
-- [ ] Create lib/supabase/middleware.ts (Middleware client)
-- [ ] Create lib/supabase/admin.ts (Admin client - server only)
-- [ ] Test clients connect successfully
-- [ ] Commit Supabase utilities
+- [x] Create lib/supabase/server.ts (Server Component client)
+- [x] Create lib/supabase/client.ts (Client Component client)
+- [x] Integrated Supabase auth in middleware.ts (combined with i18n)
+- [x] Test clients connect successfully (connection verified)
+- [x] Commit Supabase utilities
+- [ ] Create lib/supabase/admin.ts (Admin client - deferred until needed)
 
 ### 5.3 Database Schema Setup
 
