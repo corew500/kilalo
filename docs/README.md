@@ -19,13 +19,13 @@ Comprehensive documentation for the Kilalo marketing website with member portal.
 
 ### Setup Guides
 
-3. **[Next.js Setup](./03-SETUP-NEXTJS.md)**
-   - Next.js 15 with App Router
+3. **[Next.js Setup](./03-SETUP-NEXTJS.md)** ✅ COMPLETE
+   - Next.js 16 with App Router
    - TypeScript strict configuration
    - Project structure and conventions
 
-4. **[Tailwind + shadcn/ui](./04-SETUP-TAILWIND-SHADCN.md)**
-   - Tailwind CSS 4 configuration
+4. **[Tailwind + shadcn/ui](./04-SETUP-TAILWIND-SHADCN.md)** ✅ COMPLETE
+   - Tailwind CSS 3.4 configuration
    - shadcn/ui component installation
    - Dark mode and theming
 

@@ -17,7 +17,7 @@
 
 ## Overview
 
-The Kilalo marketing website is a modern, performant, and accessible web application built with Next.js 15 (App Router), designed to serve both public marketing content and authenticated member-only features. The architecture emphasizes:
+The Kilalo marketing website is a modern, performant, and accessible web application built with Next.js 16 (App Router), designed to serve both public marketing content and authenticated member-only features. The architecture emphasizes:
 
 - **Performance**: Edge-first delivery, optimized images, code splitting
 - **SEO**: Server-side rendering, structured data, semantic HTML
@@ -133,49 +133,52 @@ The Kilalo marketing website is a modern, performant, and accessible web applica
 
 ### Frontend Layer
 
-**Next.js 15 (App Router)**
-- **Version**: 15.x (latest stable)
+**Next.js 16 (App Router)**
+- **Version**: 16.0.0 ✅ IMPLEMENTED
 - **Features Used**:
   - React Server Components (RSC)
   - Server Actions
   - Streaming SSR
-  - Partial Prerendering (PPR)
+  - Turbopack (for dev builds)
   - Middleware
   - Route Handlers (API routes)
   - Image Optimization
   - Font Optimization
 
 **React 19**
-- Automatic via Next.js 15
+- **Version**: 19.2.0 ✅ IMPLEMENTED
+- Automatic via Next.js 16
 - Server Components
 - Enhanced Suspense
 - Transitions and optimistic updates
 
 **TypeScript**
-- **Version**: 5.x
+- **Version**: 5.9.3 ✅ IMPLEMENTED
 - **Configuration**: Strict mode enabled
 - **Benefits**: Type safety, better IDE support, catch errors early
 
 ### Styling Layer
 
 **Tailwind CSS**
-- **Version**: 4.x (latest)
+- **Version**: 3.4.17 (stable) ✅ IMPLEMENTED
+- **Note**: Using v3 for production stability (v4 is still beta)
 - **Features**:
   - Utility-first CSS
   - JIT (Just-In-Time) compilation
-  - Custom color palette (Kilalo branding)
+  - Custom Kilalo color palette implemented
   - Responsive design utilities
-  - Dark mode support
-  - Animation utilities
+  - Dark mode support configured
+  - Animation utilities (tailwindcss-animate)
 
 **shadcn/ui**
-- **Version**: Latest
-- **Components**: Radix UI primitives + Tailwind
+- **Version**: Latest ✅ IMPLEMENTED
+- **Components Installed**: Button, Card, Input, Label
+- **Based on**: Radix UI primitives + Tailwind
 - **Features**:
   - Accessible components (WCAG 2.1 AA)
   - Customizable
   - Copy-paste approach (you own the code)
-  - TypeScript support
+  - Full TypeScript support
 
 ### Backend Services
 
