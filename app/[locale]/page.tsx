@@ -1,59 +1,62 @@
+import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 
 export default function Home() {
+  const t = useTranslations('HomePage')
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-24 bg-background">
       <div className="max-w-4xl w-full space-y-8">
         <div className="text-center space-y-4">
-          <h1 className="text-5xl font-bold text-foreground">Welcome to Kilalo</h1>
+          <h1 className="text-5xl font-bold text-foreground">{t('title')}</h1>
           <p className="text-xl text-muted-foreground">
-            Your trusted partner for business solutions
+            {t('description')}
           </p>
         </div>
 
         <div className="flex gap-4 justify-center">
           <Button size="lg" className="bg-teal hover:bg-teal-700">
-            Get Started
+            {t('getStarted')}
           </Button>
           <Button size="lg" variant="secondary" className="bg-orange hover:bg-orange-600">
-            Learn More
+            {t('learnMore')}
           </Button>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
           <Card>
             <CardHeader>
-              <CardTitle className="text-teal">Strategy</CardTitle>
-              <CardDescription>Strategic business planning</CardDescription>
+              <CardTitle className="text-teal">{t('strategy.title')}</CardTitle>
+              <CardDescription>{t('strategy.description')}</CardDescription>
             </CardHeader>
             <CardContent>
               <p className="text-sm text-muted-foreground">
-                We help you define and execute winning strategies.
+                {t('strategy.content')}
               </p>
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-orange">Execution</CardTitle>
-              <CardDescription>Flawless implementation</CardDescription>
+              <CardTitle className="text-orange">{t('execution.title')}</CardTitle>
+              <CardDescription>{t('execution.description')}</CardDescription>
             </CardHeader>
             <CardContent>
               <p className="text-sm text-muted-foreground">
-                Turn plans into reality with our execution expertise.
+                {t('execution.content')}
               </p>
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-forest">Growth</CardTitle>
-              <CardDescription>Sustainable success</CardDescription>
+              <CardTitle className="text-forest">{t('growth.title')}</CardTitle>
+              <CardDescription>{t('growth.description')}</CardDescription>
             </CardHeader>
             <CardContent>
               <p className="text-sm text-muted-foreground">
-                Build lasting value and achieve your goals.
+                {t('growth.content')}
               </p>
             </CardContent>
           </Card>

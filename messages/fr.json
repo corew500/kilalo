@@ -1,0 +1,39 @@
+{
+  "HomePage": {
+    "title": "Bienvenue chez Kilalo",
+    "description": "Votre partenaire de confiance pour des solutions d'affaires",
+    "getStarted": "Commencer",
+    "learnMore": "En savoir plus",
+    "strategy": {
+      "title": "Stratégie",
+      "description": "Planification stratégique des affaires",
+      "content": "Nous vous aidons à définir et exécuter des stratégies gagnantes."
+    },
+    "execution": {
+      "title": "Exécution",
+      "description": "Mise en œuvre impeccable",
+      "content": "Transformez les plans en réalité grâce à notre expertise en exécution."
+    },
+    "growth": {
+      "title": "Croissance",
+      "description": "Succès durable",
+      "content": "Créez une valeur durable et atteignez vos objectifs."
+    }
+  },
+  "Navigation": {
+    "home": "Accueil",
+    "about": "À propos",
+    "services": "Services",
+    "blog": "Blogue",
+    "contact": "Contact"
+  },
+  "Common": {
+    "readMore": "Lire la suite",
+    "learnMore": "En savoir plus",
+    "contactUs": "Nous contacter"
+  },
+  "NotFound": {
+    "title": "Page introuvable",
+    "description": "La page que vous recherchez n'existe pas."
+  }
+}
