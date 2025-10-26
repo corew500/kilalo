@@ -25,7 +25,22 @@
     "about": "À propos",
     "services": "Services",
     "blog": "Blogue",
-    "contact": "Contact"
+    "contact": "Contact",
+    "signIn": "Se connecter",
+    "signUp": "S'inscrire"
+  },
+  "Footer": {
+    "tagline": "Votre partenaire de confiance pour des solutions d'affaires",
+    "quickLinks": "Liens rapides",
+    "about": "À propos",
+    "services": "Services",
+    "blog": "Blogue",
+    "contact": "Contact",
+    "legal": "Légal",
+    "privacy": "Politique de confidentialité",
+    "terms": "Conditions d'utilisation",
+    "connect": "Connectez-vous",
+    "rights": "Tous droits réservés."
   },
   "Common": {
     "readMore": "Lire la suite",

@@ -25,7 +25,22 @@
     "about": "About",
     "services": "Services",
     "blog": "Blog",
-    "contact": "Contact"
+    "contact": "Contact",
+    "signIn": "Sign In",
+    "signUp": "Sign Up"
+  },
+  "Footer": {
+    "tagline": "Your trusted partner for business solutions",
+    "quickLinks": "Quick Links",
+    "about": "About",
+    "services": "Services",
+    "blog": "Blog",
+    "contact": "Contact",
+    "legal": "Legal",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "connect": "Connect",
+    "rights": "All rights reserved."
   },
   "Common": {
     "readMore": "Read more",
