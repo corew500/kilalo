@@ -40,6 +40,14 @@ export function Footer() {
               </li>
               <li>
                 <Link
+                  href={`/${locale}/portfolio`}
+                  className="text-muted-foreground transition-colors hover:text-foreground"
+                >
+                  Portfolio
+                </Link>
+              </li>
+              <li>
+                <Link
                   href={`/${locale}/blog`}
                   className="text-muted-foreground transition-colors hover:text-foreground"
                 >

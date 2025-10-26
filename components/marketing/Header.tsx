@@ -14,6 +14,7 @@ export function Header() {
     { name: t('home'), href: `/${locale}` },
     { name: t('about'), href: `/${locale}/about` },
     { name: t('services'), href: `/${locale}/services` },
+    { name: t('portfolio'), href: `/${locale}/portfolio` },
     { name: t('blog'), href: `/${locale}/blog` },
     { name: t('contact'), href: `/${locale}/contact` },
   ]
