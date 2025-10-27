@@ -6,8 +6,14 @@ export const event = defineType({
   type: 'document',
   fields: [
     defineField({
-      name: 'title',
-      title: 'Event Title',
+      name: 'titleEn',
+      title: 'Event Title (English)',
+      type: 'string',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'titleFr',
+      title: 'Event Title (French)',
       type: 'string',
       validation: (Rule) => Rule.required(),
     }),
@@ -16,7 +22,7 @@ export const event = defineType({
       title: 'Slug',
       type: 'slug',
       options: {
-        source: 'title',
+        source: 'titleEn',
         maxLength: 96,
       },
       validation: (Rule) => Rule.required(),
@@ -36,8 +42,14 @@ export const event = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: 'description',
-      title: 'Description',
+      name: 'descriptionEn',
+      title: 'Description (English)',
+      type: 'text',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'descriptionFr',
+      title: 'Description (French)',
       type: 'text',
       validation: (Rule) => Rule.required(),
     }),
@@ -103,8 +115,15 @@ export const event = defineType({
       ],
     }),
     defineField({
-      name: 'topics',
-      title: 'Topics Covered',
+      name: 'topicsEn',
+      title: 'Topics Covered (English)',
+      type: 'array',
+      of: [{ type: 'string' }],
+      description: 'Key topics or agenda items',
+    }),
+    defineField({
+      name: 'topicsFr',
+      title: 'Topics Covered (French)',
       type: 'array',
       of: [{ type: 'string' }],
       description: 'Key topics or agenda items',
@@ -128,8 +147,15 @@ export const event = defineType({
       description: 'YouTube or Vimeo link (for past events)',
     }),
     defineField({
-      name: 'keyTakeaways',
-      title: 'Key Takeaways',
+      name: 'keyTakeawaysEn',
+      title: 'Key Takeaways (English)',
+      type: 'array',
+      of: [{ type: 'string' }],
+      description: 'Summary points (for past events)',
+    }),
+    defineField({
+      name: 'keyTakeawaysFr',
+      title: 'Key Takeaways (French)',
       type: 'array',
       of: [{ type: 'string' }],
       description: 'Summary points (for past events)',
@@ -171,15 +197,15 @@ export const event = defineType({
   ],
   preview: {
     select: {
-      title: 'title',
+      titleEn: 'titleEn',
       subtitle: 'eventDate',
       series: 'series',
       status: 'status',
     },
-    prepare({ title, subtitle, series, status }) {
+    prepare({ titleEn, subtitle, series, status }) {
       const date = subtitle ? new Date(subtitle).toLocaleDateString() : 'No date'
       return {
-        title: `${title}`,
+        title: titleEn,
         subtitle: `${series} • ${date} • ${status}`,
       }
     },

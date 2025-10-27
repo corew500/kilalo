@@ -22,14 +22,27 @@ export const teamMember = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: 'role',
-      title: 'Role/Title',
+      name: 'roleEn',
+      title: 'Role/Title (English)',
       type: 'string',
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: 'bio',
-      title: 'Biography',
+      name: 'roleFr',
+      title: 'Role/Title (French)',
+      type: 'string',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'bioEn',
+      title: 'Biography (English)',
+      type: 'text',
+      description: 'Short bio (2-3 sentences)',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'bioFr',
+      title: 'Biography (French)',
       type: 'text',
       description: 'Short bio (2-3 sentences)',
       validation: (Rule) => Rule.required(),
@@ -50,8 +63,15 @@ export const teamMember = defineType({
       ],
     }),
     defineField({
-      name: 'expertise',
-      title: 'Areas of Expertise',
+      name: 'expertiseEn',
+      title: 'Areas of Expertise (English)',
+      type: 'array',
+      of: [{ type: 'string' }],
+      description: 'Key skills and areas of focus',
+    }),
+    defineField({
+      name: 'expertiseFr',
+      title: 'Areas of Expertise (French)',
       type: 'array',
       of: [{ type: 'string' }],
       description: 'Key skills and areas of focus',
@@ -103,7 +123,7 @@ export const teamMember = defineType({
     prepare({ title, subtitle, media, order }) {
       return {
         title: `${order}. ${title}`,
-        subtitle,
+        subtitle: subtitle || 'Role/Title',
         media,
       }
     },

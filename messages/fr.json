@@ -1,55 +1,93 @@
 {
   "HomePage": {
-    "title": "Bienvenue chez Kilalo",
-    "description": "Votre partenaire de confiance pour des solutions d'affaires",
-    "getStarted": "Commencer",
-    "learnMore": "En savoir plus",
-    "strategy": {
-      "title": "Stratégie",
-      "description": "Planification stratégique des affaires",
-      "content": "Nous vous aidons à définir et exécuter des stratégies gagnantes."
-    },
-    "execution": {
-      "title": "Exécution",
-      "description": "Mise en œuvre impeccable",
-      "content": "Transformez les plans en réalité grâce à notre expertise en exécution."
-    },
-    "growth": {
-      "title": "Croissance",
-      "description": "Succès durable",
-      "content": "Créez une valeur durable et atteignez vos objectifs."
-    }
+    "impactTitle": "Notre Impact en Chiffres",
+    "v2sTitle": "Le Programme V2S",
+    "v2sDescription": "Notre programme intensif phare de 16 semaines transforme les idées en entreprises structurées et investissables grâce à 8 outils éprouvés et un mentorat personnalisé.",
+    "venturesTitle": "Histoires de Réussite",
+    "venturesDescription": "Des entreprises congolaises créant un impact social et économique mesurable",
+    "heroCta": "Postuler au Programme V2S",
+    "heroCtaSecondary": "Découvrir Notre Impact",
+    "viewAllVentures": "Voir Toutes les Entreprises"
   },
   "Navigation": {
     "home": "Accueil",
     "about": "À propos",
+    "programs": "Programmes",
     "services": "Services",
-    "portfolio": "Portefeuille",
-    "blog": "Blogue",
+    "ventures": "Entreprises",
+    "community": "Communauté",
+    "workWithUs": "Travailler Avec Nous",
     "contact": "Contact",
     "signIn": "Se connecter",
     "signUp": "S'inscrire"
   },
   "Footer": {
-    "tagline": "Votre partenaire de confiance pour des solutions d'affaires",
-    "quickLinks": "Liens rapides",
+    "tagline": "Construire des entreprises évolutives en RDC",
+    "quickLinks": "Liens Rapides",
     "about": "À propos",
-    "services": "Services",
+    "programs": "Programmes",
+    "ventures": "Entreprises",
     "blog": "Blogue",
     "contact": "Contact",
     "legal": "Légal",
-    "privacy": "Politique de confidentialité",
-    "terms": "Conditions d'utilisation",
-    "connect": "Connectez-vous",
+    "privacy": "Politique de Confidentialité",
+    "terms": "Conditions d'Utilisation",
+    "connect": "Connectez-vous Avec Nous",
     "rights": "Tous droits réservés."
   },
   "Common": {
     "readMore": "Lire la suite",
     "learnMore": "En savoir plus",
-    "contactUs": "Nous contacter"
+    "contactUs": "Nous Contacter",
+    "applyNow": "Postuler Maintenant",
+    "viewCaseStudy": "Voir l'Étude de Cas",
+    "readCaseStudy": "Lire l'Étude de Cas",
+    "comingSoon": "Bientôt disponible",
+    "registerNow": "S'inscrire Maintenant",
+    "watchRecording": "Regarder l'Enregistrement"
+  },
+  "About": {
+    "ourStoryTitle": "Notre Histoire",
+    "v2sApproachTitle": "L'Approche V2S",
+    "missionTitle": "Notre Mission",
+    "visionTitle": "Notre Vision",
+    "teamTitle": "Notre Équipe",
+    "partnersTitle": "Nos Partenaires"
+  },
+  "Ventures": {
+    "title": "Nos Entreprises",
+    "description": "Des entreprises congolaises créant un impact social et économique mesurable",
+    "featured": "En Vedette"
+  },
+  "CaseStudies": {
+    "challengeTitle": "Le Défi",
+    "partnershipTitle": "Le Partenariat Kilalo",
+    "impactTitle": "L'Impact",
+    "whyItMattersTitle": "Pourquoi C'est Important"
+  },
+  "Programs": {
+    "title": "Nos Programmes",
+    "v2sTitle": "Programme V2S",
+    "hekimaTitle": "Hekima Time"
+  },
+  "Community": {
+    "eventsTitle": "Événements",
+    "blogTitle": "Blogue",
+    "networkTitle": "Réseau"
+  },
+  "Contact": {
+    "title": "Contactez-Nous",
+    "formTitle": "Envoyez-nous un message",
+    "nameLabel": "Nom",
+    "emailLabel": "Courriel",
+    "messageLabel": "Message",
+    "submitButton": "Envoyer le Message",
+    "whatsappLabel": "WhatsApp",
+    "officeLabel": "Bureau"
   },
   "NotFound": {
-    "title": "Page introuvable",
-    "description": "La page que vous recherchez n'existe pas."
+    "title": "Page Introuvable",
+    "description": "La page que vous recherchez n'existe pas.",
+    "backHome": "Retour à l'Accueil"
   }
 }

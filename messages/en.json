@@ -1,55 +1,94 @@
 {
   "HomePage": {
-    "title": "Welcome to Kilalo",
-    "description": "Your trusted partner for business solutions",
-    "getStarted": "Get Started",
-    "learnMore": "Learn More",
-    "strategy": {
-      "title": "Strategy",
-      "description": "Strategic business planning",
-      "content": "We help you define and execute winning strategies."
-    },
-    "execution": {
-      "title": "Execution",
-      "description": "Flawless implementation",
-      "content": "Turn plans into reality with our execution expertise."
-    },
-    "growth": {
-      "title": "Growth",
-      "description": "Sustainable success",
-      "content": "Build lasting value and achieve your goals."
-    }
+    "impactTitle": "Our Impact in Numbers",
+    "v2sTitle": "The V2S Program",
+    "v2sDescription": "Our flagship 16-week intensive transforms ideas into structured, investable businesses through 8 proven tools and personalized mentorship.",
+    "venturesTitle": "Success Stories",
+    "venturesDescription": "Congolese businesses creating measurable social and economic impact",
+    "heroCta": "Apply to V2S Program",
+    "heroCtaSecondary": "Explore Our Impact",
+    "viewAllVentures": "View All Ventures"
   },
   "Navigation": {
     "home": "Home",
     "about": "About",
+    "programs": "Programs",
     "services": "Services",
-    "portfolio": "Portfolio",
-    "blog": "Blog",
+    "ventures": "Ventures",
+    "community": "Community",
+    "workWithUs": "Work With Us",
     "contact": "Contact",
     "signIn": "Sign In",
     "signUp": "Sign Up"
   },
   "Footer": {
-    "tagline": "Your trusted partner for business solutions",
+    "tagline": "Building scalable businesses in the DRC",
     "quickLinks": "Quick Links",
     "about": "About",
-    "services": "Services",
+    "programs": "Programs",
+    "ventures": "Ventures",
     "blog": "Blog",
     "contact": "Contact",
     "legal": "Legal",
     "privacy": "Privacy Policy",
     "terms": "Terms of Service",
-    "connect": "Connect",
+    "connect": "Connect With Us",
     "rights": "All rights reserved."
   },
   "Common": {
     "readMore": "Read more",
-    "learnMore": "Learn more",
-    "contactUs": "Contact us"
+    "learnMore": "Learn More",
+    "contactUs": "Contact Us",
+    "applyNow": "Apply Now",
+    "viewCaseStudy": "View Case Study",
+    "readCaseStudy": "Read Case Study",
+    "comingSoon": "Coming soon",
+    "registerNow": "Register Now",
+    "watchRecording": "Watch Recording"
+  },
+  "About": {
+    "ourStoryTitle": "Our Story",
+    "v2sApproachTitle": "The V2S Approach",
+    "missionTitle": "Our Mission",
+    "visionTitle": "Our Vision",
+    "teamTitle": "Our Team",
+    "partnersTitle": "Our Partners"
+  },
+  "Ventures": {
+    "title": "Our Ventures",
+    "description": "Congolese businesses creating measurable social and economic impact",
+    "featured": "Featured"
+  },
+  "CaseStudies": {
+    "challengeTitle": "The Challenge",
+    "partnershipTitle": "The Kilalo Partnership",
+    "impactTitle": "The Impact",
+    "whyItMattersTitle": "Why It Matters"
+  },
+  "Programs": {
+    "title": "Our Programs",
+    "v2sTitle": "V2S Program",
+    "hekimaTitle": "Hekima Time"
+  },
+  "Community": {
+    "eventsTitle": "Events",
+    "blogTitle": "Blog",
+    "networkTitle": "Network"
+  },
+  "Contact": {
+    "title": "Get In Touch",
+    "formTitle": "Send us a message",
+    "nameLabel": "Name",
+    "emailLabel": "Email",
+    "messageLabel": "Message",
+    "submitButton": "Send Message",
+    "whatsappLabel": "WhatsApp",
+    "emailLabel": "Email",
+    "officeLabel": "Office"
   },
   "NotFound": {
     "title": "Page Not Found",
-    "description": "The page you're looking for doesn't exist."
+    "description": "The page you're looking for doesn't exist.",
+    "backHome": "Back to Home"
   }
 }

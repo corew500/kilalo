@@ -75,10 +75,16 @@ export const impactMetrics = defineType({
           type: 'object',
           fields: [
             {
-              name: 'label',
+              name: 'labelEn',
               type: 'string',
-              title: 'Metric Label',
+              title: 'Metric Label (English)',
               description: 'e.g., "Impact Stories Published"',
+            },
+            {
+              name: 'labelFr',
+              type: 'string',
+              title: 'Metric Label (French)',
+              description: 'e.g., "Histoires d\'Impact Publiées"',
             },
             {
               name: 'value',

@@ -1,0 +1,337 @@
+import { defineField, defineType } from 'sanity'
+
+export const siteSettings = defineType({
+  name: 'siteSettings',
+  title: 'Site Settings',
+  type: 'document',
+  groups: [
+    { name: 'navigation', title: 'Navigation' },
+    { name: 'footer', title: 'Footer' },
+    { name: 'common', title: 'Common UI' },
+    { name: 'homepage', title: 'Homepage' },
+    { name: 'about', title: 'About Page' },
+    { name: 'contact', title: 'Contact Info' },
+  ],
+  fields: [
+    // Language selector
+    defineField({
+      name: 'language',
+      title: 'Language',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'English', value: 'en' },
+          { title: 'French', value: 'fr' },
+        ],
+      },
+      validation: (Rule) => Rule.required(),
+    }),
+
+    // Navigation
+    defineField({
+      name: 'navHome',
+      title: 'Navigation: Home',
+      type: 'string',
+      initialValue: 'Home',
+      group: 'navigation',
+    }),
+    defineField({
+      name: 'navAbout',
+      title: 'Navigation: About',
+      type: 'string',
+      initialValue: 'About',
+      group: 'navigation',
+    }),
+    defineField({
+      name: 'navPrograms',
+      title: 'Navigation: Programs',
+      type: 'string',
+      initialValue: 'Programs',
+      group: 'navigation',
+    }),
+    defineField({
+      name: 'navServices',
+      title: 'Navigation: Services',
+      type: 'string',
+      initialValue: 'Services',
+      group: 'navigation',
+    }),
+    defineField({
+      name: 'navVentures',
+      title: 'Navigation: Ventures',
+      type: 'string',
+      initialValue: 'Ventures',
+      group: 'navigation',
+    }),
+    defineField({
+      name: 'navCommunity',
+      title: 'Navigation: Community',
+      type: 'string',
+      initialValue: 'Community',
+      group: 'navigation',
+    }),
+    defineField({
+      name: 'navWorkWithUs',
+      title: 'Navigation: Work With Us',
+      type: 'string',
+      initialValue: 'Work With Us',
+      group: 'navigation',
+    }),
+    defineField({
+      name: 'navContact',
+      title: 'Navigation: Contact',
+      type: 'string',
+      initialValue: 'Contact',
+      group: 'navigation',
+    }),
+    defineField({
+      name: 'signIn',
+      title: 'Sign In',
+      type: 'string',
+      initialValue: 'Sign In',
+      group: 'navigation',
+    }),
+    defineField({
+      name: 'signUp',
+      title: 'Sign Up',
+      type: 'string',
+      initialValue: 'Sign Up',
+      group: 'navigation',
+    }),
+
+    // Footer
+    defineField({
+      name: 'footerTagline',
+      title: 'Footer Tagline',
+      type: 'string',
+      initialValue: 'Building scalable businesses in the DRC',
+      group: 'footer',
+    }),
+    defineField({
+      name: 'footerQuickLinks',
+      title: 'Quick Links Heading',
+      type: 'string',
+      initialValue: 'Quick Links',
+      group: 'footer',
+    }),
+    defineField({
+      name: 'footerLegal',
+      title: 'Legal Heading',
+      type: 'string',
+      initialValue: 'Legal',
+      group: 'footer',
+    }),
+    defineField({
+      name: 'footerPrivacy',
+      title: 'Privacy Policy',
+      type: 'string',
+      initialValue: 'Privacy Policy',
+      group: 'footer',
+    }),
+    defineField({
+      name: 'footerTerms',
+      title: 'Terms of Service',
+      type: 'string',
+      initialValue: 'Terms of Service',
+      group: 'footer',
+    }),
+    defineField({
+      name: 'footerConnect',
+      title: 'Connect With Us',
+      type: 'string',
+      initialValue: 'Connect With Us',
+      group: 'footer',
+    }),
+    defineField({
+      name: 'footerRights',
+      title: 'Rights Reserved',
+      type: 'string',
+      initialValue: 'All rights reserved.',
+      group: 'footer',
+    }),
+
+    // Common UI
+    defineField({
+      name: 'readMore',
+      title: 'Read More',
+      type: 'string',
+      initialValue: 'Read more',
+      group: 'common',
+    }),
+    defineField({
+      name: 'learnMore',
+      title: 'Learn More',
+      type: 'string',
+      initialValue: 'Learn More',
+      group: 'common',
+    }),
+    defineField({
+      name: 'contactUs',
+      title: 'Contact Us',
+      type: 'string',
+      initialValue: 'Contact Us',
+      group: 'common',
+    }),
+    defineField({
+      name: 'applyNow',
+      title: 'Apply Now',
+      type: 'string',
+      initialValue: 'Apply Now',
+      group: 'common',
+    }),
+    defineField({
+      name: 'viewCaseStudy',
+      title: 'View Case Study',
+      type: 'string',
+      initialValue: 'View Case Study',
+      group: 'common',
+    }),
+    defineField({
+      name: 'readCaseStudy',
+      title: 'Read Case Study',
+      type: 'string',
+      initialValue: 'Read Case Study',
+      group: 'common',
+    }),
+    defineField({
+      name: 'comingSoon',
+      title: 'Coming Soon',
+      type: 'string',
+      initialValue: 'Coming soon',
+      group: 'common',
+    }),
+    defineField({
+      name: 'registerNow',
+      title: 'Register Now',
+      type: 'string',
+      initialValue: 'Register Now',
+      group: 'common',
+    }),
+    defineField({
+      name: 'watchRecording',
+      title: 'Watch Recording',
+      type: 'string',
+      initialValue: 'Watch Recording',
+      group: 'common',
+    }),
+
+    // Homepage Content - Marketing copy only
+    defineField({
+      name: 'heroTitle',
+      title: 'Hero Title',
+      type: 'text',
+      group: 'homepage',
+      description: 'Main headline on homepage (marketing copy)',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'heroSubtitle',
+      title: 'Hero Subtitle',
+      type: 'text',
+      group: 'homepage',
+      description: 'Supporting text below hero title (marketing copy)',
+      validation: (Rule) => Rule.required(),
+    }),
+
+    // About Page Content
+    defineField({
+      name: 'ourStory',
+      title: 'Our Story',
+      type: 'array',
+      of: [{ type: 'block' }],
+      group: 'about',
+      description: 'The story behind Kilalo and why we exist',
+    }),
+    defineField({
+      name: 'v2sApproach',
+      title: 'V2S Approach Explanation',
+      type: 'array',
+      of: [{ type: 'block' }],
+      group: 'about',
+      description: 'Detailed explanation of the Vision & Structure methodology',
+    }),
+    defineField({
+      name: 'mission',
+      title: 'Mission Statement',
+      type: 'text',
+      group: 'about',
+      description: 'Official mission statement',
+    }),
+    defineField({
+      name: 'vision',
+      title: 'Vision Statement',
+      type: 'text',
+      group: 'about',
+      description: 'Official vision statement',
+    }),
+
+    // Contact Information
+    defineField({
+      name: 'whatsapp',
+      title: 'WhatsApp Number',
+      type: 'string',
+      group: 'contact',
+      description: 'Include country code (e.g., +243...)',
+    }),
+    defineField({
+      name: 'email',
+      title: 'General Email',
+      type: 'string',
+      group: 'contact',
+      validation: (Rule) => Rule.email(),
+    }),
+    defineField({
+      name: 'emailPartnerships',
+      title: 'Partnerships Email',
+      type: 'string',
+      group: 'contact',
+      validation: (Rule) => Rule.email(),
+    }),
+    defineField({
+      name: 'addressGoma',
+      title: 'Goma Office Address',
+      type: 'text',
+      group: 'contact',
+    }),
+    defineField({
+      name: 'addressKinshasa',
+      title: 'Kinshasa Office Address',
+      type: 'text',
+      group: 'contact',
+    }),
+    defineField({
+      name: 'linkedin',
+      title: 'LinkedIn URL',
+      type: 'url',
+      group: 'contact',
+    }),
+    defineField({
+      name: 'twitter',
+      title: 'Twitter/X URL',
+      type: 'url',
+      group: 'contact',
+    }),
+    defineField({
+      name: 'instagram',
+      title: 'Instagram URL',
+      type: 'url',
+      group: 'contact',
+    }),
+    defineField({
+      name: 'facebook',
+      title: 'Facebook URL',
+      type: 'url',
+      group: 'contact',
+    }),
+  ],
+  preview: {
+    select: {
+      title: 'language',
+    },
+    prepare({ title }) {
+      return {
+        title: `Site Settings (${title === 'en' ? 'English' : 'Français'})`,
+      }
+    },
+  },
+})

@@ -15,22 +15,32 @@ interface VentureCardProps {
   name: string
   slug: string
   description: string
-  industry: string
-  partnership: string
+  sector?: string
+  location?: string
+  tagline: string
+  metricsHighlight?: string
   logo?: any
   featured?: boolean
-  hasCaseStudy?: boolean
+  caseStudy?: {
+    _id: string
+    title: string
+    slug: { current: string }
+  }
+  locale: string
 }
 
 export function VentureCard({
   name,
   slug,
   description,
-  industry,
-  partnership,
+  sector,
+  location,
+  tagline,
+  metricsHighlight,
   logo,
   featured,
-  hasCaseStudy,
+  caseStudy,
+  locale,
 }: VentureCardProps) {
   return (
     <Card className="h-full flex flex-col overflow-hidden transition-all hover:shadow-lg group">
@@ -38,7 +48,7 @@ export function VentureCard({
         {featured && (
           <div className="mb-2">
             <span className="inline-flex items-center rounded-full bg-orange/10 px-2 py-1 text-xs font-medium text-orange">
-              Featured Impact
+              Featured
             </span>
           </div>
         )}
@@ -54,28 +64,44 @@ export function VentureCard({
           </div>
         )}
         <CardTitle className="text-xl">{name}</CardTitle>
-        <CardDescription className="capitalize">
-          {industry.replace('-', ' ')}
-        </CardDescription>
+        <CardDescription className="text-sm">{tagline}</CardDescription>
       </CardHeader>
       <CardContent className="flex-1 flex flex-col space-y-4">
+        {(sector || location) && (
+          <div className="space-y-2">
+            <div className="flex items-center gap-2 text-xs text-muted-foreground">
+              {sector && <span className="capitalize">{sector.replace('-', ' ')}</span>}
+              {sector && location && <span>•</span>}
+              {location && <span>{location}</span>}
+            </div>
+          </div>
+        )}
+
         <p className="text-sm text-muted-foreground flex-1">
           {description}
         </p>
 
-        {partnership && (
+        {metricsHighlight && (
           <div className="inline-flex items-center rounded-full bg-teal/10 px-3 py-1 text-xs font-medium text-teal self-start">
-            {partnership.replace('-', ' ')}
+            {metricsHighlight}
           </div>
         )}
 
-        {hasCaseStudy && (
-          <Button variant="outline" asChild className="w-full mt-auto">
-            <Link href={`/ventures/${slug}`}>
-              Read Case Study →
-            </Link>
-          </Button>
-        )}
+        <div className="mt-auto">
+          {caseStudy ? (
+            <Button variant="outline" asChild className="w-full">
+              <Link href={`/${locale}/case-studies/${caseStudy.slug.current}`}>
+                Read Case Study →
+              </Link>
+            </Button>
+          ) : (
+            <Button variant="ghost" asChild className="w-full">
+              <Link href={`/${locale}/ventures/${slug}`}>
+                Learn More →
+              </Link>
+            </Button>
+          )}
+        </div>
       </CardContent>
     </Card>
   )

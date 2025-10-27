@@ -1,28 +1,41 @@
 import { client } from '@/sanity/lib/client'
-import { ImpactMetrics } from '@/components/shared/ImpactMetrics'
 import { BusinessAssessmentCTA } from '@/components/shared/BusinessAssessmentCTA'
 import { VentureCard } from '@/components/shared/VentureCard'
-import { EventCard } from '@/components/shared/EventCard'
 import { Button } from '@/components/ui/button'
+import { getLocalizedField } from '@/lib/i18n-helpers'
 import Link from 'next/link'
 
 async function getFeaturedData() {
   const data = await client.fetch(`
     {
-      "ventures": *[_type == "portfolioCompany" && featured == true] | order(order asc) [0...4] {
+      "ventures": *[_type == "venture" && featured == true] | order(order asc) [0...4] {
         _id,
-        name,
+        nameEn,
+        nameFr,
         slug,
-        description,
-        industry,
-        partnership,
+        descriptionEn,
+        descriptionFr,
+        sector,
+        location,
+        taglineEn,
+        taglineFr,
+        metricsHighlightEn,
+        metricsHighlightFr,
         logo,
-        featured
+        featured,
+        caseStudy->{
+          _id,
+          titleEn,
+          titleFr,
+          slug
+        }
       },
       "nextEvent": *[_type == "event" && status == "upcoming" && featured == true] | order(eventDate asc) [0] {
         _id,
-        title,
-        description,
+        titleEn,
+        titleFr,
+        descriptionEn,
+        descriptionFr,
         eventDate,
         format,
         registrationUrl,
@@ -34,7 +47,8 @@ async function getFeaturedData() {
   return data
 }
 
-export default async function Home() {
+export default async function Home({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params
   const { ventures, nextEvent } = await getFeaturedData()
 
   return (
@@ -70,70 +84,65 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Impact Metrics Dashboard */}
-      <section className="py-16 bg-muted/30">
-        <div className="container">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-3">Our Impact</h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Real results from Congolese businesses we've helped scale
-            </p>
-          </div>
-          <ImpactMetrics />
-        </div>
-      </section>
-
-      {/* Vision & Structure Program Spotlight */}
+      {/* What We Do */}
       <section className="py-16 md:py-24">
         <div className="container">
-          <div className="grid gap-12 lg:grid-cols-2 items-center">
-            <div>
-              <h2 className="text-3xl font-bold mb-4">
-                The Vision & Structure Program
-              </h2>
-              <p className="text-lg text-muted-foreground mb-6">
-                Our 16-week structured program transforms businesses through 8 essential tools.
-                From vision clarity to financial modeling, we provide the framework Congolese
-                entrepreneurs need to scale sustainably.
+          <div className="mx-auto max-w-5xl">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold mb-3">What We Do</h2>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                Three ways we support Congolese entrepreneurs
               </p>
-              <div className="space-y-3 mb-6">
-                {[
-                  '16-week intensive program',
-                  '8 proven business tools',
-                  'Hands-on support from experts',
-                  'Measurable outcomes and accountability',
-                ].map((item, index) => (
-                  <div key={index} className="flex items-start">
-                    <svg
-                      className="h-6 w-6 text-teal shrink-0 mr-2"
-                      fill="none"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span>{item}</span>
-                  </div>
-                ))}
-              </div>
-              <Button size="lg" asChild className="bg-teal hover:bg-teal/90">
-                <Link href="/programs">Learn More About V2S</Link>
-              </Button>
             </div>
-            <div className="rounded-lg bg-gradient-to-br from-teal/10 to-orange/10 p-8 md:p-12">
-              <blockquote className="space-y-4">
-                <p className="text-lg italic">
-                  "The Vision & Structure Program gave us the clarity we needed to
-                  transform our operations. We've seen 150% revenue growth and created
-                  25 new jobs in our community."
+
+            <div className="grid gap-8 md:grid-cols-3">
+              {/* Programs */}
+              <div className="text-center">
+                <div className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-teal/10 mb-4">
+                  <svg className="h-8 w-8 text-teal" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+                    <path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-semibold mb-2">Programs</h3>
+                <p className="text-sm text-muted-foreground mb-4">
+                  16-week V2S intensive and monthly Hekima Time webinars
                 </p>
-                <footer className="text-sm font-medium">
-                  — Portfolio Company Founder
-                </footer>
-              </blockquote>
+                <Link href="/programs" className="text-teal hover:underline font-medium text-sm">
+                  Explore Programs →
+                </Link>
+              </div>
+
+              {/* Services */}
+              <div className="text-center">
+                <div className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-orange/10 mb-4">
+                  <svg className="h-8 w-8 text-orange" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+                    <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-semibold mb-2">Services</h3>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Business structuring, strategy, and hands-on support
+                </p>
+                <Link href="/services" className="text-orange hover:underline font-medium text-sm">
+                  Explore Services →
+                </Link>
+              </div>
+
+              {/* Community */}
+              <div className="text-center">
+                <div className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-forest/10 mb-4">
+                  <svg className="h-8 w-8 text-forest" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+                    <path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-semibold mb-2">Community</h3>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Network of entrepreneurs, free resources, and monthly events
+                </p>
+                <Link href="/community" className="text-forest hover:underline font-medium text-sm">
+                  Join Community →
+                </Link>
+              </div>
             </div>
           </div>
         </div>
@@ -142,86 +151,64 @@ export default async function Home() {
       {/* Featured Ventures */}
       <section className="py-16 md:py-24 bg-muted/30">
         <div className="container">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-3">Success Stories</h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Congolese businesses creating measurable social and economic impact
-            </p>
-          </div>
-
-          {ventures && ventures.length > 0 ? (
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mb-8">
-              {ventures.map((venture: any) => (
-                <VentureCard
-                  key={venture._id}
-                  name={venture.name}
-                  slug={venture.slug.current}
-                  description={venture.description}
-                  industry={venture.industry}
-                  partnership={venture.partnership}
-                  logo={venture.logo}
-                  featured={venture.featured}
-                  hasCaseStudy={true}
-                />
-              ))}
+          <div className="mx-auto max-w-6xl">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold mb-3">Success Stories</h2>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                Congolese businesses creating measurable social and economic impact
+              </p>
             </div>
-          ) : (
-            <div className="text-center py-12">
-              <p className="text-muted-foreground">Featured ventures coming soon</p>
-            </div>
-          )}
 
-          <div className="text-center">
-            <Button variant="outline" size="lg" asChild>
-              <Link href="/ventures">View All Ventures →</Link>
-            </Button>
+            {ventures && ventures.length > 0 ? (
+              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mb-8">
+                {ventures.map((venture: any) => (
+                  <VentureCard
+                    key={venture._id}
+                    name={getLocalizedField(venture, 'name', locale)}
+                    slug={venture.slug.current}
+                    description={getLocalizedField(venture, 'description', locale)}
+                    sector={venture.sector}
+                    location={venture.location}
+                    tagline={getLocalizedField(venture, 'tagline', locale)}
+                    metricsHighlight={getLocalizedField(venture, 'metricsHighlight', locale)}
+                    logo={venture.logo}
+                    featured={venture.featured}
+                    caseStudy={venture.caseStudy ? {
+                      ...venture.caseStudy,
+                      title: getLocalizedField(venture.caseStudy, 'title', locale)
+                    } : undefined}
+                    locale={locale}
+                  />
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-12">
+                <p className="text-muted-foreground">Featured ventures coming soon</p>
+              </div>
+            )}
+
+            <div className="text-center">
+              <Button variant="outline" size="lg" asChild>
+                <Link href="/ventures">View All Ventures →</Link>
+              </Button>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Hekima Time Spotlight */}
-      {nextEvent && (
-        <section className="py-16 md:py-24">
-          <div className="container">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold mb-3">Hekima Time</h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Free monthly webinars for Congolese entrepreneurs
-              </p>
-            </div>
-
-            <div className="max-w-2xl mx-auto">
-              <EventCard
-                title={nextEvent.title}
-                description={nextEvent.description}
-                date={nextEvent.eventDate}
-                format={nextEvent.format}
-                registrationUrl={nextEvent.registrationUrl}
-                status={nextEvent.status}
-                speakers={nextEvent.speakers}
-              />
-            </div>
-
-            <div className="text-center mt-8">
-              <Button variant="outline" size="lg" asChild>
-                <Link href="/community">View All Sessions →</Link>
-              </Button>
-            </div>
-          </div>
-        </section>
-      )}
 
       {/* Three-Audience CTA Section */}
       <section className="py-16 md:py-24 bg-muted/30">
         <div className="container">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-3">How Can We Help?</h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Whether you're an entrepreneur, investor, or expert — there's a place for you
-            </p>
-          </div>
+          <div className="mx-auto max-w-6xl">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold mb-3">How Can We Help?</h2>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                Whether you're an entrepreneur, investor, or expert — there's a place for you
+              </p>
+            </div>
 
-          <div className="grid gap-6 md:grid-cols-3">
+            <div className="grid gap-6 md:grid-cols-3">
             <div className="rounded-lg border-2 border-teal/20 bg-background p-8 text-center hover:border-teal/40 transition-colors">
               <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-teal/10 mb-4">
                 <svg className="h-6 w-6 text-teal" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
@@ -266,6 +253,7 @@ export default async function Home() {
                 <Link href="/work-with-us#mentors">Join Our Network</Link>
               </Button>
             </div>
+            </div>
           </div>
         </div>
       </section>
@@ -273,7 +261,9 @@ export default async function Home() {
       {/* Final CTA */}
       <section className="py-16 md:py-24">
         <div className="container">
-          <BusinessAssessmentCTA variant="card" />
+          <div className="mx-auto max-w-4xl">
+            <BusinessAssessmentCTA variant="card" />
+          </div>
         </div>
       </section>
     </>

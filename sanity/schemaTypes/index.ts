@@ -1,24 +1,22 @@
 import { type SchemaTypeDefinition } from 'sanity'
-import { page } from './page'
-import { service } from './service'
 import { teamMember } from './teamMember'
 import { post } from './post'
-import { portfolioCompany } from './portfolioCompany'
+import { venture } from './venture'
 import { program } from './program'
 import { event } from './event'
 import { caseStudy } from './caseStudy'
 import { impactMetrics } from './impactMetrics'
+import { siteSettings } from './siteSettings'
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
-    page,
-    service,
     teamMember,
     post,
-    portfolioCompany,
+    venture,
     program,
     event,
     caseStudy,
     impactMetrics,
+    siteSettings,
   ],
 }

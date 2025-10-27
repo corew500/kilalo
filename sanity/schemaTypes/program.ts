@@ -6,8 +6,14 @@ export const program = defineType({
   type: 'document',
   fields: [
     defineField({
-      name: 'name',
-      title: 'Program Name',
+      name: 'nameEn',
+      title: 'Program Name (English)',
+      type: 'string',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'nameFr',
+      title: 'Program Name (French)',
       type: 'string',
       validation: (Rule) => Rule.required(),
     }),
@@ -16,21 +22,35 @@ export const program = defineType({
       title: 'Slug',
       type: 'slug',
       options: {
-        source: 'name',
+        source: 'nameEn',
         maxLength: 96,
       },
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: 'shortDescription',
-      title: 'Short Description',
+      name: 'shortDescriptionEn',
+      title: 'Short Description (English)',
       type: 'text',
       description: 'Brief one-liner (used in cards)',
-      validation: (Rule) => Rule.required().max(150),
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: 'fullDescription',
-      title: 'Full Description',
+      name: 'shortDescriptionFr',
+      title: 'Short Description (French)',
+      type: 'text',
+      description: 'Brief one-liner (used in cards)',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'fullDescriptionEn',
+      title: 'Full Description (English)',
+      type: 'array',
+      of: [{ type: 'block' }],
+      description: 'Detailed program description',
+    }),
+    defineField({
+      name: 'fullDescriptionFr',
+      title: 'Full Description (French)',
       type: 'array',
       of: [{ type: 'block' }],
       description: 'Detailed program description',
@@ -62,8 +82,15 @@ export const program = defineType({
       description: 'e.g., "In-person + Virtual", "Webinar", "1:1 Consulting"',
     }),
     defineField({
-      name: 'eligibility',
-      title: 'Eligibility Criteria',
+      name: 'eligibilityEn',
+      title: 'Eligibility Criteria (English)',
+      type: 'array',
+      of: [{ type: 'string' }],
+      description: 'List of requirements to participate',
+    }),
+    defineField({
+      name: 'eligibilityFr',
+      title: 'Eligibility Criteria (French)',
       type: 'array',
       of: [{ type: 'string' }],
       description: 'List of requirements to participate',
@@ -77,22 +104,39 @@ export const program = defineType({
           type: 'object',
           fields: [
             {
-              name: 'title',
+              name: 'titleEn',
               type: 'string',
-              title: 'Feature Title',
+              title: 'Feature Title (English)',
             },
             {
-              name: 'description',
+              name: 'titleFr',
+              type: 'string',
+              title: 'Feature Title (French)',
+            },
+            {
+              name: 'descriptionEn',
               type: 'text',
-              title: 'Description',
+              title: 'Description (English)',
+            },
+            {
+              name: 'descriptionFr',
+              type: 'text',
+              title: 'Description (French)',
             },
           ],
         },
       ],
     }),
     defineField({
-      name: 'outcomes',
-      title: 'Expected Outcomes',
+      name: 'outcomesEn',
+      title: 'Expected Outcomes (English)',
+      type: 'array',
+      of: [{ type: 'string' }],
+      description: 'What participants will achieve',
+    }),
+    defineField({
+      name: 'outcomesFr',
+      title: 'Expected Outcomes (French)',
       type: 'array',
       of: [{ type: 'string' }],
       description: 'What participants will achieve',
@@ -111,14 +155,24 @@ export const program = defineType({
               title: 'Week Number',
             },
             {
-              name: 'toolName',
+              name: 'toolNameEn',
               type: 'string',
-              title: 'Tool/Module Name',
+              title: 'Tool/Module Name (English)',
             },
             {
-              name: 'description',
+              name: 'toolNameFr',
+              type: 'string',
+              title: 'Tool/Module Name (French)',
+            },
+            {
+              name: 'descriptionEn',
               type: 'text',
-              title: 'Description',
+              title: 'Description (English)',
+            },
+            {
+              name: 'descriptionFr',
+              type: 'text',
+              title: 'Description (French)',
             },
           ],
         },
@@ -133,9 +187,14 @@ export const program = defineType({
           type: 'object',
           fields: [
             {
-              name: 'quote',
+              name: 'quoteEn',
               type: 'text',
-              title: 'Quote',
+              title: 'Quote (English)',
+            },
+            {
+              name: 'quoteFr',
+              type: 'text',
+              title: 'Quote (French)',
             },
             {
               name: 'author',
@@ -179,13 +238,13 @@ export const program = defineType({
   ],
   preview: {
     select: {
-      title: 'name',
+      nameEn: 'nameEn',
       subtitle: 'programType',
       order: 'order',
     },
-    prepare({ title, subtitle, order }) {
+    prepare({ nameEn, subtitle, order }) {
       return {
-        title: `${order}. ${title}`,
+        title: `${order}. ${nameEn}`,
         subtitle: subtitle?.replace('-', ' '),
       }
     },

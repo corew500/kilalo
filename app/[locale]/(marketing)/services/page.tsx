@@ -1,102 +1,115 @@
-import { client } from '@/sanity/lib/client'
-import Link from 'next/link'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { BusinessAssessmentCTA } from '@/components/shared/BusinessAssessmentCTA'
 import { Button } from '@/components/ui/button'
-
-async function getServices() {
-  const services = await client.fetch(`
-    *[_type == "service"] | order(order asc) {
-      _id,
-      title,
-      slug,
-      category,
-      description,
-      features
-    }
-  `)
-  return services
-}
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import Link from 'next/link'
 
 export const metadata = {
   title: 'Services | Kilalo',
-  description: 'Explore our comprehensive suite of business solutions.',
+  description: 'Targeted support services for Congolese businesses at any stage. From sales strategy to financial modeling.',
 }
 
-export default async function ServicesPage() {
-  const services = await getServices()
+export default function ServicesPage() {
+  const services = [
+    {
+      title: 'Sales Strategy',
+      description: 'Build effective sales systems and processes',
+      icon: 'M13 7h8m0 0v8m0-8l-8 8-4-4-6 6',
+    },
+    {
+      title: 'Market Access',
+      description: 'Connect with customers and distribution channels',
+      icon: 'M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
+    },
+    {
+      title: 'Financial Modeling',
+      description: 'Develop robust financial plans and projections',
+      icon: 'M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z',
+    },
+    {
+      title: 'Growth Advisory',
+      description: 'Strategic guidance for scaling operations',
+      icon: 'M13 10V3L4 14h7v7l9-11h-7z',
+    },
+  ]
 
   return (
     <div className="container py-16 md:py-24">
-      {/* Header */}
+      {/* Hero */}
       <div className="mx-auto max-w-3xl text-center mb-16">
         <h1 className="text-4xl font-bold tracking-tight sm:text-5xl mb-4">
-          Our Services
+          Direct Support Services
         </h1>
         <p className="text-lg text-muted-foreground">
-          Comprehensive solutions tailored to your business needs.
-          From strategic planning to execution, we're with you every step of the way.
+          Need hands-on help with specific challenges? We offer targeted support services
+          for businesses at any stage.
         </p>
       </div>
 
       {/* Services Grid */}
-      {services.length > 0 ? (
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-2 max-w-5xl mx-auto">
-          {services.map((service: any) => (
-            <Card key={service._id} className="transition-all hover:shadow-lg">
+      <section className="mb-16">
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+          {services.map((service, index) => (
+            <Card key={index} className="text-center hover:shadow-lg transition-shadow">
               <CardHeader>
-                <CardTitle className="text-2xl text-teal">{service.title}</CardTitle>
-                <CardDescription className="text-base">{service.description}</CardDescription>
+                <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-teal/10 mx-auto mb-4">
+                  <svg className="h-6 w-6 text-teal" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+                    <path d={service.icon} />
+                  </svg>
+                </div>
+                <CardTitle>{service.title}</CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
-                {service.features && service.features.length > 0 && (
-                  <ul className="space-y-2">
-                    {service.features.map((feature: string, index: number) => (
-                      <li key={index} className="flex items-start">
-                        <svg
-                          className="h-5 w-5 text-teal shrink-0 mt-0.5 mr-2"
-                          fill="none"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path d="M5 13l4 4L19 7" />
-                        </svg>
-                        <span className="text-sm text-muted-foreground">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-                <Button variant="outline" asChild className="w-full mt-4">
-                  <Link href={`/services/${service.slug.current}`}>
-                    Learn More →
-                  </Link>
-                </Button>
+              <CardContent>
+                <p className="text-sm text-muted-foreground">{service.description}</p>
               </CardContent>
             </Card>
           ))}
         </div>
-      ) : (
-        <div className="text-center py-16">
-          <p className="text-lg text-muted-foreground">
-            Services information coming soon!
-          </p>
-        </div>
-      )}
 
-      {/* CTA Section */}
-      <div className="mt-20 rounded-lg bg-gradient-to-r from-teal/10 to-orange/10 p-8 text-center md:p-12">
-        <h2 className="text-3xl font-bold mb-4">
-          Ready to Get Started?
-        </h2>
-        <p className="text-lg text-muted-foreground mb-6 max-w-2xl mx-auto">
-          Let's discuss how our services can help your business achieve its goals.
-        </p>
-        <Button size="lg" asChild className="bg-teal hover:bg-teal/90">
-          <Link href="/contact">Contact Us</Link>
-        </Button>
-      </div>
+        <div className="text-center mt-12">
+          <Button size="lg" variant="outline" asChild>
+            <Link href="/contact">Schedule a Consultation</Link>
+          </Button>
+        </div>
+      </section>
+
+      {/* How It Works */}
+      <section className="mb-16 bg-muted/30 -mx-4 px-4 md:-mx-8 md:px-8 py-16 rounded-lg">
+        <div className="mx-auto max-w-4xl">
+          <h2 className="text-3xl font-bold text-center mb-12">How It Works</h2>
+          <div className="grid gap-8 md:grid-cols-3">
+            <div className="text-center">
+              <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-teal/10 mb-4">
+                <span className="text-xl font-bold text-teal">1</span>
+              </div>
+              <h3 className="text-lg font-semibold mb-2">Consultation</h3>
+              <p className="text-sm text-muted-foreground">
+                We assess your specific needs and challenges
+              </p>
+            </div>
+            <div className="text-center">
+              <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-teal/10 mb-4">
+                <span className="text-xl font-bold text-teal">2</span>
+              </div>
+              <h3 className="text-lg font-semibold mb-2">Custom Plan</h3>
+              <p className="text-sm text-muted-foreground">
+                We design a targeted support package for your business
+              </p>
+            </div>
+            <div className="text-center">
+              <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-teal/10 mb-4">
+                <span className="text-xl font-bold text-teal">3</span>
+              </div>
+              <h3 className="text-lg font-semibold mb-2">Implementation</h3>
+              <p className="text-sm text-muted-foreground">
+                Hands-on support to solve your challenge
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <BusinessAssessmentCTA variant="card" />
     </div>
   )
 }
