@@ -4,9 +4,17 @@ import { client } from '@/sanity/lib/client'
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://kilalo.com'
 
-  // Fetch dynamic content slugs
-  const ventures = await client.fetch(`*[_type == "venture"]{ "slug": slug.current }`)
-  const caseStudies = await client.fetch(`*[_type == "caseStudy"]{ "slug": slug.current }`)
+  // Fetch dynamic content slugs (with error handling for missing env vars)
+  let ventures: { slug: string }[] = []
+  let caseStudies: { slug: string }[] = []
+
+  try {
+    ventures = await client.fetch(`*[_type == "venture"]{ "slug": slug.current }`)
+    caseStudies = await client.fetch(`*[_type == "caseStudy"]{ "slug": slug.current }`)
+  } catch (error) {
+    console.warn('Failed to fetch dynamic content for sitemap:', error)
+    // Return static pages only if Sanity fetch fails
+  }
 
   // Static pages
   const staticPages = [
