@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next'
-import { client } from '@/sanity/lib/client'
+import { createClient } from 'next-sanity'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://kilalo.com'
@@ -8,12 +8,28 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   let ventures: { slug: string }[] = []
   let caseStudies: { slug: string }[] = []
 
-  try {
-    ventures = await client.fetch(`*[_type == "venture"]{ "slug": slug.current }`)
-    caseStudies = await client.fetch(`*[_type == "caseStudy"]{ "slug": slug.current }`)
-  } catch (error) {
-    console.warn('Failed to fetch dynamic content for sitemap:', error)
-    // Return static pages only if Sanity fetch fails
+  // Only create Sanity client if env vars are available
+  const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID
+  const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET
+  const apiVersion = process.env.NEXT_PUBLIC_SANITY_API_VERSION || '2024-05-01'
+
+  if (projectId && dataset) {
+    try {
+      const client = createClient({
+        projectId,
+        dataset,
+        apiVersion,
+        useCdn: true,
+      })
+
+      ventures = await client.fetch(`*[_type == "venture"]{ "slug": slug.current }`)
+      caseStudies = await client.fetch(`*[_type == "caseStudy"]{ "slug": slug.current }`)
+    } catch (error) {
+      console.warn('Failed to fetch dynamic content for sitemap:', error)
+      // Return static pages only if Sanity fetch fails
+    }
+  } else {
+    console.warn('Sanity environment variables not configured, returning static sitemap only')
   }
 
   // Static pages
