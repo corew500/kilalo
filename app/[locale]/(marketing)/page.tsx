@@ -1,9 +1,63 @@
+import type { Metadata } from 'next'
 import { client } from '@/sanity/lib/client'
 import { BusinessAssessmentCTA } from '@/components/shared/BusinessAssessmentCTA'
 import { VentureCard } from '@/components/shared/VentureCard'
 import { Button } from '@/components/ui/button'
 import { getLocalizedField } from '@/lib/i18n-helpers'
+import { siteConfig } from '@/lib/seo'
 import Link from 'next/link'
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>
+}): Promise<Metadata> {
+  const { locale } = await params
+  const isEnglish = locale === 'en'
+
+  const title = isEnglish
+    ? 'Empowering DRC Entrepreneurs | Kilalo'
+    : 'Autonomiser les entrepreneurs RDC | Kilalo'
+
+  const description = isEnglish
+    ? 'Venture studio helping Congolese entrepreneurs scale for-profit solutions to poverty and hunger through structured programs and support.'
+    : 'Studio de venture aidant les entrepreneurs congolais à développer des solutions à but lucratif contre la pauvreté et la faim.'
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      url: `${siteConfig.url}/${locale}`,
+      siteName: siteConfig.name,
+      images: [
+        {
+          url: siteConfig.ogImage,
+          width: 1200,
+          height: 630,
+          alt: siteConfig.name,
+        },
+      ],
+      locale: siteConfig.locale[locale as 'en' | 'fr'],
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [siteConfig.ogImage],
+      creator: siteConfig.social.twitter,
+    },
+    alternates: {
+      canonical: `${siteConfig.url}/${locale}`,
+      languages: {
+        en: `${siteConfig.url}/en`,
+        fr: `${siteConfig.url}/fr`,
+      },
+    },
+  }
+}
 
 async function getFeaturedData() {
   const data = await client.fetch(`
@@ -49,7 +103,7 @@ async function getFeaturedData() {
 
 export default async function Home({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
-  const { ventures, nextEvent } = await getFeaturedData()
+  const { ventures } = await getFeaturedData()
 
   return (
     <>
@@ -99,7 +153,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
               {/* Programs */}
               <div className="text-center">
                 <div className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-teal/10 mb-4">
-                  <svg className="h-8 w-8 text-teal" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg className="h-8 w-8 text-teal" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                     <path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                   </svg>
                 </div>
@@ -115,7 +169,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
               {/* Services */}
               <div className="text-center">
                 <div className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-orange/10 mb-4">
-                  <svg className="h-8 w-8 text-orange" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg className="h-8 w-8 text-orange" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                     <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                   </svg>
                 </div>
@@ -131,7 +185,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
               {/* Community */}
               <div className="text-center">
                 <div className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-forest/10 mb-4">
-                  <svg className="h-8 w-8 text-forest" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg className="h-8 w-8 text-forest" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                     <path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                   </svg>
                 </div>
@@ -211,7 +265,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
             <div className="grid gap-6 md:grid-cols-3">
             <div className="rounded-lg border-2 border-teal/20 bg-background p-8 text-center hover:border-teal/40 transition-colors">
               <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-teal/10 mb-4">
-                <svg className="h-6 w-6 text-teal" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className="h-6 w-6 text-teal" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                   <path d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
               </div>
@@ -226,7 +280,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
 
             <div className="rounded-lg border-2 border-orange/20 bg-background p-8 text-center hover:border-orange/40 transition-colors">
               <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-orange/10 mb-4">
-                <svg className="h-6 w-6 text-orange" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className="h-6 w-6 text-orange" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                   <path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>
@@ -241,7 +295,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
 
             <div className="rounded-lg border-2 border-forest/20 bg-background p-8 text-center hover:border-forest/40 transition-colors">
               <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-forest/10 mb-4">
-                <svg className="h-6 w-6 text-forest" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className="h-6 w-6 text-forest" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                   <path d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
                 </svg>
               </div>

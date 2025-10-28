@@ -56,7 +56,7 @@ export function VentureCard({
           <div className="mb-4 flex h-24 items-center justify-center bg-muted rounded-lg p-4">
             <Image
               src={urlFor(logo).width(200).height(100).fit('max').url()}
-              alt={logo.alt || name}
+              alt={logo.alt || `${name} company logo`}
               width={200}
               height={100}
               className="object-contain transition-transform group-hover:scale-105"

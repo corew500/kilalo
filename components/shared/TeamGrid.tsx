@@ -41,6 +41,15 @@ export function TeamGrid({ members }: TeamGridProps) {
             key={member._id}
             className="group cursor-pointer overflow-hidden hover:shadow-xl transition-all duration-300"
             onClick={() => setSelectedMember(member)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault()
+                setSelectedMember(member)
+              }
+            }}
+            tabIndex={0}
+            role="button"
+            aria-label={`View profile of ${member.name}, ${member.role}`}
           >
             {member.photo && (
               <div className="aspect-square overflow-hidden bg-muted relative">

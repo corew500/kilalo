@@ -1,5 +1,4 @@
 import createMiddleware from 'next-intl/middleware'
-import { createServerClient } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
 import { routing } from './i18n/routing'
 
@@ -12,34 +11,11 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next()
   }
 
-  // Handle i18n routing first
+  // Handle i18n routing
   const response = handleI18nRouting(request)
 
-  // Create Supabase client for session refresh
-  const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
-      cookies: {
-        getAll() {
-          return request.cookies.getAll()
-        },
-        setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value, options }) =>
-            request.cookies.set(name, value)
-          )
-          const newResponse = NextResponse.next({ request })
-          cookiesToSet.forEach(({ name, value, options }) =>
-            newResponse.cookies.set(name, value, options)
-          )
-          return newResponse
-        },
-      },
-    }
-  )
-
-  // Refresh session if expired - required for Server Components
-  await supabase.auth.getUser()
+  // Note: Supabase auth middleware will be added when auth features are implemented
+  // For now, just handle i18n routing
 
   return response
 }

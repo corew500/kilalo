@@ -1,6 +1,5 @@
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import Link from 'next/link'
 
 interface EventCardProps {
   title: string
@@ -77,6 +76,7 @@ export function EventCard({
             strokeWidth="2"
             viewBox="0 0 24 24"
             stroke="currentColor"
+            aria-hidden="true"
           >
             <path d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
           </svg>
@@ -88,6 +88,7 @@ export function EventCard({
             <Button asChild className="w-full bg-teal hover:bg-teal/90">
               <a href={registrationUrl} target="_blank" rel="noopener noreferrer">
                 Register Now
+                <span className="sr-only"> (opens in new tab)</span>
               </a>
             </Button>
           )}
@@ -95,6 +96,7 @@ export function EventCard({
             <Button variant="outline" asChild className="w-full">
               <a href={recordingUrl} target="_blank" rel="noopener noreferrer">
                 Watch Recording →
+                <span className="sr-only"> (opens in new tab)</span>
               </a>
             </Button>
           )}

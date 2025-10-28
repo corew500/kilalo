@@ -6,8 +6,26 @@ import { routing } from '@/i18n/routing'
 import '../globals.css'
 
 export const metadata: Metadata = {
-  title: 'Kilalo',
-  description: 'Marketing website with member portal',
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://kilalo.com'),
+  title: {
+    default: 'Kilalo',
+    template: '%s | Kilalo',
+  },
+  description: 'Empowering DRC entrepreneurs',
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  verification: {
+    google: 'ADD_LATER_FROM_SEARCH_CONSOLE',
+  },
 }
 
 type Props = {

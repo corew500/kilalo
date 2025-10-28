@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import { client } from '@/sanity/lib/client'
 import { EventCard } from '@/components/shared/EventCard'
 import { Button } from '@/components/ui/button'
@@ -5,6 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { getLocalizedField } from '@/lib/i18n-helpers'
+import { siteConfig } from '@/lib/seo'
 import Link from 'next/link'
 
 async function getCommunityData() {
@@ -53,9 +55,56 @@ async function getCommunityData() {
   return data
 }
 
-export const metadata = {
-  title: 'Community | Kilalo',
-  description: 'Join the Kilalo community. Free monthly Hekima Time webinars, insights from Congolese entrepreneurs, and opportunities to connect.',
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>
+}): Promise<Metadata> {
+  const { locale } = await params
+  const isEnglish = locale === 'en'
+
+  const title = isEnglish
+    ? 'Community'
+    : 'Communauté'
+
+  const description = isEnglish
+    ? 'Join the Kilalo community. Free monthly Hekima Time webinars, insights from Congolese entrepreneurs, and networking opportunities.'
+    : 'Rejoignez la communauté Kilalo. Webinaires Hekima Time mensuels gratuits, perspectives d\'entrepreneurs congolais et opportunités de réseautage.'
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title: `${title} | ${siteConfig.name}`,
+      description,
+      url: `${siteConfig.url}/${locale}/community`,
+      siteName: siteConfig.name,
+      images: [
+        {
+          url: siteConfig.ogImage,
+          width: 1200,
+          height: 630,
+          alt: siteConfig.name,
+        },
+      ],
+      locale: siteConfig.locale[locale as 'en' | 'fr'],
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${title} | ${siteConfig.name}`,
+      description,
+      images: [siteConfig.ogImage],
+      creator: siteConfig.social.twitter,
+    },
+    alternates: {
+      canonical: `${siteConfig.url}/${locale}/community`,
+      languages: {
+        en: `${siteConfig.url}/en/community`,
+        fr: `${siteConfig.url}/fr/community`,
+      },
+    },
+  }
 }
 
 export default async function CommunityPage({ params }: { params: Promise<{ locale: string }> }) {

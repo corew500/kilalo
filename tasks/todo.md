@@ -1,8 +1,81 @@
 # Kilalo Project Implementation Plan
 
-**Last Updated**: 2025-10-26
-**Project**: Kilalo Marketing Website with Member Portal
+**Last Updated**: 2025-10-27
+**Current Task**: Fix ESLint `@typescript-eslint/no-explicit-any` Warnings
+
+---
+
+## ESLint TypeScript Fixes (IN PROGRESS)
+
+### Fix `any` Type Warnings Across Codebase
+
+- [ ] 1. Fix app/[locale]/(marketing)/about/page.tsx (line 83) - Define TeamMember interface
+- [ ] 2. Fix app/[locale]/(marketing)/blog/page.tsx (lines 9, 52) - Define Post interface
+- [ ] 3. Fix app/[locale]/(marketing)/case-studies/page.tsx (line 56) - Define CaseStudy interface
+- [ ] 4. Fix app/[locale]/(marketing)/community/page.tsx (lines 147, 168, 204) - Define Event and Post interfaces
+- [ ] 5. Fix app/[locale]/(marketing)/page.tsx (line 218) - Define Venture interface
+- [ ] 6. Fix app/[locale]/(marketing)/programs/page.tsx (lines 199, 277, 298) - Define Program, Event interfaces
+- [ ] 7. Fix app/[locale]/(marketing)/ventures/[slug]/page.tsx (line 48) - Fix generateStaticParams return type
+- [ ] 8. Fix app/[locale]/(marketing)/ventures/page.tsx (line 62) - Define Venture interface
+- [ ] 9. Fix app/[locale]/layout.tsx (line 44) - Fix locale type assertion
+- [ ] 10. Fix components/shared/TeamGrid.tsx (lines 12, 21) - Fix urlFor parameter type
+- [ ] 11. Fix components/shared/VentureCard.tsx (lines 10, 22) - Fix urlFor parameter type
+- [ ] 12. Fix i18n/request.ts (line 9) - Fix locale type check
+- [ ] 13. Fix lib/i18n-helpers.ts (line 10) - Replace Record<string, any> with proper type
+- [ ] 14. Run TypeScript compilation check (npx tsc --noEmit)
+- [ ] 15. Run ESLint to verify all warnings resolved
+
+---
+
+## Accessibility Fixes (COMPLETE) ✅
+
+### Critical Accessibility Issues Fixed
+- [x] 1. Add Skip Link to Main Layout (app/[locale]/(marketing)/layout.tsx)
+- [x] 2. Fix Mobile Menu Button ARIA Labels (components/marketing/Header.tsx)
+- [x] 3. Fix Language Switcher ARIA Labels (components/marketing/Header.tsx)
+- [x] 4. Add aria-hidden to decorative SVGs in home page (app/[locale]/(marketing)/page.tsx)
+- [x] 5. Add aria-hidden to decorative SVGs in about page (app/[locale]/(marketing)/about/page.tsx)
+- [x] 6. Add aria-hidden to decorative SVGs in programs page (app/[locale]/(marketing)/programs/page.tsx)
+- [x] 7. Add aria-hidden to decorative SVGs in contact page (app/[locale]/(marketing)/contact/page.tsx)
+- [x] 8. Fix Contact Form Accessibility (app/[locale]/(marketing)/contact/page.tsx)
+- [x] 9. Fix TeamGrid Keyboard Accessibility (components/shared/TeamGrid.tsx)
+- [x] 10. Fix Footer Heading Hierarchy (components/marketing/Footer.tsx)
+- [x] 11. Add ARIA Labels to Social Media Links in contact page (app/[locale]/(marketing)/contact/page.tsx)
+- [x] 12. Add "Opens in New Tab" Indicators (components/shared/EventCard.tsx)
+- [x] 13. Add Reduced Motion Support (app/globals.css)
+- [x] 14. Improve Image Alt Text (components/shared/VentureCard.tsx)
+- [x] 15. Test TypeScript compilation
+
+## SEO Implementation Plan (COMPLETE) ✅
+
+### Phase A: SEO Configuration & Base Setup
+- [x] 1. Create lib/seo.ts with site configuration (name, description EN/FR, URL, OG image, Twitter handle, locale mappings)
+- [x] 2. Update app/[locale]/layout.tsx with base metadata (metadataBase, robots, verification placeholder)
+
+### Phase B: Page-Level Metadata Enhancement
+- [x] 3. Add generateMetadata to app/[locale]/(marketing)/page.tsx (homepage) with full OG and Twitter tags
+- [x] 4. Add generateMetadata to app/[locale]/(marketing)/about/page.tsx with full OG and Twitter tags
+- [x] 5. Add generateMetadata to app/[locale]/(marketing)/programs/page.tsx with full OG and Twitter tags
+- [x] 6. Add generateMetadata to app/[locale]/(marketing)/community/page.tsx with full OG and Twitter tags
+- [x] 7. Add generateMetadata to app/[locale]/(marketing)/contact/page.tsx with full OG and Twitter tags
+- [x] 8. Verify and enhance app/[locale]/(marketing)/ventures/[slug]/page.tsx metadata with full OG and Twitter tags
+- [x] 9. Verify and enhance app/[locale]/(marketing)/case-studies/[slug]/page.tsx metadata with full OG and Twitter tags
+
+### Phase C: Structured Data & Sitemaps
+- [x] 10. Add JSON-LD Organization schema to app/[locale]/(marketing)/layout.tsx
+- [x] 11. Create app/sitemap.ts for automatic sitemap generation with EN/FR routes
+- [x] 12. Create app/robots.ts for robots.txt generation (allow all except /studio/ and /api/)
+
+### Phase D: Testing & Verification
+- [x] 13. Run TypeScript compilation check (npx tsc --noEmit) - All SEO files pass, pre-existing validation-schemas.ts errors unrelated
+- [ ] 14. Verify all metadata renders correctly in browser (manual testing recommended)
+- [ ] 15. Test bilingual metadata (EN/FR) for all pages (manual testing recommended)
+- [x] 16. Document all SEO features added in summary
+
+---
 **Tech Stack**: Next.js 16, Supabase, Sanity.io, Tailwind CSS, shadcn/ui
+
+**PRIORITY SHIFT**: Focus on completing marketing site for deployment. Member portal and authentication (Phase 5b, Phase 8) deferred to post-launch.
 
 ---
 
@@ -132,66 +205,78 @@ Before any code implementation, these accounts and services must be set up:
 
 ### 2.2 Install Core Dependencies
 
-- [ ] Install Supabase packages:
+- [x] Install Supabase packages:
   ```bash
   npm install @supabase/ssr @supabase/supabase-js
   ```
 
-- [ ] Install Sanity packages:
+- [x] Install Sanity packages:
   ```bash
   npm install next-sanity sanity @sanity/vision @sanity/image-url
   ```
 
-- [ ] Install i18n package:
+- [x] Install i18n package:
   ```bash
   npm install next-intl
   ```
 
-- [ ] Install utility packages:
+- [x] Install utility packages:
   ```bash
-  npm install zod date-fns clsx tailwind-merge
+  npm install clsx tailwind-merge
   ```
+  - [ ] zod (not installed - add when needed for form validation)
+  - [ ] date-fns (not installed - add when needed)
 
-- [ ] Install dev dependencies:
+- [ ] Install dev dependencies (DEFERRED - not needed for MVP):
   ```bash
-  npm install -D @types/node @playwright/test vitest \
+  npm install -D @playwright/test vitest \
     @vitejs/plugin-react @testing-library/react \
     @testing-library/jest-dom @axe-core/react \
     eslint-plugin-jsx-a11y prettier prettier-plugin-tailwindcss
   ```
 
-- [ ] Verify all packages installed
-- [ ] Commit package.json and package-lock.json
+- [x] Verify all packages installed
+- [x] Commit package.json and package-lock.json
 
-### 2.3 Configure TypeScript (Strict Mode)
+### 2.3 Configure TypeScript (Strict Mode) ✅ COMPLETE
 
-- [ ] Update tsconfig.json with strict settings
-- [ ] Enable all strict type-checking options:
-  - [ ] `strict: true`
-  - [ ] `noUncheckedIndexedAccess: true`
-  - [ ] `noImplicitOverride: true`
-  - [ ] `noUnusedLocals: true`
-  - [ ] `noUnusedParameters: true`
-  - [ ] `noFallthroughCasesInSwitch: true`
-  - [ ] `noImplicitReturns: true`
-  - [ ] `exactOptionalPropertyTypes: true`
-- [ ] Verify TypeScript compilation works
-- [ ] Commit tsconfig.json
+- [x] Update tsconfig.json with strict settings
+- [x] Enable strict type-checking options:
+  - [x] `strict: true` ✅
+  - [x] `noUncheckedIndexedAccess: true` ✅
+  - [x] `noImplicitOverride: true` ✅
+  - [x] `noUnusedLocals: true` ✅
+  - [x] `noUnusedParameters: true` ✅
+  - [x] `noFallthroughCasesInSwitch: true` ✅
+  - [x] `noImplicitReturns: true` ✅
+  - [x] `exactOptionalPropertyTypes: true` ✅
+- [x] Fixed all TypeScript errors (3 errors resolved):
+  - [x] Removed unused `nextEvent` variable in homepage
+  - [x] Removed unused `Link` import in EventCard
+  - [x] Fixed Sanity CLI config type issue with non-null assertions
+- [x] Verify TypeScript compilation works (npx tsc --noEmit passes)
+- [x] Commit tsconfig.json
 
 ### 2.4 Create Project Structure
 
-- [ ] Create directory structure:
+- [x] Create directory structure:
   ```bash
   mkdir -p app/{api,[locale]/{(marketing),(auth),(member)}}
   mkdir -p components/{ui,marketing,member,auth,shared}
   mkdir -p lib/{supabase,sanity,validations}
   mkdir -p hooks messages sanity/schemas/{documents,objects}
-  mkdir -p tests/{e2e,unit,fixtures} types
-  mkdir -p public/{images,icons}
+  mkdir -p types
   ```
-- [ ] Verify directory structure
-- [ ] Create .gitkeep files in empty directories
-- [ ] Commit structure
+  - [x] app/[locale]/(marketing) ✅
+  - [x] components/ui, marketing, shared ✅
+  - [x] lib/supabase ✅
+  - [x] messages/ ✅
+  - [x] sanity/schemaTypes/ ✅
+  - [x] i18n/ ✅
+  - [ ] tests/ (deferred - not needed for MVP)
+  - [ ] public/images, icons (will add as needed)
+- [x] Verify directory structure
+- [x] Commit structure
 
 ---
 
@@ -221,7 +306,9 @@ Before any code implementation, these accounts and services must be set up:
   - [x] Card: `npx shadcn@latest add card`
   - [x] Input: `npx shadcn@latest add input`
   - [x] Label: `npx shadcn@latest add label`
-  - [ ] Form, Dialog, Dropdown, Toast - Install as needed later
+  - [x] Dialog: `npx shadcn@latest add dialog`
+  - [x] Textarea: `npx shadcn@latest add textarea`
+  - [ ] Form, Dropdown, Toast - Install as needed later
 - [x] Create lib/utils.ts with cn() helper
 - [x] Test components render correctly
 - [x] Commit components/ui/
@@ -240,6 +327,8 @@ Before any code implementation, these accounts and services must be set up:
 ---
 
 ## Phase 4: Internationalization (i18n) ✅ COMPLETE
+
+**Status**: All schemas have explicit EN/FR fields. UI translations complete in messages/. Migration scripts successfully translated all existing content.
 
 ### 4.1 Configure next-intl
 
@@ -276,7 +365,9 @@ Before any code implementation, these accounts and services must be set up:
 
 ---
 
-## Phase 5: Supabase Integration ✅ PHASE 5a COMPLETE
+## Phase 5: Supabase Integration ✅ PHASE 5a COMPLETE | 🔜 PHASE 5b DEFERRED
+
+**Status**: Basic Supabase setup complete. Authentication and profile management deferred to post-launch.
 
 ### 5.1 Environment Variables Setup
 
@@ -299,393 +390,194 @@ Before any code implementation, these accounts and services must be set up:
 - [x] Commit Supabase utilities
 - [ ] Create lib/supabase/admin.ts (Admin client - deferred until needed)
 
-### 5.3 Database Schema Setup
+### 5.3-5.8 Authentication & Member Features 🔜 DEFERRED TO POST-LAUNCH
 
-- [ ] Create profiles table in Supabase:
-  - [ ] id (uuid, primary key, references auth.users)
-  - [ ] email (text, unique)
-  - [ ] full_name (text)
-  - [ ] avatar_url (text)
-  - [ ] bio (text)
-  - [ ] website (text)
-  - [ ] preferred_language (text, default 'en')
-  - [ ] created_at, updated_at (timestamps)
-- [ ] Create handle_new_user() trigger function
-- [ ] Create on_auth_user_created trigger
-- [ ] Create handle_updated_at() function
-- [ ] Create indexes on profiles table
-- [ ] Test profile creation on signup
-- [ ] Document schema in docs/
+**Rationale**: Focus on marketing site completion and deployment first. Authentication and member portal will be implemented after initial launch.
 
-### 5.4 Row Level Security (RLS)
-
-- [ ] Enable RLS on profiles table
-- [ ] Create RLS policy: "Profiles are viewable by everyone"
-- [ ] Create RLS policy: "Users can update own profile"
-- [ ] Create RLS policy: "Users can insert own profile"
-- [ ] Test RLS policies work correctly
-- [ ] Document RLS policies
-
-### 5.5 Authentication Setup
-
-- [ ] Configure email authentication in Supabase Dashboard
-- [ ] Customize email templates:
-  - [ ] Confirm signup template
-  - [ ] Magic link template
-  - [ ] Reset password template
-- [ ] Configure URL settings in Supabase:
-  - [ ] Site URL
-  - [ ] Redirect URLs (localhost, production, Vercel previews)
-- [ ] Create app/actions/auth.ts:
-  - [ ] signUp() server action
-  - [ ] signIn() server action
-  - [ ] signOut() server action
-- [ ] Create components/auth/login-form.tsx
-- [ ] Create components/auth/signup-form.tsx
-- [ ] Create app/[locale]/(auth)/login/page.tsx
-- [ ] Create app/[locale]/(auth)/signup/page.tsx
-- [ ] Create app/api/auth/callback/route.ts
-- [ ] Test signup flow
-- [ ] Test login flow
-- [ ] Test logout flow
-- [ ] Commit auth implementation
-
-### 5.6 OAuth Providers (Optional)
-
-- [ ] Configure Google OAuth in Supabase
-- [ ] Configure GitHub OAuth in Supabase
-- [ ] Create components/auth/oauth-buttons.tsx
-- [ ] Add OAuth buttons to login/signup pages
-- [ ] Test Google sign-in
-- [ ] Test GitHub sign-in
-- [ ] Commit OAuth implementation
-
-### 5.7 Protected Routes
-
-- [ ] Update middleware.ts for auth checks
-- [ ] Create lib/supabase/queries.ts:
-  - [ ] getCurrentUser()
-  - [ ] getCurrentUserProfile()
-  - [ ] requireAuth()
-- [ ] Create app/[locale]/(member)/dashboard/page.tsx
-- [ ] Create app/[locale]/(member)/profile/page.tsx
-- [ ] Test protected route redirection
-- [ ] Test authenticated access
-- [ ] Commit protected routes
-
-### 5.8 Type Generation
-
-- [ ] Install Supabase CLI: `npm install -D supabase`
-- [ ] Login to Supabase CLI: `npx supabase login`
-- [ ] Link project: `npx supabase link --project-ref [ID]`
-- [ ] Generate types: `npx supabase gen types typescript --linked > types/supabase.ts`
-- [ ] Add npm script: `"db:types": "npx supabase gen types typescript --linked > types/supabase.ts"`
-- [ ] Test type-safe queries
-- [ ] Commit generated types
+Deferred items:
+- Database schema setup (profiles table)
+- Row Level Security (RLS) policies
+- Authentication flows (signup, login, password reset)
+- OAuth providers (Google, GitHub)
+- Protected routes and member dashboard
+- Type generation for Supabase
 
 ---
 
 ## Phase 6: Sanity CMS Integration ✅ COMPLETE
 
-### 6.1 Initialize Sanity Project
+**Status**: Sanity Studio embedded and working. All content schemas created with explicit EN/FR fields. Content successfully migrated.
 
-- [ ] Run Sanity initialization: `npx sanity@latest init`
-- [ ] Select "Create new project"
-- [ ] Name: "Kilalo"
-- [ ] Use default dataset: Yes
-- [ ] Template: Clean project
-- [ ] Package manager: npm
-- [ ] Verify sanity.config.ts created
-- [ ] Commit Sanity configuration
+### Implementation Summary
 
-### 6.2 Environment Variables
-
-- [ ] Add to .env.local:
-  - [ ] NEXT_PUBLIC_SANITY_PROJECT_ID
-  - [ ] NEXT_PUBLIC_SANITY_DATASET
-  - [ ] SANITY_API_TOKEN
-  - [ ] SANITY_WEBHOOK_SECRET
-- [ ] Get API token from Sanity Dashboard
-- [ ] Update .env.local.example
-- [ ] Test environment variables
-- [ ] Commit .env.local.example
-
-### 6.3 Sanity Client Setup
-
-- [ ] Create src/sanity/lib/client.ts
-- [ ] Create src/sanity/lib/image.ts (image URL builder)
-- [ ] Configure client with:
-  - [ ] projectId, dataset, apiVersion
-  - [ ] useCdn: false (for ISR)
-  - [ ] perspective: 'published'
-- [ ] Test client connection
-- [ ] Commit Sanity utilities
-
-### 6.4 Embed Sanity Studio
-
-- [ ] Create src/app/studio/[[...tool]]/page.tsx
-- [ ] Configure metadata and viewport
-- [ ] Import sanity.config.ts
-- [ ] Set dynamic = 'force-static'
-- [ ] Test Studio loads at /studio
-- [ ] Verify can create content
-- [ ] Commit Studio integration
-
-### 6.5 Create Content Schemas
-
-- [ ] Create sanity/schemas/documents/post.ts:
-  - [ ] title, slug, author (reference)
-  - [ ] mainImage, categories, publishedAt
-  - [ ] excerpt, body (blockContent)
-- [ ] Create sanity/schemas/documents/page.ts:
-  - [ ] title, slug, body
-  - [ ] seo metadata fields
-- [ ] Create sanity/schemas/documents/author.ts:
-  - [ ] name, slug, image, bio
-- [ ] Create sanity/schemas/documents/category.ts:
-  - [ ] title, slug, description
-- [ ] Create sanity/schemas/objects/blockContent.ts:
-  - [ ] Rich text configuration
-  - [ ] Headings, lists, links, images
-- [ ] Update sanity.config.ts with all schemas
-- [ ] Test schemas in Studio
-- [ ] Commit all schemas
-
-### 6.6 Internationalization Setup
-
-- [ ] Install i18n plugin: `npm install @sanity/document-internationalization`
-- [ ] Configure in sanity.config.ts:
-  - [ ] supportedLanguages: en, fr
-  - [ ] schemaTypes: post, page
-- [ ] Update schemas for localized fields
-- [ ] Test creating content in both languages
-- [ ] Commit i18n configuration
-
-### 6.7 GROQ Queries
-
-- [ ] Create src/sanity/lib/queries.ts:
-  - [ ] POSTS_QUERY (all posts)
-  - [ ] POST_QUERY (single post by slug)
-  - [ ] POST_SLUGS_QUERY (for static generation)
-  - [ ] PAGE_QUERY (page by slug)
-  - [ ] PAGES_QUERY (all pages)
-- [ ] Test queries in Studio Vision tool
-- [ ] Commit query definitions
-
-### 6.8 Type Generation
-
-- [ ] Create sanity-typegen.json
-- [ ] Add npm scripts:
-  - [ ] "predev": "npm run typegen"
-  - [ ] "prebuild": "npm run typegen"
-  - [ ] "typegen": "sanity schema extract && sanity typegen generate"
-- [ ] Run type generation: `npm run typegen`
-- [ ] Verify types generated in src/sanity/types.ts
-- [ ] Test type-safe queries
-- [ ] Commit type configuration
-
-### 6.9 Webhooks for ISR
-
-- [ ] Create src/app/api/revalidate/route.ts
-- [ ] Implement webhook handler with signature validation
-- [ ] Implement tag-based revalidation
-- [ ] Generate webhook secret
-- [ ] Configure webhook in Sanity Dashboard:
-  - [ ] URL: https://your-domain.com/api/revalidate
-  - [ ] Dataset: production
-  - [ ] Events: Create, Update, Delete
-  - [ ] Filter: _type == "post" || _type == "page"
-- [ ] Add SANITY_WEBHOOK_SECRET to .env.local
-- [ ] Test webhook triggers revalidation
-- [ ] Commit webhook implementation
+- [x] Sanity initialized and embedded at /studio
+- [x] All content schemas created with bilingual fields:
+  - [x] venture.ts (company portfolio)
+  - [x] program.ts (V2S, Hekima Time)
+  - [x] event.ts (community events)
+  - [x] caseStudy.ts (impact stories)
+  - [x] teamMember.ts (team profiles)
+  - [x] impactMetrics.ts (yearly metrics)
+  - [x] siteSettings.ts (UI translations - NEW)
+- [x] Migration scripts created and executed
+- [x] All existing content translated to EN/FR
+- [x] Studio accessible and functional
 
 ---
 
-## Phase 7: Content & Pages Implementation
+## Phase 7: Content & Pages Implementation ✅ COMPLETE
 
-### 7.1 Marketing Layout
+**Status**: All marketing pages created with localized content from Sanity!
 
-- [ ] Create app/[locale]/(marketing)/layout.tsx
-- [ ] Create components/marketing/header.tsx:
-  - [ ] Logo, navigation links
-  - [ ] Language switcher
-  - [ ] Sign in/Sign up buttons
-  - [ ] Mobile menu
-- [ ] Create components/marketing/footer.tsx:
-  - [ ] Site links, social media
-  - [ ] Legal links (privacy, terms)
-  - [ ] Newsletter signup (optional)
-- [ ] Style with Tailwind and brand colors
-- [ ] Test responsive design
-- [ ] Commit marketing layout
+### 7.1 Marketing Layout ✅ COMPLETE
 
-### 7.2 Homepage
+- [x] Create app/[locale]/(marketing)/layout.tsx
+- [x] Create components/marketing/Header.tsx:
+  - [x] Logo, navigation links
+  - [x] Language switcher
+  - [x] Removed Sign in/Sign up buttons (auth deferred)
+  - [x] Mobile menu
+- [x] Create components/marketing/Footer.tsx:
+  - [x] Site links, social media
+  - [x] Legal links (privacy, terms)
+- [x] Style with Tailwind and brand colors
+- [x] Test responsive design
+- [x] Commit marketing layout
 
-- [ ] Create app/[locale]/(marketing)/page.tsx
-- [ ] Create components/marketing/hero.tsx
-- [ ] Create components/marketing/features.tsx
-- [ ] Create components/marketing/testimonials.tsx
-- [ ] Create components/marketing/cta.tsx
-- [ ] Fetch content from Sanity
-- [ ] Implement SEO metadata
-- [ ] Test ISR revalidation
-- [ ] Commit homepage
+### 7.2 Homepage ✅ COMPLETE
 
-### 7.3 About Page
+- [x] Update app/[locale]/(marketing)/page.tsx
+- [x] Hero section with DRC focus
+- [x] "What We Do" section (Programs, Services, Community)
+- [x] Featured Ventures showcase with VentureCard component
+- [x] Three-audience CTA (Entrepreneurs, Partners, Mentors)
+- [x] Fetch content from Sanity (ventures, events)
+- [x] Implement SEO metadata
+- [x] Test bilingual content with getLocalizedField()
+- [x] Commit homepage
 
-- [ ] Create app/[locale]/(marketing)/about/page.tsx
-- [ ] Fetch content from Sanity
-- [ ] Implement team section
-- [ ] Implement mission/vision
-- [ ] Add SEO metadata
-- [ ] Commit about page
+### 7.3 About Page ✅ COMPLETE
 
-### 7.4 Services Pages
+- [x] Create app/[locale]/(marketing)/about/page.tsx
+- [x] Our Story section (hardcoded - can move to Sanity later)
+- [x] V2S Approach section with 8 Essential Tools
+- [x] Implement team section with localized TeamGrid component
+- [x] Mission & Vision cards
+- [x] Partners & Advisors section
+- [x] Values section
+- [x] Add SEO metadata
+- [x] Commit about page
 
-- [ ] Create app/[locale]/(marketing)/services/page.tsx (listing)
-- [ ] Create app/[locale]/(marketing)/services/[slug]/page.tsx
-- [ ] Implement generateStaticParams
-- [ ] Fetch services from Sanity
-- [ ] Create service detail template
-- [ ] Add SEO metadata per service
-- [ ] Commit services pages
+### 7.4 Programs Page ✅ COMPLETE
 
-### 7.5 Blog
+- [x] Create app/[locale]/(marketing)/programs/page.tsx
+- [x] Fetch V2S program with localized fields from Sanity
+- [x] Display curriculum (8 tools) with localized content
+- [x] Show eligibility and outcomes
+- [x] Display Hekima Time upcoming events
+- [x] Show past events with recordings
+- [x] Add Business Assessment CTA
+- [x] Add SEO metadata
+- [x] Commit programs page
 
-- [ ] Create app/[locale]/(marketing)/blog/page.tsx:
-  - [ ] Fetch posts from Sanity
-  - [ ] Implement pagination
-  - [ ] Add category filtering
-  - [ ] Add search (optional)
-- [ ] Create app/[locale]/(marketing)/blog/[slug]/page.tsx:
-  - [ ] Fetch post by slug
-  - [ ] Render Portable Text body
-  - [ ] Show author info
-  - [ ] Related posts section
-  - [ ] Social sharing (optional)
-- [ ] Implement generateStaticParams for all posts
-- [ ] Add SEO metadata per post
-- [ ] Test ISR with tag revalidation
-- [ ] Commit blog implementation
+### 7.5 Ventures Pages ✅ COMPLETE
 
-### 7.6 Contact Page
+- [x] Create app/[locale]/(marketing)/ventures/page.tsx (portfolio)
+- [x] Create app/[locale]/(marketing)/ventures/[slug]/page.tsx
+- [x] Implement generateStaticParams for ventures
+- [x] Display venture details with localized content
+- [x] Show metrics and case study links
+- [x] Add SEO metadata per venture
+- [x] Commit ventures pages
 
-- [ ] Create app/[locale]/(marketing)/contact/page.tsx
-- [ ] Create components/marketing/contact-form.tsx
-- [ ] Create app/api/contact/route.ts:
-  - [ ] Validate form with Zod
-  - [ ] Send email (Resend or similar)
-  - [ ] Store submission in Supabase (optional)
-- [ ] Add form validation and error handling
-- [ ] Add success message
-- [ ] Test form submission
-- [ ] Commit contact page
+### 7.6 Case Studies Pages ✅ COMPLETE
 
-### 7.7 Legal Pages
+- [x] Create app/[locale]/(marketing)/case-studies/page.tsx (listing)
+- [x] Create app/[locale]/(marketing)/case-studies/[slug]/page.tsx
+- [x] Implement generateStaticParams for case studies
+- [x] Display challenge, partnership, impact, why it matters
+- [x] Link to related venture
+- [x] Add SEO metadata per case study
+- [x] Commit case studies pages
 
-- [ ] Create app/[locale]/(marketing)/legal/privacy/page.tsx
-- [ ] Create app/[locale]/(marketing)/legal/terms/page.tsx
-- [ ] Fetch content from Sanity or use static content
-- [ ] Add last updated dates
-- [ ] Commit legal pages
+### 7.7 Community Page ✅ COMPLETE
+
+- [x] Create app/[locale]/(marketing)/community/page.tsx
+- [x] Display upcoming and past events (exists)
+- [x] Add event registration links (exists)
+- [x] Add Hekima Time event listings (exists)
+- [x] Commit community page
+
+### 7.8 Contact Page ✅ COMPLETE
+
+- [x] Create app/[locale]/(marketing)/contact/page.tsx (exists)
+- [ ] Contact form functionality (basic version exists, API route pending)
+  - [ ] Validate form with Zod (can add when implementing)
+  - [ ] Send email (can add when implementing)
+- [x] Commit contact page
+
+### 7.9 Legal Pages ✅ COMPLETE
+
+- [x] Create app/[locale]/(marketing)/legal/privacy/page.tsx
+- [x] Create app/[locale]/(marketing)/legal/terms/page.tsx
+- [x] Static content placeholders
+- [x] Commit legal pages
+
+### Additional Pages Created
+
+- [x] app/[locale]/(marketing)/services/page.tsx
+- [x] app/[locale]/(marketing)/blog/page.tsx
+- [x] app/[locale]/(marketing)/work-with-us/page.tsx
 
 ---
 
-## Phase 8: Member Portal
+## Phase 8: Member Portal 🔜 DEFERRED TO POST-LAUNCH
 
-### 8.1 Member Layout
+**Status**: Deferred until after marketing site launch. Will implement authentication and member features in Phase 2 of development.
 
-- [ ] Create app/[locale]/(member)/layout.tsx
-- [ ] Create components/member/dashboard-nav.tsx:
-  - [ ] Navigation links
-  - [ ] User profile dropdown
-  - [ ] Logout button
-- [ ] Create components/member/sidebar.tsx (optional)
-- [ ] Style member portal theme
-- [ ] Commit member layout
+**Future Scope**:
+- Member dashboard with personalized content
+- Profile management with avatar upload
+- Account settings and preferences
+- Learning platform integration (courses, progress tracking)
+- Community features (comments, discussions)
 
-### 8.2 Dashboard
-
-- [ ] Create app/[locale]/(member)/dashboard/page.tsx:
-  - [ ] Welcome message with user name
-  - [ ] Quick stats/overview
-  - [ ] Recent activity
-  - [ ] Quick actions
-- [ ] Fetch user-specific data from Supabase
-- [ ] Implement loading states
-- [ ] Test with authenticated user
-- [ ] Commit dashboard
-
-### 8.3 Profile Management
-
-- [ ] Create app/[locale]/(member)/profile/page.tsx (view)
-- [ ] Create app/[locale]/(member)/profile/edit/page.tsx:
-  - [ ] Form to update profile fields
-  - [ ] Avatar upload
-  - [ ] Language preference
-- [ ] Create app/actions/profile.ts:
-  - [ ] updateProfile() server action
-  - [ ] uploadAvatar() server action
-- [ ] Implement form validation
-- [ ] Test profile updates
-- [ ] Commit profile pages
-
-### 8.4 Settings
-
-- [ ] Create app/[locale]/(member)/settings/page.tsx:
-  - [ ] Account settings
-  - [ ] Email preferences
-  - [ ] Password change
-  - [ ] Delete account (optional)
-- [ ] Create app/actions/settings.ts
-- [ ] Implement password change flow
-- [ ] Test all settings
-- [ ] Commit settings page
-
-### 8.5 Classes/Learning (Future - Placeholder)
-
-- [ ] Create app/[locale]/(member)/classes/page.tsx:
-  - [ ] "Coming soon" message
-  - [ ] Or basic course listing from Sanity
-- [ ] Create app/[locale]/(member)/classes/[id]/page.tsx (placeholder)
-- [ ] Document future LMS integration approach
-- [ ] Commit placeholder pages
+This phase will be revisited after successful deployment of the marketing site.
 
 ---
 
 ## Phase 9: Testing & Quality Assurance
 
-### 9.1 ESLint Configuration
+### 9.1 ESLint Configuration ✅ COMPLETE
 
-- [ ] Update eslint.config.mjs:
-  - [ ] next/core-web-vitals rules
-  - [ ] @typescript-eslint rules
-  - [ ] jsx-a11y accessibility rules
-  - [ ] Import ordering rules
-- [ ] Fix all ESLint errors
-- [ ] Add npm script: `"lint": "next lint"`
-- [ ] Test linting works
-- [ ] Commit ESLint config
+- [x] Created eslint.config.mjs with typescript-eslint flat config
+- [x] Configured @typescript-eslint recommended rules
+- [x] Added custom rules for no-console, no-var, prefer-const
+- [x] Fixed TypeScript integration with project reference
+- [x] Added npm scripts: `lint` and `lint:fix`
+- [x] Tested linting (found 60+ warnings - mostly `any` types in migration scripts)
+- [x] Committed ESLint config
 
-### 9.2 Prettier Setup
+### 9.2 Prettier Setup ✅ COMPLETE
 
-- [ ] Create prettier.config.mjs
-- [ ] Configure Prettier with Tailwind plugin
-- [ ] Add npm script: `"format": "prettier --write ."`
-- [ ] Format entire codebase
-- [ ] Commit Prettier config
+- [x] Created .prettierrc.mjs
+- [x] Configured Prettier with Tailwind plugin (prettier-plugin-tailwindcss)
+- [x] Created .prettierignore
+- [x] Added npm scripts: `format` and `format:check`
+- [x] Configured tailwind functions: clsx, cn
+- [x] Committed Prettier config
 
-### 9.3 Husky Pre-commit Hooks
+### 9.3 Husky Pre-commit Hooks ✅ COMPLETE
 
-- [ ] Install Husky: `npm install -D husky lint-staged`
-- [ ] Initialize Husky: `npx husky init`
-- [ ] Create pre-commit hook:
-  - [ ] Run lint-staged
-  - [ ] Run type checking
-  - [ ] Run linting
-- [ ] Configure lint-staged in package.json
-- [ ] Test pre-commit hook
-- [ ] Commit Husky configuration
+- [x] Installed Husky and lint-staged: `npm install -D husky lint-staged`
+- [x] Initialized Husky: `npx husky init`
+- [x] Created .husky/pre-commit hook with `npx lint-staged`
+- [x] Made pre-commit hook executable
+- [x] Configured lint-staged in package.json:
+  - [x] Run ESLint --fix on TS/JS files
+  - [x] Run Prettier --write on TS/JS files
+  - [x] Run Prettier on JSON/MD/CSS files
+- [x] Committed Husky configuration
 
 ### 9.4 Vitest Setup
 
@@ -795,15 +687,17 @@ Before any code implementation, these accounts and services must be set up:
 
 ---
 
-## Phase 11: Vercel Deployment
+## Phase 11: Vercel Deployment ⚡ PRIORITY AFTER PHASE 7
+
+**Status**: Ready to execute once marketing pages are complete.
 
 ### 11.1 Prepare for Deployment
 
 - [ ] Create production build locally: `npm run build`
 - [ ] Fix any build errors
 - [ ] Test production build: `npm run start`
-- [ ] Verify all pages render correctly
-- [ ] Run full test suite
+- [ ] Verify all marketing pages render correctly
+- [ ] Run ESLint and type checking
 - [ ] Commit all changes
 
 ### 11.2 Initial Vercel Deployment
@@ -819,21 +713,22 @@ Before any code implementation, these accounts and services must be set up:
 ### 11.3 Environment Variables in Vercel
 
 - [ ] Go to Project Settings → Environment Variables
-- [ ] Add all production environment variables:
-  - [ ] Supabase variables
-  - [ ] Sanity variables
-  - [ ] App URL
+- [ ] Add production environment variables:
+  - [ ] NEXT_PUBLIC_SANITY_PROJECT_ID
+  - [ ] NEXT_PUBLIC_SANITY_DATASET
+  - [ ] SANITY_API_TOKEN
+  - [ ] NEXT_PUBLIC_SITE_URL
+  - [ ] (Supabase vars not needed yet - auth deferred)
 - [ ] Set variables for different environments:
   - [ ] Production
   - [ ] Preview
-  - [ ] Development (optional)
 - [ ] Redeploy to apply variables
 - [ ] Test environment variables work
 
 ### 11.4 Custom Domain Setup
 
 - [ ] Go to Project Settings → Domains
-- [ ] Add domain: kilalo.com
+- [ ] Add domain: kilalo.com (or staging subdomain first)
 - [ ] Add www subdomain: www.kilalo.com
 - [ ] Configure DNS:
   - [ ] Option A: Use Vercel nameservers (recommended)
@@ -843,36 +738,32 @@ Before any code implementation, these accounts and services must be set up:
 - [ ] Set www to redirect to root domain
 - [ ] Test domain works
 
-### 11.5 Configure Sanity Webhook
+### 11.5 Configure Sanity for Production
 
-- [ ] Update Sanity webhook URL to production domain
-- [ ] Test webhook triggers revalidation
-- [ ] Verify content updates propagate
+- [ ] Add production domain to Sanity CORS origins
+- [ ] Create webhook for production (optional - ISR can work without)
+- [ ] Test content updates from Sanity Studio
+- [ ] Verify content appears on production
 
-### 11.6 Configure Supabase Redirect URLs
-
-- [ ] Add production domain to Supabase redirect URLs
-- [ ] Add Vercel preview domain pattern
-- [ ] Test authentication flows on production
-
-### 11.7 Enable Analytics
+### 11.6 Enable Analytics
 
 - [ ] Install Vercel Analytics: `npm install @vercel/analytics`
-- [ ] Add Analytics component to layout
+- [ ] Add Analytics component to root layout
 - [ ] Install Speed Insights: `npm install @vercel/speed-insights`
-- [ ] Add SpeedInsights component to layout
+- [ ] Add SpeedInsights component to root layout
 - [ ] Deploy updates
-- [ ] Verify analytics tracking
+- [ ] Verify analytics tracking in Vercel dashboard
 
-### 11.8 Production Verification
+### 11.7 Production Verification
 
-- [ ] Test all pages load on production
-- [ ] Test authentication flows
-- [ ] Test form submissions
+- [ ] Test all pages load on production (both EN and FR)
+- [ ] Test navigation and language switching
+- [ ] Test contact form submission
 - [ ] Test content updates from Sanity
-- [ ] Run Lighthouse audit
+- [ ] Run Lighthouse audit (target: 90+ all metrics)
 - [ ] Check Web Vitals scores
 - [ ] Verify no console errors
+- [ ] Test on mobile, tablet, desktop
 - [ ] Document production URL
 
 ---
@@ -982,59 +873,108 @@ Before any code implementation, these accounts and services must be set up:
 
 ---
 
-## Success Criteria
+## 🎯 IMMEDIATE ROADMAP TO LAUNCH
+
+### Current Status
+- ✅ Phase 1-3: Foundation, styling, UI components complete
+- ✅ Phase 4: Internationalization complete (explicit EN/FR fields)
+- ✅ Phase 5a: Basic Supabase setup complete
+- ✅ Phase 6: Sanity CMS integration complete with all content migrated
+- 🎯 **NEXT**: Phase 7 - Complete marketing pages
+- 🎯 **THEN**: Phase 11 - Deploy to Vercel
+
+### What's Needed for Launch
+1. **Marketing Layout** (header, footer, navigation)
+2. **Core Pages**:
+   - Homepage (hero, impact metrics, venture showcase)
+   - About page (story, team, mission)
+   - Programs pages (V2S, Hekima Time)
+   - Ventures portfolio
+   - Case studies
+   - Community/Events
+   - Contact page
+   - Legal pages (privacy, terms)
+3. **SEO & Performance**:
+   - Metadata for all pages
+   - Image optimization
+   - Basic performance testing
+4. **Deployment**:
+   - Vercel setup
+   - Domain configuration
+   - Analytics integration
+
+### Post-Launch (Phase 2)
+- Authentication and user management
+- Member portal and dashboard
+- Learning platform features
+- Advanced community features
+
+---
+
+## Success Criteria (MVP Launch)
 
 ### Technical Requirements
 - [ ] All pages load in < 2 seconds
-- [ ] Lighthouse scores > 90 for all metrics
+- [ ] Lighthouse scores > 85 for all metrics (target 90+)
 - [ ] Zero TypeScript errors
 - [ ] Zero ESLint errors
-- [ ] 100% test coverage for critical paths
-- [ ] WCAG 2.1 AA compliant
 - [ ] Works on all modern browsers
 - [ ] Fully responsive (mobile, tablet, desktop)
+- [ ] Accessible (basic WCAG compliance)
 
 ### Functional Requirements
-- [ ] User can sign up with email
-- [ ] User can log in with email/password
-- [ ] User can reset password
-- [ ] User can update profile
-- [ ] User can access member dashboard
-- [ ] Content updates from Sanity appear within 5 minutes
 - [ ] Site available in English and French
-- [ ] All forms validate and submit correctly
-- [ ] Protected routes require authentication
+- [ ] Language switching works correctly
+- [ ] Contact form validates and submits
+- [ ] Content updates from Sanity appear correctly
+- [ ] All navigation links work
+- [ ] All images load and are optimized
 
 ### Business Requirements
-- [ ] Production site is live at kilalo.com
+- [ ] Production site is live at domain
 - [ ] SSL certificate is valid
 - [ ] Analytics are tracking correctly
-- [ ] Content team can manage content independently
-- [ ] Staging environment is available for testing
-- [ ] Documentation is complete and accessible
+- [ ] Content team can manage content via Sanity Studio
+- [ ] Site performs well on mobile devices
+- [ ] Basic documentation is available
 
 ---
 
 ## Notes & Decisions Log
 
 ### Technology Decisions
-- **Framework**: Next.js 15 App Router chosen for SEO, performance, and Vercel integration
+- **Framework**: Next.js 16 App Router with Turbopack for SEO, performance, and Vercel integration
 - **Styling**: Tailwind CSS + shadcn/ui chosen over MUI for custom branding flexibility
-- **Backend**: Supabase chosen for integrated auth, database, and storage
+- **Backend**: Supabase chosen for integrated auth, database, and storage (auth deferred to Phase 2)
 - **CMS**: Sanity.io chosen for structured content and real-time collaboration
-- **i18n**: next-intl chosen for Next.js App Router compatibility
-- **Testing**: Playwright + Vitest for comprehensive testing strategy
+- **i18n**: next-intl + explicit EN/FR fields (abandoned plugin approach due to RSC incompatibility)
+- **Testing**: Playwright + Vitest for comprehensive testing strategy (TBD)
 
-### Deferred Features
-- **LMS Integration**: Deferred to future phase; using custom learning features with Supabase for MVP
-- **Advanced Analytics**: Starting with Vercel Analytics; can add more later
-- **Email Service**: Will decide on Resend, SendGrid, or similar during contact form implementation
+### Recent Decisions (Oct 2024)
+- **Internationalization Approach**: Switched from `sanity-plugin-internationalized-array` to explicit field naming (fieldEn/fieldFr) due to React Server Components incompatibility with React 19
+- **React Version**: Kept React 19.2.0 (Sanity v4.11.0 supports it); fixed Studio error by adding `'use client'` directive
+- **UI Translations**: Created `siteSettings` schema in Sanity for CMS-managed UI text (alternative to JSON files)
+- **Launch Strategy**: Prioritizing marketing site completion and deployment; deferring authentication and member portal to post-launch Phase 2
+
+### Deferred to Post-Launch
+- **Authentication**: Email/password login, OAuth providers (Google, GitHub)
+- **Member Portal**: Dashboard, profile management, settings, learning platform
+- **LMS Integration**: Course management, progress tracking, member-only content
+- **Advanced Testing**: Full Playwright E2E suite, accessibility testing, unit tests
+- **Email Service**: Contact form will use simple approach; full email service for later
+
+### Phase 1 MVP Focus
+- Complete marketing website with bilingual content
+- Core pages: Home, About, Programs, Ventures, Case Studies, Community, Contact
+- Content management via Sanity Studio
+- Deploy to Vercel with custom domain
+- Basic analytics and performance monitoring
 
 ### Risk Mitigation
-- **Separate environments**: Dev, Staging, Production to prevent production issues
 - **Type safety**: Strict TypeScript to catch errors early
-- **Testing**: Comprehensive test suite for confidence in changes
-- **Monitoring**: Multiple layers of monitoring for early issue detection
+- **Incremental deployment**: Launch marketing site first, add features in Phase 2
+- **Content migration**: All content successfully migrated to bilingual format
+- **Monitoring**: Vercel Analytics and Speed Insights for performance tracking
 - **Rollback capability**: Vercel instant rollback for quick recovery
 
 ---
@@ -1049,5 +989,5 @@ Before any code implementation, these accounts and services must be set up:
 
 ---
 
-**Last Updated**: 2025-10-25
-**Plan Version**: 1.0
+**Last Updated**: 2025-10-27
+**Plan Version**: 1.2 - ESLint TypeScript Fixes

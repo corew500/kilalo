@@ -55,19 +55,11 @@ export function Header() {
             size="sm"
             onClick={toggleLocale}
             className="hidden sm:flex"
+            aria-label={locale === 'en' ? 'Switch to French' : 'Switch to English'}
+            aria-current={locale === 'en' ? 'true' : 'false'}
           >
             {locale === 'en' ? 'FR' : 'EN'}
           </Button>
-
-          {/* Auth buttons - placeholder for now */}
-          <div className="hidden md:flex md:items-center md:gap-2">
-            <Button variant="ghost" size="sm" asChild>
-              <Link href={`/${locale}/login`}>{t('signIn')}</Link>
-            </Button>
-            <Button size="sm" asChild className="bg-teal hover:bg-teal/90">
-              <Link href={`/${locale}/signup`}>{t('signUp')}</Link>
-            </Button>
-          </div>
 
           {/* Mobile menu button */}
           <Button
@@ -75,6 +67,8 @@ export function Header() {
             size="sm"
             className="md:hidden"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={mobileMenuOpen}
           >
             <svg
               className="h-6 w-6"
@@ -84,6 +78,7 @@ export function Header() {
               strokeWidth="2"
               viewBox="0 0 24 24"
               stroke="currentColor"
+              aria-hidden="true"
             >
               {mobileMenuOpen ? (
                 <path d="M6 18L18 6M6 6l12 12" />
@@ -110,13 +105,13 @@ export function Header() {
               </Link>
             ))}
             <div className="flex flex-col gap-2 pt-4">
-              <Button variant="outline" size="sm" asChild>
-                <Link href={`/${locale}/login`}>{t('signIn')}</Link>
-              </Button>
-              <Button size="sm" asChild className="bg-teal hover:bg-teal/90">
-                <Link href={`/${locale}/signup`}>{t('signUp')}</Link>
-              </Button>
-              <Button variant="ghost" size="sm" onClick={toggleLocale}>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={toggleLocale}
+                aria-label={locale === 'en' ? 'Switch to French' : 'Switch to English'}
+                aria-current={locale === 'en' ? 'true' : 'false'}
+              >
                 {locale === 'en' ? 'Français' : 'English'}
               </Button>
             </div>

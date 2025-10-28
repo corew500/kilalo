@@ -1,29 +1,91 @@
+import type { Metadata } from 'next'
 import { client } from '@/sanity/lib/client'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { TeamGrid } from '@/components/shared/TeamGrid'
+import { getLocalizedField } from '@/lib/i18n-helpers'
+import { siteConfig } from '@/lib/seo'
 
 async function getTeamMembers() {
   const members = await client.fetch(`
     *[_type == "teamMember"] | order(order asc) {
       _id,
       name,
-      role,
-      bio,
+      roleEn,
+      roleFr,
+      bioEn,
+      bioFr,
       photo,
-      expertise,
+      expertiseEn,
+      expertiseFr,
       socialLinks
     }
   `)
   return members
 }
 
-export const metadata = {
-  title: 'About Us | Kilalo',
-  description: 'A DRC-focused venture studio scaling for-profit solutions to address poverty and hunger through our Vision & Structure program.',
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>
+}): Promise<Metadata> {
+  const { locale } = await params
+  const isEnglish = locale === 'en'
+
+  const title = isEnglish
+    ? 'About Us'
+    : 'À Propos'
+
+  const description = isEnglish
+    ? 'DRC-focused venture studio scaling for-profit solutions to poverty and hunger through our proven Vision & Structure methodology.'
+    : 'Studio de venture axé sur la RDC qui développe des solutions à but lucratif contre la pauvreté et la faim via notre méthodologie V2S.'
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title: `${title} | ${siteConfig.name}`,
+      description,
+      url: `${siteConfig.url}/${locale}/about`,
+      siteName: siteConfig.name,
+      images: [
+        {
+          url: siteConfig.ogImage,
+          width: 1200,
+          height: 630,
+          alt: siteConfig.name,
+        },
+      ],
+      locale: siteConfig.locale[locale as 'en' | 'fr'],
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${title} | ${siteConfig.name}`,
+      description,
+      images: [siteConfig.ogImage],
+      creator: siteConfig.social.twitter,
+    },
+    alternates: {
+      canonical: `${siteConfig.url}/${locale}/about`,
+      languages: {
+        en: `${siteConfig.url}/en/about`,
+        fr: `${siteConfig.url}/fr/about`,
+      },
+    },
+  }
 }
 
-export default async function AboutPage() {
+export default async function AboutPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params
   const teamMembers = await getTeamMembers()
+
+  // Localize team members
+  const localizedMembers = teamMembers.map((member: any) => ({
+    ...member,
+    role: getLocalizedField(member, 'role', locale),
+    bio: getLocalizedField(member, 'bio', locale),
+    expertise: member[`expertise${locale.charAt(0).toUpperCase()}${locale.slice(1)}`] || []
+  }))
 
   return (
     <div className="container py-16 md:py-24">
@@ -101,6 +163,7 @@ export default async function AboutPage() {
                     strokeWidth="2"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
+                    aria-hidden="true"
                   >
                     <path d="M5 13l4 4L19 7" />
                   </svg>
@@ -147,8 +210,8 @@ export default async function AboutPage() {
           </p>
         </div>
 
-        {teamMembers.length > 0 ? (
-          <TeamGrid members={teamMembers} />
+        {localizedMembers.length > 0 ? (
+          <TeamGrid members={localizedMembers} />
         ) : (
           <div className="text-center py-12">
             <p className="text-muted-foreground">
@@ -172,7 +235,7 @@ export default async function AboutPage() {
             <Card className="text-center">
               <CardContent className="pt-6">
                 <div className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-teal/10 mb-4">
-                  <svg className="h-8 w-8 text-teal" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg className="h-8 w-8 text-teal" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                     <path d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
                 </div>
@@ -186,7 +249,7 @@ export default async function AboutPage() {
             <Card className="text-center">
               <CardContent className="pt-6">
                 <div className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-orange/10 mb-4">
-                  <svg className="h-8 w-8 text-orange" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg className="h-8 w-8 text-orange" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                     <path d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
                   </svg>
                 </div>
@@ -200,7 +263,7 @@ export default async function AboutPage() {
             <Card className="text-center">
               <CardContent className="pt-6">
                 <div className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-forest/10 mb-4">
-                  <svg className="h-8 w-8 text-forest" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg className="h-8 w-8 text-forest" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                     <path d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 </div>

@@ -12,7 +12,7 @@ export function Footer() {
         <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
           {/* Company */}
           <div>
-            <h3 className="mb-4 text-lg font-semibold text-teal">Kilalo</h3>
+            <h2 className="mb-4 text-lg font-semibold text-teal">Kilalo</h2>
             <p className="text-sm text-muted-foreground">
               {t('tagline')}
             </p>
@@ -20,7 +20,7 @@ export function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h4 className="mb-4 text-sm font-semibold">{t('quickLinks')}</h4>
+            <h3 className="mb-4 text-sm font-semibold">{t('quickLinks')}</h3>
             <ul className="space-y-2 text-sm">
               <li>
                 <Link
@@ -75,7 +75,7 @@ export function Footer() {
 
           {/* Legal */}
           <div>
-            <h4 className="mb-4 text-sm font-semibold">{t('legal')}</h4>
+            <h3 className="mb-4 text-sm font-semibold">{t('legal')}</h3>
             <ul className="space-y-2 text-sm">
               <li>
                 <Link
@@ -98,7 +98,7 @@ export function Footer() {
 
           {/* Social */}
           <div>
-            <h4 className="mb-4 text-sm font-semibold">{t('connect')}</h4>
+            <h3 className="mb-4 text-sm font-semibold">{t('connect')}</h3>
             <div className="flex gap-4">
               <a
                 href="https://twitter.com/kilalo"
