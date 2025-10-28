@@ -2,6 +2,7 @@ import { client } from '@/sanity/lib/client'
 import { VentureCard } from '@/components/shared/VentureCard'
 import { BusinessAssessmentCTA } from '@/components/shared/BusinessAssessmentCTA'
 import { getLocalizedField } from '@/lib/i18n-helpers'
+import { getSiteSettings } from '@/lib/sanity-helpers'
 
 async function getVentures() {
   const data = await client.fetch(`
@@ -33,32 +34,39 @@ async function getVentures() {
   return data.ventures
 }
 
-export const metadata = {
-  title: 'Our Ventures | Kilalo',
-  description: 'Congolese businesses creating measurable social and economic impact with Kilalo support.',
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params
+  const settings = await getSiteSettings(locale)
+
+  return {
+    title: settings?.venturesPageTitle || 'Our Ventures | Kilalo',
+    description:
+      settings?.venturesPageDescription ||
+      'Congolese businesses creating measurable social and economic impact with Kilalo support.',
+  }
 }
 
 export default async function VenturesPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
+  const settings = await getSiteSettings(locale)
   const ventures = await getVentures()
 
   return (
     <div className="container py-16 md:py-24">
       {/* Header */}
-      <div className="mx-auto max-w-3xl text-center mb-16">
-        <h1 className="text-4xl font-bold tracking-tight sm:text-5xl mb-4">
-          Our Ventures
+      <div className="mx-auto mb-16 max-w-3xl text-center">
+        <h1 className="mb-4 text-4xl font-bold tracking-tight sm:text-5xl">
+          {settings?.venturesHeroTitle || 'Our Ventures'}
         </h1>
         <p className="text-lg text-muted-foreground">
-          Congolese businesses creating measurable social and economic impact.
-          From agro-food supply chains to AI-powered legal access, our portfolio
-          companies are transforming the DRC economy.
+          {settings?.venturesHeroDescription ||
+            'Congolese businesses creating measurable social and economic impact. From agro-food supply chains to AI-powered legal access, our portfolio companies are transforming the DRC economy.'}
         </p>
       </div>
 
       {/* Ventures Grid */}
       {ventures && ventures.length > 0 ? (
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 mb-16">
+        <div className="mb-16 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
           {ventures.map((venture: any) => (
             <VentureCard
               key={venture._id}
@@ -71,27 +79,28 @@ export default async function VenturesPage({ params }: { params: Promise<{ local
               metricsHighlight={getLocalizedField(venture, 'metricsHighlight', locale)}
               logo={venture.logo}
               featured={venture.featured}
-              caseStudy={venture.caseStudy ? {
-                ...venture.caseStudy,
-                title: getLocalizedField(venture.caseStudy, 'title', locale)
-              } : undefined}
+              caseStudy={
+                venture.caseStudy
+                  ? {
+                      ...venture.caseStudy,
+                      title: getLocalizedField(venture.caseStudy, 'title', locale),
+                    }
+                  : undefined
+              }
               locale={locale}
             />
           ))}
         </div>
       ) : (
-        <div className="text-center py-16">
+        <div className="py-16 text-center">
           <p className="text-lg text-muted-foreground">
-            Venture profiles coming soon!
+            {settings?.venturesNoVentures || 'Venture profiles coming soon!'}
           </p>
         </div>
       )}
 
       {/* CTA Section */}
-      <BusinessAssessmentCTA
-        variant="card"
-        className="max-w-4xl mx-auto"
-      />
+      <BusinessAssessmentCTA variant="card" className="mx-auto max-w-4xl" />
     </div>
   )
 }

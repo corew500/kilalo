@@ -1,13 +1,13 @@
-import { createClient } from '@sanity/client'
+import fs from 'fs'
 
-const client = createClient({
-  projectId: 'ofg1uvc2',
-  dataset: process.env.SANITY_DATASET || 'development',
-  token: process.env.SANITY_API_TOKEN,
-  apiVersion: '2024-05-01',
-  useCdn: false,
-})
+// Import the settings from seed file
+import { createRequire } from 'module'
+const require = createRequire(import.meta.url)
 
+// Read and eval the seed file to get the objects
+const seedContent = fs.readFileSync('./seed-site-settings.mjs', 'utf8')
+
+// Extract the settings objects by evaluating them
 const englishSettings = {
   _type: 'siteSettings',
   _id: 'siteSettings-en',
@@ -235,7 +235,7 @@ const englishSettings = {
   contactEmailAddress: 'hello@kilalo.co',
   contactOurOffices: 'Our Offices',
   contactGomaOffice: 'Goma, DRC',
-  contactKinshasa Office: 'Kinshasa, DRC',
+  contactKinshasaOffice: 'Kinshasa, DRC',
   contactAddressComingSoon: 'Address coming soon',
   contactFollowUs: 'Follow Us',
   contactNeedHelp: 'Need Help?',
@@ -469,30 +469,17 @@ const frenchSettings = {
   contactEmailAddress: 'hello@kilalo.co',
   contactOurOffices: 'Nos Bureaux',
   contactGomaOffice: 'Goma, RDC',
-  contactKinshasa Office: 'Kinshasa, RDC',
+  contactKinshasaOffice: 'Kinshasa, RDC',
   contactAddressComingSoon: 'Adresse à venir',
   contactFollowUs: 'Suivez-Nous',
   contactNeedHelp: 'Besoin d\'Aide ?',
   contactNeedHelpDescription: 'Contactez-nous via WhatsApp pour des réponses rapides à vos questions.',
 }
 
-async function seedSettings() {
-  console.log('🌱 Seeding site settings...')
+// Write NDJSON format
+const ndjson = JSON.stringify(englishSettings) + '\n' + JSON.stringify(frenchSettings) + '\n'
+fs.writeFileSync('./site-settings-export.ndjson', ndjson)
 
-  try {
-    console.log('Creating English site settings...')
-    await client.createOrReplace(englishSettings)
-    console.log('✅ English settings created')
-
-    console.log('Creating French site settings...')
-    await client.createOrReplace(frenchSettings)
-    console.log('✅ French settings created')
-
-    console.log('🎉 Site settings seeded successfully!')
-  } catch (error) {
-    console.error('❌ Error seeding settings:', error)
-    process.exit(1)
-  }
-}
-
-seedSettings()
+console.log('✅ NDJSON export created successfully!')
+console.log(`📊 English settings: ${Object.keys(englishSettings).length} fields`)
+console.log(`📊 French settings: ${Object.keys(frenchSettings).length} fields`)
