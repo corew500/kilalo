@@ -12,6 +12,20 @@ export const metadata: Metadata = {
     template: '%s | Kilalo',
   },
   description: 'Empowering DRC entrepreneurs',
+  icons: {
+    icon: '/favicon.png',
+    apple: '/apple-touch-icon.png',
+  },
+  openGraph: {
+    images: [
+      {
+        url: '/opengraph-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Kilalo - Empowering DRC Entrepreneurs',
+      },
+    ],
+  },
   robots: {
     index: true,
     follow: true,
@@ -51,9 +65,7 @@ export default async function LocaleLayout({ children, params }: Props) {
   return (
     <html lang={locale} suppressHydrationWarning>
       <body className="antialiased">
-        <NextIntlClientProvider messages={messages}>
-          {children}
-        </NextIntlClientProvider>
+        <NextIntlClientProvider messages={messages}>{children}</NextIntlClientProvider>
       </body>
     </html>
   )
