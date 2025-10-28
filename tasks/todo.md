@@ -1,7 +1,21 @@
 # Kilalo Project Implementation Plan
 
-**Last Updated**: 2025-10-27
-**Current Task**: Fix ESLint `@typescript-eslint/no-explicit-any` Warnings
+**Last Updated**: 2025-10-28
+**Current Task**: Fix OG Image, Logo, and Favicon Display Issues
+
+---
+
+## Fix Brand Assets Display (IN PROGRESS)
+
+### Investigation & Fixes for OG Image, Logo, and Favicon
+
+- [ ] 1. Verify opengraph-image.tsx is generating correctly
+- [ ] 2. Verify icon.tsx (favicon) is generating correctly
+- [ ] 3. Verify apple-icon.tsx is generating correctly
+- [ ] 4. Check static SVG files (logo.svg, favicon.svg, og-image.svg)
+- [ ] 5. Test metadata configuration in root layout
+- [ ] 6. Fix any identified issues
+- [ ] 7. Build and verify assets are generated correctly
 
 ---
 
@@ -30,6 +44,7 @@
 ## Accessibility Fixes (COMPLETE) ✅
 
 ### Critical Accessibility Issues Fixed
+
 - [x] 1. Add Skip Link to Main Layout (app/[locale]/(marketing)/layout.tsx)
 - [x] 2. Fix Mobile Menu Button ARIA Labels (components/marketing/Header.tsx)
 - [x] 3. Fix Language Switcher ARIA Labels (components/marketing/Header.tsx)
@@ -49,10 +64,12 @@
 ## SEO Implementation Plan (COMPLETE) ✅
 
 ### Phase A: SEO Configuration & Base Setup
+
 - [x] 1. Create lib/seo.ts with site configuration (name, description EN/FR, URL, OG image, Twitter handle, locale mappings)
 - [x] 2. Update app/[locale]/layout.tsx with base metadata (metadataBase, robots, verification placeholder)
 
 ### Phase B: Page-Level Metadata Enhancement
+
 - [x] 3. Add generateMetadata to app/[locale]/(marketing)/page.tsx (homepage) with full OG and Twitter tags
 - [x] 4. Add generateMetadata to app/[locale]/(marketing)/about/page.tsx with full OG and Twitter tags
 - [x] 5. Add generateMetadata to app/[locale]/(marketing)/programs/page.tsx with full OG and Twitter tags
@@ -62,17 +79,20 @@
 - [x] 9. Verify and enhance app/[locale]/(marketing)/case-studies/[slug]/page.tsx metadata with full OG and Twitter tags
 
 ### Phase C: Structured Data & Sitemaps
+
 - [x] 10. Add JSON-LD Organization schema to app/[locale]/(marketing)/layout.tsx
 - [x] 11. Create app/sitemap.ts for automatic sitemap generation with EN/FR routes
 - [x] 12. Create app/robots.ts for robots.txt generation (allow all except /studio/ and /api/)
 
 ### Phase D: Testing & Verification
+
 - [x] 13. Run TypeScript compilation check (npx tsc --noEmit) - All SEO files pass, pre-existing validation-schemas.ts errors unrelated
 - [ ] 14. Verify all metadata renders correctly in browser (manual testing recommended)
 - [ ] 15. Test bilingual metadata (EN/FR) for all pages (manual testing recommended)
 - [x] 16. Document all SEO features added in summary
 
 ---
+
 **Tech Stack**: Next.js 16, Supabase, Sanity.io, Tailwind CSS, shadcn/ui
 
 **PRIORITY SHIFT**: Focus on completing marketing site for deployment. Member portal and authentication (Phase 5b, Phase 8) deferred to post-launch.
@@ -206,28 +226,34 @@ Before any code implementation, these accounts and services must be set up:
 ### 2.2 Install Core Dependencies
 
 - [x] Install Supabase packages:
+
   ```bash
   npm install @supabase/ssr @supabase/supabase-js
   ```
 
 - [x] Install Sanity packages:
+
   ```bash
   npm install next-sanity sanity @sanity/vision @sanity/image-url
   ```
 
 - [x] Install i18n package:
+
   ```bash
   npm install next-intl
   ```
 
 - [x] Install utility packages:
+
   ```bash
   npm install clsx tailwind-merge
   ```
+
   - [ ] zod (not installed - add when needed for form validation)
   - [ ] date-fns (not installed - add when needed)
 
 - [ ] Install dev dependencies (DEFERRED - not needed for MVP):
+
   ```bash
   npm install -D @playwright/test vitest \
     @vitejs/plugin-react @testing-library/react \
@@ -267,6 +293,7 @@ Before any code implementation, these accounts and services must be set up:
   mkdir -p hooks messages sanity/schemas/{documents,objects}
   mkdir -p types
   ```
+
   - [x] app/[locale]/(marketing) ✅
   - [x] components/ui, marketing, shared ✅
   - [x] lib/supabase ✅
@@ -395,6 +422,7 @@ Before any code implementation, these accounts and services must be set up:
 **Rationale**: Focus on marketing site completion and deployment first. Authentication and member portal will be implemented after initial launch.
 
 Deferred items:
+
 - Database schema setup (profiles table)
 - Row Level Security (RLS) policies
 - Authentication flows (signup, login, password reset)
@@ -536,6 +564,7 @@ Deferred items:
 **Status**: Deferred until after marketing site launch. Will implement authentication and member features in Phase 2 of development.
 
 **Future Scope**:
+
 - Member dashboard with personalized content
 - Profile management with avatar upload
 - Account settings and preferences
@@ -876,6 +905,7 @@ This phase will be revisited after successful deployment of the marketing site.
 ## 🎯 IMMEDIATE ROADMAP TO LAUNCH
 
 ### Current Status
+
 - ✅ Phase 1-3: Foundation, styling, UI components complete
 - ✅ Phase 4: Internationalization complete (explicit EN/FR fields)
 - ✅ Phase 5a: Basic Supabase setup complete
@@ -884,6 +914,7 @@ This phase will be revisited after successful deployment of the marketing site.
 - 🎯 **THEN**: Phase 11 - Deploy to Vercel
 
 ### What's Needed for Launch
+
 1. **Marketing Layout** (header, footer, navigation)
 2. **Core Pages**:
    - Homepage (hero, impact metrics, venture showcase)
@@ -904,6 +935,7 @@ This phase will be revisited after successful deployment of the marketing site.
    - Analytics integration
 
 ### Post-Launch (Phase 2)
+
 - Authentication and user management
 - Member portal and dashboard
 - Learning platform features
@@ -914,6 +946,7 @@ This phase will be revisited after successful deployment of the marketing site.
 ## Success Criteria (MVP Launch)
 
 ### Technical Requirements
+
 - [ ] All pages load in < 2 seconds
 - [ ] Lighthouse scores > 85 for all metrics (target 90+)
 - [ ] Zero TypeScript errors
@@ -923,6 +956,7 @@ This phase will be revisited after successful deployment of the marketing site.
 - [ ] Accessible (basic WCAG compliance)
 
 ### Functional Requirements
+
 - [ ] Site available in English and French
 - [ ] Language switching works correctly
 - [ ] Contact form validates and submits
@@ -931,6 +965,7 @@ This phase will be revisited after successful deployment of the marketing site.
 - [ ] All images load and are optimized
 
 ### Business Requirements
+
 - [ ] Production site is live at domain
 - [ ] SSL certificate is valid
 - [ ] Analytics are tracking correctly
@@ -943,6 +978,7 @@ This phase will be revisited after successful deployment of the marketing site.
 ## Notes & Decisions Log
 
 ### Technology Decisions
+
 - **Framework**: Next.js 16 App Router with Turbopack for SEO, performance, and Vercel integration
 - **Styling**: Tailwind CSS + shadcn/ui chosen over MUI for custom branding flexibility
 - **Backend**: Supabase chosen for integrated auth, database, and storage (auth deferred to Phase 2)
@@ -951,12 +987,14 @@ This phase will be revisited after successful deployment of the marketing site.
 - **Testing**: Playwright + Vitest for comprehensive testing strategy (TBD)
 
 ### Recent Decisions (Oct 2024)
+
 - **Internationalization Approach**: Switched from `sanity-plugin-internationalized-array` to explicit field naming (fieldEn/fieldFr) due to React Server Components incompatibility with React 19
 - **React Version**: Kept React 19.2.0 (Sanity v4.11.0 supports it); fixed Studio error by adding `'use client'` directive
 - **UI Translations**: Created `siteSettings` schema in Sanity for CMS-managed UI text (alternative to JSON files)
 - **Launch Strategy**: Prioritizing marketing site completion and deployment; deferring authentication and member portal to post-launch Phase 2
 
 ### Deferred to Post-Launch
+
 - **Authentication**: Email/password login, OAuth providers (Google, GitHub)
 - **Member Portal**: Dashboard, profile management, settings, learning platform
 - **LMS Integration**: Course management, progress tracking, member-only content
@@ -964,6 +1002,7 @@ This phase will be revisited after successful deployment of the marketing site.
 - **Email Service**: Contact form will use simple approach; full email service for later
 
 ### Phase 1 MVP Focus
+
 - Complete marketing website with bilingual content
 - Core pages: Home, About, Programs, Ventures, Case Studies, Community, Contact
 - Content management via Sanity Studio
@@ -971,6 +1010,7 @@ This phase will be revisited after successful deployment of the marketing site.
 - Basic analytics and performance monitoring
 
 ### Risk Mitigation
+
 - **Type safety**: Strict TypeScript to catch errors early
 - **Incremental deployment**: Launch marketing site first, add features in Phase 2
 - **Content migration**: All content successfully migrated to bilingual format
@@ -989,5 +1029,5 @@ This phase will be revisited after successful deployment of the marketing site.
 
 ---
 
-**Last Updated**: 2025-10-27
-**Plan Version**: 1.2 - ESLint TypeScript Fixes
+**Last Updated**: 2025-10-28
+**Plan Version**: 1.3 - Brand Assets Fix
