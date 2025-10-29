@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { client } from '@/sanity/lib/client'
 import { urlFor } from '@/sanity/lib/image'
 import { getLocalizedField } from '@/lib/i18n-helpers'
+import { getSiteSettings } from '@/lib/sanity-helpers'
 import { siteConfig } from '@/lib/seo'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -119,6 +120,7 @@ export default async function VentureDetailPage({
 }) {
   const { slug, locale } = await params
   const venture = await getVenture(slug)
+  const settings = await getSiteSettings(locale)
 
   if (!venture) {
     notFound()
@@ -227,7 +229,7 @@ export default async function VentureDetailPage({
       <section className="py-16">
         <div className="container">
           <div className="mx-auto max-w-4xl">
-            <BusinessAssessmentCTA variant="card" />
+            <BusinessAssessmentCTA variant="card" settings={settings} />
           </div>
         </div>
       </section>

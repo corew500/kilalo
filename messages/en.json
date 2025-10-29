@@ -45,7 +45,10 @@
     "readCaseStudy": "Read Case Study",
     "comingSoon": "Coming soon",
     "registerNow": "Register Now",
-    "watchRecording": "Watch Recording"
+    "watchRecording": "Watch Recording",
+    "upcoming": "Upcoming",
+    "recorded": "Recorded",
+    "speakers": "Speakers"
   },
   "About": {
     "ourStoryTitle": "Our Story",

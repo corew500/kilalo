@@ -154,7 +154,7 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
       </section>
 
       {/* CTA */}
-      <BusinessAssessmentCTA variant="card" />
+      <BusinessAssessmentCTA variant="card" settings={settings} />
     </div>
   )
 }

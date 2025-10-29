@@ -101,7 +101,7 @@ export default async function VenturesPage({ params }: { params: Promise<{ local
       )}
 
       {/* CTA Section */}
-      <BusinessAssessmentCTA variant="card" className="mx-auto max-w-4xl" />
+      <BusinessAssessmentCTA variant="card" className="mx-auto max-w-4xl" settings={settings} />
     </div>
   )
 }

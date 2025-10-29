@@ -74,7 +74,10 @@
     "readCaseStudy": "Lire l'Étude de Cas",
     "comingSoon": "Bientôt disponible",
     "registerNow": "S'inscrire Maintenant",
-    "watchRecording": "Regarder l'Enregistrement"
+    "watchRecording": "Regarder l'Enregistrement",
+    "upcoming": "À venir",
+    "recorded": "Enregistré",
+    "speakers": "Intervenants"
   },
   "About": {
     "ourStoryTitle": "Notre Histoire",

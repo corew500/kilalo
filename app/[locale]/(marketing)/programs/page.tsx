@@ -192,7 +192,7 @@ export default async function ProgramsPage({ params }: { params: Promise<{ local
                 </div>
               )}
 
-              <BusinessAssessmentCTA variant="default" />
+              <BusinessAssessmentCTA variant="default" settings={settings} />
             </div>
 
             {v2sProgram?.testimonials && v2sProgram.testimonials.length > 0 && (
@@ -430,7 +430,7 @@ export default async function ProgramsPage({ params }: { params: Promise<{ local
       </section>
 
       {/* Final CTA */}
-      <BusinessAssessmentCTA variant="card" />
+      <BusinessAssessmentCTA variant="card" settings={settings} />
     </div>
   )
 }

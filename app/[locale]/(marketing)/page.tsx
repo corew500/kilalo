@@ -432,7 +432,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
       <section className="py-16 md:py-24">
         <div className="container">
           <div className="mx-auto max-w-4xl">
-            <BusinessAssessmentCTA variant="card" />
+            <BusinessAssessmentCTA variant="card" settings={settings} />
           </div>
         </div>
       </section>

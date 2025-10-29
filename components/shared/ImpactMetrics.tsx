@@ -1,4 +1,5 @@
 import { client } from '@/sanity/lib/client'
+import { getSiteSettings } from '@/lib/sanity-helpers'
 
 async function getCurrentMetrics() {
   const metrics = await client.fetch(`
@@ -13,8 +14,13 @@ async function getCurrentMetrics() {
   return metrics
 }
 
-export async function ImpactMetrics() {
+interface ImpactMetricsProps {
+  locale: string
+}
+
+export async function ImpactMetrics({ locale }: ImpactMetricsProps) {
   const metrics = await getCurrentMetrics()
+  const settings = await getSiteSettings(locale)
 
   if (!metrics) {
     return null
@@ -22,22 +28,22 @@ export async function ImpactMetrics() {
 
   const displayMetrics = [
     {
-      label: 'Businesses Supported',
+      label: settings?.componentImpactBusinessesSupported || 'Businesses Supported',
       value: metrics.businessesSupported || 0,
       suffix: '+',
     },
     {
-      label: 'Hekima Sessions',
+      label: settings?.componentImpactHekimaSessions || 'Hekima Sessions',
       value: metrics.hekimaSessions || 0,
       suffix: '',
     },
     {
-      label: 'Regions Served',
+      label: settings?.componentImpactRegionsServed || 'Regions Served',
       value: metrics.regionsServed || 0,
       suffix: '',
     },
     {
-      label: 'Jobs Created',
+      label: settings?.componentImpactJobsCreated || 'Jobs Created',
       value: metrics.jobsCreated || 0,
       suffix: '+',
     },
@@ -48,15 +54,13 @@ export async function ImpactMetrics() {
       {displayMetrics.map((metric, index) => (
         <div
           key={index}
-          className="text-center p-6 rounded-lg bg-gradient-to-br from-teal/10 to-orange/10 border border-teal/20"
+          className="rounded-lg border border-teal/20 bg-gradient-to-br from-teal/10 to-orange/10 p-6 text-center"
         >
-          <div className="text-4xl font-bold text-teal mb-2">
+          <div className="mb-2 text-4xl font-bold text-teal">
             {metric.value}
             {metric.suffix}
           </div>
-          <div className="text-sm text-muted-foreground font-medium">
-            {metric.label}
-          </div>
+          <div className="text-sm font-medium text-muted-foreground">{metric.label}</div>
         </div>
       ))}
     </div>

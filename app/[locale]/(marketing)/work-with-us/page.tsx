@@ -231,7 +231,7 @@ export default async function WorkWithUsPage({ params }: Props) {
               </div>
             </div>
 
-            <BusinessAssessmentCTA variant="card" />
+            <BusinessAssessmentCTA variant="card" settings={settings} />
 
             <div className="mt-8 text-center">
               <p className="mb-4 text-sm text-muted-foreground">
