@@ -3,13 +3,16 @@ import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import Image from 'next/image'
 import imageUrlBuilder from '@sanity/image-url'
+import type { SanityImageSource } from '@sanity/image-url/lib/types/types'
 import { client } from '@/sanity/lib/client'
 
 const builder = imageUrlBuilder(client)
 
-function urlFor(source: any) {
+function urlFor(source: SanityImageSource) {
   return builder.image(source)
 }
+
+type SanityImageWithAlt = SanityImageSource & { alt?: string }
 
 interface VentureCardProps {
   name: string
@@ -19,7 +22,7 @@ interface VentureCardProps {
   location?: string
   tagline: string
   metricsHighlight?: string
-  logo?: any
+  logo?: SanityImageWithAlt
   featured?: boolean
   caseStudy?: {
     _id: string
@@ -43,7 +46,7 @@ export function VentureCard({
   locale,
 }: VentureCardProps) {
   return (
-    <Card className="h-full flex flex-col overflow-hidden transition-all hover:shadow-lg group">
+    <Card className="group flex h-full flex-col overflow-hidden transition-all hover:shadow-lg">
       <CardHeader className="pb-4">
         {featured && (
           <div className="mb-2">
@@ -53,7 +56,7 @@ export function VentureCard({
           </div>
         )}
         {logo && (
-          <div className="mb-4 flex h-24 items-center justify-center bg-muted rounded-lg p-4">
+          <div className="mb-4 flex h-24 items-center justify-center rounded-lg bg-muted p-4">
             <Image
               src={urlFor(logo).width(200).height(100).fit('max').url()}
               alt={logo.alt || `${name} company logo`}
@@ -66,7 +69,7 @@ export function VentureCard({
         <CardTitle className="text-xl">{name}</CardTitle>
         <CardDescription className="text-sm">{tagline}</CardDescription>
       </CardHeader>
-      <CardContent className="flex-1 flex flex-col space-y-4">
+      <CardContent className="flex flex-1 flex-col space-y-4">
         {(sector || location) && (
           <div className="space-y-2">
             <div className="flex items-center gap-2 text-xs text-muted-foreground">
@@ -77,12 +80,10 @@ export function VentureCard({
           </div>
         )}
 
-        <p className="text-sm text-muted-foreground flex-1">
-          {description}
-        </p>
+        <p className="flex-1 text-sm text-muted-foreground">{description}</p>
 
         {metricsHighlight && (
-          <div className="inline-flex items-center rounded-full bg-teal/10 px-3 py-1 text-xs font-medium text-teal self-start">
+          <div className="inline-flex items-center self-start rounded-full bg-teal/10 px-3 py-1 text-xs font-medium text-teal">
             {metricsHighlight}
           </div>
         )}
@@ -96,9 +97,7 @@ export function VentureCard({
             </Button>
           ) : (
             <Button variant="ghost" asChild className="w-full">
-              <Link href={`/${locale}/ventures/${slug}`}>
-                Learn More →
-              </Link>
+              <Link href={`/${locale}/ventures/${slug}`}>Learn More →</Link>
             </Button>
           )}
         </div>
