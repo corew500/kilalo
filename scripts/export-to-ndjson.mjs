@@ -1,13 +1,6 @@
 import fs from 'fs'
 
-// Import the settings from seed file
-import { createRequire } from 'module'
-const require = createRequire(import.meta.url)
-
-// Read and eval the seed file to get the objects
-const seedContent = fs.readFileSync('./seed-site-settings.mjs', 'utf8')
-
-// Extract the settings objects by evaluating them
+// Site settings for export to NDJSON
 const englishSettings = {
   _type: 'siteSettings',
   _id: 'siteSettings-en',
