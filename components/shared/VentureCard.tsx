@@ -22,13 +22,15 @@ interface VentureCardProps {
   location?: string
   tagline: string
   metricsHighlight?: string
-  logo?: SanityImageWithAlt
-  featured?: boolean
-  caseStudy?: {
-    _id: string
-    title: string
-    slug: { current: string }
-  }
+  logo?: SanityImageWithAlt | undefined
+  featured?: boolean | undefined
+  caseStudy?:
+    | {
+        _id: string
+        title: string
+        slug: { current: string }
+      }
+    | undefined
   locale: string
 }
 

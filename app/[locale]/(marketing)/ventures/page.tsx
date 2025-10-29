@@ -3,6 +3,7 @@ import { VentureCard } from '@/components/shared/VentureCard'
 import { BusinessAssessmentCTA } from '@/components/shared/BusinessAssessmentCTA'
 import { getLocalizedField } from '@/lib/i18n-helpers'
 import { getSiteSettings } from '@/lib/sanity-helpers'
+import type { SanityVenture } from '@/types/sanity'
 
 async function getVentures() {
   const data = await client.fetch(`
@@ -67,7 +68,7 @@ export default async function VenturesPage({ params }: { params: Promise<{ local
       {/* Ventures Grid */}
       {ventures && ventures.length > 0 ? (
         <div className="mb-16 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {ventures.map((venture: any) => (
+          {ventures.map((venture: SanityVenture) => (
             <VentureCard
               key={venture._id}
               name={getLocalizedField(venture, 'name', locale)}

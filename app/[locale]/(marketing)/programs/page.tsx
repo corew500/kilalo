@@ -7,6 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { getLocalizedField } from '@/lib/i18n-helpers'
 import { siteConfig } from '@/lib/seo'
 import { getSiteSettings } from '@/lib/sanity-helpers'
+import type { SanityEvent } from '@/types/sanity'
 import Link from 'next/link'
 
 async function getProgramsData() {
@@ -218,26 +219,30 @@ export default async function ProgramsPage({ params }: { params: Promise<{ local
               {settings?.programsEightToolsTitle || 'The 8 Essential Tools'}
             </h3>
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-              {v2sProgram.curriculum.slice(0, 8).map((tool: any, index: number) => (
-                <Card
-                  key={index}
-                  className="border-2 border-teal/10 transition-colors hover:border-teal/30"
-                >
-                  <CardHeader>
-                    <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-full bg-teal/10">
-                      <span className="text-lg font-bold text-teal">{tool.week || index + 1}</span>
-                    </div>
-                    <CardTitle className="text-lg">
-                      {getLocalizedField(tool, 'toolName', locale)}
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-sm text-muted-foreground">
-                      {getLocalizedField(tool, 'description', locale)}
-                    </p>
-                  </CardContent>
-                </Card>
-              ))}
+              {v2sProgram.curriculum
+                .slice(0, 8)
+                .map((tool: Record<string, unknown>, index: number) => (
+                  <Card
+                    key={index}
+                    className="border-2 border-teal/10 transition-colors hover:border-teal/30"
+                  >
+                    <CardHeader>
+                      <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-full bg-teal/10">
+                        <span className="text-lg font-bold text-teal">
+                          {(tool.week as number) || index + 1}
+                        </span>
+                      </div>
+                      <CardTitle className="text-lg">
+                        {getLocalizedField(tool, 'toolName', locale)}
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-sm text-muted-foreground">
+                        {getLocalizedField(tool, 'description', locale)}
+                      </p>
+                    </CardContent>
+                  </Card>
+                ))}
             </div>
           </div>
         )}
@@ -345,7 +350,7 @@ export default async function ProgramsPage({ params }: { params: Promise<{ local
               {settings?.programsUpcomingSessionsTitle || 'Upcoming Sessions'}
             </h3>
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {upcomingEvents.map((event: any) => (
+              {upcomingEvents.map((event: SanityEvent) => (
                 <EventCard
                   key={event._id}
                   title={getLocalizedField(event, 'title', locale)}
@@ -368,7 +373,7 @@ export default async function ProgramsPage({ params }: { params: Promise<{ local
               {settings?.programsPastSessionsTitle || 'Past Sessions'}
             </h3>
             <div className="grid gap-4 md:grid-cols-3">
-              {pastEvents.map((event: any) => (
+              {pastEvents.map((event: SanityEvent) => (
                 <Card key={event._id}>
                   <CardHeader>
                     <CardTitle className="text-lg">

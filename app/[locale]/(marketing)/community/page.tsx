@@ -8,6 +8,7 @@ import { Label } from '@/components/ui/label'
 import { getLocalizedField } from '@/lib/i18n-helpers'
 import { siteConfig } from '@/lib/seo'
 import { getSiteSettings } from '@/lib/sanity-helpers'
+import type { SanityEvent, SanityPost } from '@/types/sanity'
 import Link from 'next/link'
 
 async function getCommunityData() {
@@ -145,7 +146,7 @@ export default async function CommunityPage({ params }: { params: Promise<{ loca
               {settings?.communityUpcomingTitle || 'Upcoming Sessions'}
             </h3>
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {upcomingEvents.map((event: any) => (
+              {upcomingEvents.map((event: SanityEvent) => (
                 <EventCard
                   key={event._id}
                   title={getLocalizedField(event, 'title', locale)}
@@ -168,7 +169,7 @@ export default async function CommunityPage({ params }: { params: Promise<{ loca
               {settings?.communityPastTitle || 'Past Sessions & Recordings'}
             </h3>
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {pastEvents.map((event: any) => (
+              {pastEvents.map((event: SanityEvent) => (
                 <EventCard
                   key={event._id}
                   title={getLocalizedField(event, 'title', locale)}
@@ -205,7 +206,7 @@ export default async function CommunityPage({ params }: { params: Promise<{ loca
           </div>
 
           <div className="grid gap-6 md:grid-cols-3">
-            {recentPosts.map((post: any) => (
+            {recentPosts.map((post: SanityPost) => (
               <Card key={post._id} className="transition-shadow hover:shadow-lg">
                 <CardHeader>
                   <CardTitle className="text-lg">

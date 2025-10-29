@@ -10,7 +10,8 @@ import { Button } from '@/components/ui/button'
 import { BusinessAssessmentCTA } from '@/components/shared/BusinessAssessmentCTA'
 
 async function getVenture(slug: string) {
-  const data = await client.fetch(`
+  const data = await client.fetch(
+    `
     *[_type == "venture" && slug.current == $slug][0] {
       _id,
       nameEn,
@@ -33,7 +34,9 @@ async function getVenture(slug: string) {
         slug
       }
     }
-  `, { slug })
+  `,
+    { slug }
+  )
 
   return data
 }
@@ -45,13 +48,13 @@ export async function generateStaticParams() {
     }
   `)
 
-  return slugs.map((item: any) => ({
+  return slugs.map((item: { slug: string }) => ({
     slug: item.slug,
   }))
 }
 
 export async function generateMetadata({
-  params
+  params,
 }: {
   params: Promise<{ slug: string; locale: string }>
 }): Promise<Metadata> {
@@ -69,7 +72,9 @@ export async function generateMetadata({
   const description = getLocalizedField(venture, 'description', locale)
   const metaDescription = tagline || description.substring(0, 155)
 
-  const logoUrl = venture.logo ? urlFor(venture.logo).width(1200).height(630).url() : siteConfig.ogImage
+  const logoUrl = venture.logo
+    ? urlFor(venture.logo).width(1200).height(630).url()
+    : siteConfig.ogImage
 
   return {
     title: name,
@@ -107,7 +112,11 @@ export async function generateMetadata({
   }
 }
 
-export default async function VentureDetailPage({ params }: { params: Promise<{ slug: string; locale: string }> }) {
+export default async function VentureDetailPage({
+  params,
+}: {
+  params: Promise<{ slug: string; locale: string }>
+}) {
   const { slug, locale } = await params
   const venture = await getVenture(slug)
 
@@ -128,7 +137,7 @@ export default async function VentureDetailPage({ params }: { params: Promise<{ 
           <div className="mx-auto max-w-4xl">
             {/* Breadcrumb */}
             <nav className="mb-6 text-sm text-muted-foreground">
-              <Link href={`/${locale}/ventures`} className="hover:text-teal transition-colors">
+              <Link href={`/${locale}/ventures`} className="transition-colors hover:text-teal">
                 {locale === 'en' ? 'Ventures' : 'Entreprises'}
               </Link>
               <span className="mx-2">/</span>
@@ -137,7 +146,7 @@ export default async function VentureDetailPage({ params }: { params: Promise<{ 
 
             <div className="text-center">
               {venture.logo && (
-                <div className="mb-6 inline-block bg-white p-6 rounded-lg shadow-sm">
+                <div className="mb-6 inline-block rounded-lg bg-white p-6 shadow-sm">
                   <Image
                     src={urlFor(venture.logo).width(300).url()}
                     alt={`${name} logo`}
@@ -147,13 +156,9 @@ export default async function VentureDetailPage({ params }: { params: Promise<{ 
                   />
                 </div>
               )}
-              <h1 className="text-4xl font-bold tracking-tight sm:text-5xl mb-4">
-                {name}
-              </h1>
-              <p className="text-xl text-muted-foreground mb-6">
-                {tagline}
-              </p>
-              <div className="flex flex-wrap gap-3 justify-center mb-8">
+              <h1 className="mb-4 text-4xl font-bold tracking-tight sm:text-5xl">{name}</h1>
+              <p className="mb-6 text-xl text-muted-foreground">{tagline}</p>
+              <div className="mb-8 flex flex-wrap justify-center gap-3">
                 <span className="inline-flex items-center rounded-full bg-teal/10 px-4 py-2 text-sm font-medium text-teal">
                   {venture.sector.replace('-', ' ')}
                 </span>
@@ -175,30 +180,27 @@ export default async function VentureDetailPage({ params }: { params: Promise<{ 
       <section className="py-16">
         <div className="container">
           <div className="mx-auto max-w-3xl">
-            <p className="text-lg text-muted-foreground leading-relaxed">
-              {description}
-            </p>
+            <p className="text-lg leading-relaxed text-muted-foreground">{description}</p>
           </div>
         </div>
       </section>
 
       {/* Case Study CTA */}
       {venture.caseStudy && (
-        <section className="py-16 bg-gradient-to-br from-teal/10 via-background to-orange/10">
+        <section className="bg-gradient-to-br from-teal/10 via-background to-orange/10 py-16">
           <div className="container">
             <div className="mx-auto max-w-3xl text-center">
-              <h2 className="text-3xl font-bold mb-4">
-                {locale === 'en' ? 'Read the Full Story' : 'Lire l\'Histoire Complète'}
+              <h2 className="mb-4 text-3xl font-bold">
+                {locale === 'en' ? 'Read the Full Story' : "Lire l'Histoire Complète"}
               </h2>
-              <p className="text-lg text-muted-foreground mb-8">
+              <p className="mb-8 text-lg text-muted-foreground">
                 {locale === 'en'
                   ? `Learn how Kilalo supported ${name} in their growth journey`
-                  : `Découvrez comment Kilalo a soutenu ${name} dans leur parcours de croissance`
-                }
+                  : `Découvrez comment Kilalo a soutenu ${name} dans leur parcours de croissance`}
               </p>
               <Button size="lg" asChild>
                 <Link href={`/${locale}/case-studies/${venture.caseStudy.slug.current}`}>
-                  {locale === 'en' ? 'View Case Study →' : 'Voir l\'Étude de Cas →'}
+                  {locale === 'en' ? 'View Case Study →' : "Voir l'Étude de Cas →"}
                 </Link>
               </Button>
             </div>

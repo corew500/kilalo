@@ -2,6 +2,7 @@ import { client } from '@/sanity/lib/client'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { getLocalizedField } from '@/lib/i18n-helpers'
+import type { SanityCaseStudy } from '@/types/sanity'
 import Link from 'next/link'
 
 async function getCaseStudies() {
@@ -31,7 +32,8 @@ async function getCaseStudies() {
 
 export const metadata = {
   title: 'Case Studies | Kilalo',
-  description: 'Real impact stories from Congolese entrepreneurs transforming their businesses and communities.',
+  description:
+    'Real impact stories from Congolese entrepreneurs transforming their businesses and communities.',
 }
 
 export default async function CaseStudiesPage({ params }: { params: Promise<{ locale: string }> }) {
@@ -41,23 +43,22 @@ export default async function CaseStudiesPage({ params }: { params: Promise<{ lo
   return (
     <div className="container py-16 md:py-24">
       {/* Hero */}
-      <div className="mx-auto max-w-3xl text-center mb-16">
-        <h1 className="text-4xl font-bold tracking-tight sm:text-5xl mb-4">
-          Case Studies
-        </h1>
+      <div className="mx-auto mb-16 max-w-3xl text-center">
+        <h1 className="mb-4 text-4xl font-bold tracking-tight sm:text-5xl">Case Studies</h1>
         <p className="text-lg text-muted-foreground">
-          Real stories of Congolese entrepreneurs creating measurable impact through structured business growth.
+          Real stories of Congolese entrepreneurs creating measurable impact through structured
+          business growth.
         </p>
       </div>
 
       {/* Case Studies Grid */}
       {caseStudies && caseStudies.length > 0 ? (
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {caseStudies.map((study: any) => (
+          {caseStudies.map((study: SanityCaseStudy) => (
             <Card key={study._id} className="flex flex-col">
               <CardHeader>
                 {study.venture && (
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
+                  <div className="mb-2 flex items-center gap-2 text-sm text-muted-foreground">
                     <span>{getLocalizedField(study.venture, 'name', locale)}</span>
                     {study.venture.sector && (
                       <>
@@ -74,13 +75,11 @@ export default async function CaseStudiesPage({ params }: { params: Promise<{ lo
                   {getLocalizedField(study, 'challengeEn', locale)?.slice(0, 120)}...
                 </CardDescription>
               </CardHeader>
-              <CardContent className="flex-1 flex flex-col justify-end">
+              <CardContent className="flex flex-1 flex-col justify-end">
                 {study.impactHighlightEn && (
-                  <div className="mb-4 p-4 rounded-lg bg-teal/5 border border-teal/20">
-                    <p className="text-sm font-semibold text-teal mb-1">Impact Highlight</p>
-                    <p className="text-sm">
-                      {getLocalizedField(study, 'impactHighlight', locale)}
-                    </p>
+                  <div className="mb-4 rounded-lg border border-teal/20 bg-teal/5 p-4">
+                    <p className="mb-1 text-sm font-semibold text-teal">Impact Highlight</p>
+                    <p className="text-sm">{getLocalizedField(study, 'impactHighlight', locale)}</p>
                   </div>
                 )}
                 <Button variant="outline" asChild className="w-full">
@@ -93,11 +92,12 @@ export default async function CaseStudiesPage({ params }: { params: Promise<{ lo
           ))}
         </div>
       ) : (
-        <div className="text-center py-12">
+        <div className="py-12 text-center">
           <Card className="mx-auto max-w-md">
             <CardContent className="pt-6">
-              <p className="text-muted-foreground mb-4">
-                Case studies coming soon. We're documenting the incredible impact stories from our ventures.
+              <p className="mb-4 text-muted-foreground">
+                Case studies coming soon. We're documenting the incredible impact stories from our
+                ventures.
               </p>
               <Button variant="outline" asChild>
                 <Link href={`/${locale}/ventures`}>View Our Ventures →</Link>
@@ -108,9 +108,9 @@ export default async function CaseStudiesPage({ params }: { params: Promise<{ lo
       )}
 
       {/* CTA Section */}
-      <div className="mt-16 rounded-lg bg-gradient-to-r from-teal/10 to-orange/10 p-8 md:p-12 text-center">
-        <h2 className="text-2xl font-bold mb-4">Want to Create Your Own Success Story?</h2>
-        <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
+      <div className="mt-16 rounded-lg bg-gradient-to-r from-teal/10 to-orange/10 p-8 text-center md:p-12">
+        <h2 className="mb-4 text-2xl font-bold">Want to Create Your Own Success Story?</h2>
+        <p className="mx-auto mb-6 max-w-2xl text-muted-foreground">
           Join the V2S Program and transform your business with proven systems and hands-on support.
         </p>
         <Button size="lg" asChild className="bg-orange hover:bg-orange/90">

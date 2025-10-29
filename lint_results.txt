@@ -1,0 +1,52 @@
+
+> kilalo@1.0.0 lint
+> eslint . --ext .ts,.tsx,.js,.jsx --max-warnings 100
+
+
+/Users/coreywest/Documents/kilalo/sanity/migrations/addFrenchTranslations.ts
+  74:3  warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  77:3  warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  80:5  warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  84:3  warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  87:5  warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  91:3  warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  94:5  warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  97:3  warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  98:3  warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+
+/Users/coreywest/Documents/kilalo/sanity/migrations/migrateAllFields.ts
+  44:3   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  47:20  warning  Unexpected any. Specify a different type                                           @typescript-eslint/no-explicit-any
+  62:7   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  67:7   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  69:7   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  75:3   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  85:3   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  86:3   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  87:3   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  88:3   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  89:3   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+
+/Users/coreywest/Documents/kilalo/sanity/migrations/migrateVentureFields.ts
+  21:3   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  24:20  warning  Unexpected any. Specify a different type                                           @typescript-eslint/no-explicit-any
+  32:9   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  43:7   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  51:7   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  55:3   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  56:3   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  57:3   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  58:3   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  59:3   warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+
+/Users/coreywest/Documents/kilalo/sanity/migrations/translateRemaining.ts
+  32:3  warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  35:3  warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  38:5  warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  42:3  warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  45:5  warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  48:3  warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+  49:3  warning  Unexpected console statement. Only these console methods are allowed: warn, error  no-console
+
+✖ 37 problems (0 errors, 37 warnings)
+

@@ -5,11 +5,11 @@ interface EventCardProps {
   title: string
   description: string
   date: string
-  format?: string
-  registrationUrl?: string
-  recordingUrl?: string
+  format?: string | undefined
+  registrationUrl?: string | undefined
+  recordingUrl?: string | undefined
   status: string
-  speakers?: Array<{ name: string; title: string }>
+  speakers?: string[] | Array<{ name: string; title: string }> | undefined
 }
 
 export function EventCard({
@@ -27,9 +27,9 @@ export function EventCard({
   const isPast = status === 'completed'
 
   return (
-    <Card className="h-full flex flex-col">
+    <Card className="flex h-full flex-col">
       <CardHeader>
-        <div className="flex items-start justify-between gap-4 mb-2">
+        <div className="mb-2 flex items-start justify-between gap-4">
           <div className="flex-1">
             <CardTitle className="text-xl">{title}</CardTitle>
             <CardDescription className="mt-2">
@@ -53,21 +53,21 @@ export function EventCard({
           )}
         </div>
       </CardHeader>
-      <CardContent className="flex-1 flex flex-col">
-        <p className="text-sm text-muted-foreground mb-4">{description}</p>
+      <CardContent className="flex flex-1 flex-col">
+        <p className="mb-4 text-sm text-muted-foreground">{description}</p>
 
         {speakers && speakers.length > 0 && (
           <div className="mb-4">
-            <p className="text-sm font-medium mb-2">Speakers:</p>
+            <p className="mb-2 text-sm font-medium">Speakers:</p>
             {speakers.map((speaker, index) => (
               <p key={index} className="text-sm text-muted-foreground">
-                {speaker.name} - {speaker.title}
+                {typeof speaker === 'string' ? speaker : `${speaker.name} - ${speaker.title}`}
               </p>
             ))}
           </div>
         )}
 
-        <div className="flex items-center gap-2 text-sm text-muted-foreground mb-4">
+        <div className="mb-4 flex items-center gap-2 text-sm text-muted-foreground">
           <svg
             className="h-4 w-4"
             fill="none"
@@ -95,8 +95,7 @@ export function EventCard({
           {isPast && recordingUrl && (
             <Button variant="outline" asChild className="w-full">
               <a href={recordingUrl} target="_blank" rel="noopener noreferrer">
-                Watch Recording →
-                <span className="sr-only"> (opens in new tab)</span>
+                Watch Recording →<span className="sr-only"> (opens in new tab)</span>
               </a>
             </Button>
           )}

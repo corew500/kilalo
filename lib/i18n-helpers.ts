@@ -7,7 +7,7 @@
  * Content object with explicit language fields
  * Each translatable field has separate properties for English and French
  */
-export type LocalizedContent = Record<string, string | undefined>
+export type LocalizedContent = Record<string, unknown>
 
 /**
  * Get the localized value from an object with explicit language fields
@@ -23,7 +23,7 @@ export type LocalizedContent = Record<string, string | undefined>
  * getLocalizedField(event, 'title', 'en') // Returns 'Workshop'
  */
 export function getLocalizedField(
-  content: LocalizedContent | undefined,
+  content: Record<string, unknown> | undefined,
   fieldName: string,
   locale: string,
   fallback: string = 'en'
@@ -36,15 +36,18 @@ export function getLocalizedField(
   const localizedFieldName = `${fieldName}${locale.charAt(0).toUpperCase()}${locale.slice(1)}`
   const localizedValue = content[localizedFieldName]
 
-  // Return the localized value if it exists
-  if (localizedValue) {
+  // Return the localized value if it exists and is a string
+  if (typeof localizedValue === 'string' && localizedValue) {
     return localizedValue
   }
 
   // Fallback to the fallback locale
   if (locale !== fallback) {
     const fallbackFieldName = `${fieldName}${fallback.charAt(0).toUpperCase()}${fallback.slice(1)}`
-    return content[fallbackFieldName] || ''
+    const fallbackValue = content[fallbackFieldName]
+    if (typeof fallbackValue === 'string') {
+      return fallbackValue
+    }
   }
 
   return ''

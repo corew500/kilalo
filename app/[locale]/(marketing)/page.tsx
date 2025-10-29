@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button'
 import { getLocalizedField } from '@/lib/i18n-helpers'
 import { getSiteSettings } from '@/lib/sanity-helpers'
 import { siteConfig } from '@/lib/seo'
+import type { SanityVenture } from '@/types/sanity'
 import Link from 'next/link'
 
 export async function generateMetadata({
@@ -272,7 +273,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
 
             {ventures && ventures.length > 0 ? (
               <div className="mb-8 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-                {ventures.map((venture: any) => (
+                {ventures.map((venture: SanityVenture) => (
                   <VentureCard
                     key={venture._id}
                     name={getLocalizedField(venture, 'name', locale)}

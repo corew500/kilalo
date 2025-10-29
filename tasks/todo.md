@@ -1,13 +1,56 @@
-# Translation Implementation - COMPLETED ✅
+# Apply Sanity TypeScript Types to Page Components
 
 **Date**: 2025-10-29
-**Status**: French translations fully implemented and populated in Sanity
+**Status**: In Progress
 
 ---
 
-## ✅ Completed Work
+## 📋 Task Plan
 
-### Infrastructure
+### 1. Add Index Signatures to Sanity Types
+
+- [ ] Add `[key: string]: unknown` to SanitySlug interface
+- [ ] Add `[key: string]: unknown` to SanityVenture interface
+- [ ] Add `[key: string]: unknown` to SanityCaseStudyReference interface
+- [ ] Add `[key: string]: unknown` to SanityCaseStudy interface
+- [ ] Add `[key: string]: unknown` to nested venture object inside SanityCaseStudy
+- [ ] Add `[key: string]: unknown` to SanityEvent interface
+- [ ] Add `[key: string]: unknown` to SanityTeamMember interface
+- [ ] Add `[key: string]: unknown` to nested socialLinks object inside SanityTeamMember
+- [ ] Add `[key: string]: unknown` to SanityPost interface
+- [ ] Add `[key: string]: unknown` to nested author object inside SanityPost
+- [ ] Add `[key: string]: unknown` to SanityProgram interface
+- [ ] Add `[key: string]: unknown` to inline type in keyFeatures array
+- [ ] Add `[key: string]: unknown` to inline type in curriculum array
+- [ ] Add `[key: string]: unknown` to inline type in testimonials array
+
+### 2. Verification
+
+- [ ] Run TypeScript check: `npx tsc --noEmit`
+- [ ] Count and return remaining TypeScript errors
+
+### 3. Type Application for Page Components
+
+- [ ] Apply `SanityVenture` type to `/app/[locale]/(marketing)/page.tsx` (line 275)
+- [ ] Apply `SanityTeamMember` type to `/app/[locale]/(marketing)/about/page.tsx` (line 82)
+- [ ] Apply `SanityPost` type to `/app/[locale]/(marketing)/blog/page.tsx` (line 53)
+- [ ] Apply `SanityCaseStudy` type to `/app/[locale]/(marketing)/case-studies/page.tsx` (line 56)
+- [ ] Apply `SanityEvent` and `SanityPost` types to `/app/[locale]/(marketing)/community/page.tsx` (lines 148, 171, 208)
+- [ ] Apply `SanityEvent` type to `/app/[locale]/(marketing)/programs/page.tsx` (lines 348, 371)
+- [ ] Apply `SanityVenture` type to `/app/[locale]/(marketing)/ventures/page.tsx` (line 70)
+- [ ] Apply inline type to `/app/[locale]/(marketing)/ventures/[slug]/page.tsx` (line 48)
+
+### 4. Final Verification
+
+- [ ] Run TypeScript check: `tsc --noEmit`
+- [ ] Verify no TypeScript errors
+- [ ] Review output and ensure all type errors are resolved
+
+---
+
+## Previous Work (COMPLETED ✅)
+
+### Translation Implementation
 
 - [x] Created Site Settings schema with 206 translation fields
 - [x] Populated Sanity development dataset with all English translations
@@ -15,49 +58,5 @@
 - [x] Fixed duplicate Site Settings in development and production datasets
 - [x] Created safe production sync workflow (scripts/sync-to-production.sh)
 - [x] Added Sanity workflow documentation (sanity/WORKFLOW.md)
-- [x] Updated .claude/skills/sanity-query.md with dataset management
-- [x] Updated CLAUDE.md with Sanity best practices
-
-### All Pages Using Sanity Translations (8 pages)
-
-- [x] Home Page - Using getSiteSettings ✅
-- [x] About Page - Using getSiteSettings ✅
-- [x] Programs Page - Using getSiteSettings ✅
-- [x] Community Page - Using getSiteSettings ✅
-- [x] Services Page - Using getSiteSettings ✅ (Added Success Stories section)
-- [x] Work With Us Page - Using getSiteSettings ✅
-- [x] Contact Page - Using getSiteSettings ✅
-- [x] Ventures Page - Using getSiteSettings ✅
-
-### Components
-
-- [x] Header - Using Sanity settings for navigation
-- [x] Footer - Using Sanity settings for all links and text
-- [x] LanguageSwitcher - Working with next-intl
-- [x] ContactForm - Using next-intl for form labels
-
----
-
-## 📋 Next Steps
-
-### Testing & Verification
-
-- [ ] Manual test: Visit http://localhost:3000 and verify English content
-- [ ] Manual test: Visit http://localhost:3000/fr and verify French content
-- [ ] Manual test: Test language switcher on all pages
-- [ ] Run production build: `npm run build`
-- [ ] Verify no TypeScript errors
-
-### Deployment
-
-- [ ] Push to GitHub: `git push origin main`
-- [ ] Sync development data to production: `./scripts/sync-to-production.sh`
-- [ ] Verify production site displays French correctly
-
----
-
-## Summary
-
-**Translation implementation is COMPLETE!** All pages and components are pulling from Sanity with full English and French translations.
-
-The only remaining work is testing and deploying to production.
+- [x] All Pages Using Sanity Translations (8 pages)
+- [x] Components using Sanity settings

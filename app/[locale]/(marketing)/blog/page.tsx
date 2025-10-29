@@ -1,12 +1,14 @@
 import { client } from '@/sanity/lib/client'
 import imageUrlBuilder from '@sanity/image-url'
+import type { SanityImageSource } from '@sanity/image-url/lib/types/types'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import type { SanityPost } from '@/types/sanity'
 
 const builder = imageUrlBuilder(client)
 
-function urlFor(source: any) {
+function urlFor(source: SanityImageSource) {
   return builder.image(source)
 }
 
@@ -37,10 +39,8 @@ export default async function BlogPage() {
   return (
     <div className="container py-16 md:py-24">
       {/* Header */}
-      <div className="mx-auto max-w-3xl text-center mb-16">
-        <h1 className="text-4xl font-bold tracking-tight sm:text-5xl mb-4">
-          Blog & Insights
-        </h1>
+      <div className="mx-auto mb-16 max-w-3xl text-center">
+        <h1 className="mb-4 text-4xl font-bold tracking-tight sm:text-5xl">Blog & Insights</h1>
         <p className="text-lg text-muted-foreground">
           Expert insights, industry trends, and success stories to help your business thrive.
         </p>
@@ -49,7 +49,7 @@ export default async function BlogPage() {
       {/* Blog Posts Grid */}
       {posts.length > 0 ? (
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {posts.map((post: any) => (
+          {posts.map((post: SanityPost) => (
             <Link key={post._id} href={`/blog/${post.slug.current}`}>
               <Card className="h-full overflow-hidden transition-all hover:shadow-lg">
                 {post.coverImage && (
@@ -59,17 +59,17 @@ export default async function BlogPage() {
                       alt={post.coverImage.alt || post.title}
                       width={600}
                       height={400}
-                      className="object-cover w-full h-full transition-transform hover:scale-105"
+                      className="h-full w-full object-cover transition-transform hover:scale-105"
                     />
                   </div>
                 )}
                 <CardHeader>
                   {post.categories && post.categories.length > 0 && (
-                    <div className="flex flex-wrap gap-2 mb-2">
+                    <div className="mb-2 flex flex-wrap gap-2">
                       {post.categories.slice(0, 2).map((category: string, index: number) => (
                         <span
                           key={index}
-                          className="inline-flex items-center rounded-full bg-teal/10 px-2 py-1 text-xs font-medium text-teal capitalize"
+                          className="inline-flex items-center rounded-full bg-teal/10 px-2 py-1 text-xs font-medium capitalize text-teal"
                         >
                           {category}
                         </span>
@@ -87,16 +87,14 @@ export default async function BlogPage() {
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-sm text-muted-foreground line-clamp-3">
-                    {post.excerpt}
-                  </p>
+                  <p className="line-clamp-3 text-sm text-muted-foreground">{post.excerpt}</p>
                 </CardContent>
               </Card>
             </Link>
           ))}
         </div>
       ) : (
-        <div className="text-center py-16">
+        <div className="py-16 text-center">
           <p className="text-lg text-muted-foreground">
             No blog posts published yet. Check back soon for insights and updates!
           </p>

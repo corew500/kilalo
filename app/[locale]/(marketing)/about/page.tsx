@@ -5,6 +5,7 @@ import { TeamGrid } from '@/components/shared/TeamGrid'
 import { getLocalizedField } from '@/lib/i18n-helpers'
 import { siteConfig } from '@/lib/seo'
 import { getSiteSettings } from '@/lib/sanity-helpers'
+import type { SanityTeamMember } from '@/types/sanity'
 
 async function getTeamMembers() {
   const members = await client.fetch(`
@@ -79,7 +80,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
   const settings = await getSiteSettings(locale)
 
   // Localize team members
-  const localizedMembers = teamMembers.map((member: any) => ({
+  const localizedMembers = teamMembers.map((member: SanityTeamMember) => ({
     ...member,
     role: getLocalizedField(member, 'role', locale),
     bio: getLocalizedField(member, 'bio', locale),
