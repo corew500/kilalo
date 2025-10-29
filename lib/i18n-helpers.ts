@@ -7,7 +7,7 @@
  * Content object with explicit language fields
  * Each translatable field has separate properties for English and French
  */
-export type LocalizedContent = Record<string, any>
+export type LocalizedContent = Record<string, string | undefined>
 
 /**
  * Get the localized value from an object with explicit language fields
@@ -59,9 +59,7 @@ export function getLocalizedField(
  * // Returns: "titleEn, titleFr, descriptionEn, descriptionFr"
  */
 export function groqProjectFields(fieldNames: string[]): string {
-  return fieldNames
-    .flatMap(field => [`${field}En`, `${field}Fr`])
-    .join(', ')
+  return fieldNames.flatMap((field) => [`${field}En`, `${field}Fr`]).join(', ')
 }
 
 /**
@@ -74,7 +72,5 @@ export function groqProjectFields(fieldNames: string[]): string {
  */
 export function groqProjectLocale(fieldNames: string[], locale: string): string {
   const suffix = locale.charAt(0).toUpperCase() + locale.slice(1)
-  return fieldNames
-    .map(field => `"${field}": ${field}${suffix}`)
-    .join(', ')
+  return fieldNames.map((field) => `"${field}": ${field}${suffix}`).join(', ')
 }
