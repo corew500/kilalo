@@ -9,7 +9,7 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint . --ext .ts,.tsx,.js,.jsx --max-warnings 100",
+    "lint": "eslint . --ext .ts,.tsx,.js,.jsx --max-warnings 37",
     "lint:fix": "eslint . --ext .ts,.tsx,.js,.jsx --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
