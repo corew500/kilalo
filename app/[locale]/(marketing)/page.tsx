@@ -114,8 +114,17 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         <div className="container">
           <div className="mx-auto max-w-4xl space-y-8 text-center">
             <h1 className="text-4xl font-bold tracking-tight sm:text-6xl">
-              {settings?.heroTitle ||
-                'Scaling for-profit solutions to address poverty and hunger in the DRC'}
+              {locale === 'en' ? (
+                <>
+                  Scaling <span className="text-teal">for-profit solutions</span> to address poverty
+                  and hunger in the DRC
+                </>
+              ) : (
+                <>
+                  Développer des <span className="text-teal">solutions à but lucratif</span> pour
+                  lutter contre la pauvreté et la faim en RDC
+                </>
+              )}
             </h1>
 
             <p className="mx-auto max-w-3xl text-lg text-muted-foreground sm:text-xl">
