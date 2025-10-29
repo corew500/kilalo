@@ -1135,8 +1135,8 @@ export const siteSettings = defineType({
       group: 'ventures',
     }),
     defineField({
-      name: 'venturesComingSoon',
-      title: 'Ventures - Coming Soon Message',
+      name: 'venturesNoVentures',
+      title: 'Ventures - No Ventures Message',
       type: 'string',
       group: 'ventures',
     }),
@@ -1313,7 +1313,7 @@ export const siteSettings = defineType({
       group: 'contact',
     }),
     defineField({
-      name: 'contactKinshasa Office',
+      name: 'contactKinshasaOffice',
       title: 'Contact - Kinshasa Office Label',
       type: 'string',
       group: 'contact',
