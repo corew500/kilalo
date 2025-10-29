@@ -1,10 +1,21 @@
 import { createClient } from '@sanity/client'
+import { readFileSync } from 'fs'
+
+// Load token from .env.local
+const envContent = readFileSync('.env.local', 'utf8')
+const tokenMatch = envContent.match(/SANITY_API_TOKEN=(.+)/)
+const token = tokenMatch ? tokenMatch[1].trim() : ''
+
+if (!token) {
+  console.error('❌ Error: SANITY_API_TOKEN not found in .env.local')
+  process.exit(1)
+}
 
 const client = createClient({
   projectId: 'ofg1uvc2',
-  dataset: process.env.SANITY_DATASET || 'development',
-  token: process.env.SANITY_API_TOKEN,
-  apiVersion: '2024-05-01',
+  dataset: 'development',
+  token,
+  apiVersion: '2024-01-01',
   useCdn: false,
 })
 
@@ -235,7 +246,7 @@ const englishSettings = {
   contactEmailAddress: 'hello@kilalo.co',
   contactOurOffices: 'Our Offices',
   contactGomaOffice: 'Goma, DRC',
-  contactKinshasa Office: 'Kinshasa, DRC',
+  contactKinshasaOffice: 'Kinshasa, DRC',
   contactAddressComingSoon: 'Address coming soon',
   contactFollowUs: 'Follow Us',
   contactNeedHelp: 'Need Help?',
@@ -469,7 +480,7 @@ const frenchSettings = {
   contactEmailAddress: 'hello@kilalo.co',
   contactOurOffices: 'Nos Bureaux',
   contactGomaOffice: 'Goma, RDC',
-  contactKinshasa Office: 'Kinshasa, RDC',
+  contactKinshasaOffice: 'Kinshasa, RDC',
   contactAddressComingSoon: 'Adresse à venir',
   contactFollowUs: 'Suivez-Nous',
   contactNeedHelp: 'Besoin d\'Aide ?',

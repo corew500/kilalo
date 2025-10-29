@@ -12,11 +12,11 @@ This file defines conventions Claude (and contributors) must follow when working
 6. Make every task and code change you do as simple as possible. We want to avoid making any massive or complex changes. Every change should impact as little code as possible. Everything is about simplicity.
 7. DO NOT BE LAZY. NEVER BE LAZY. IF THERE IS A BUG FIND THE ROOT CAUSE AND FIX IT. NO TEMPORARY FIXES. YOU ARE A SENIOR DEVELOPER. NEVER BE LAZY
 8. MAKE ALL FIXES AND CODE CHANGES AS SIMPLE AS HUMANLY POSSIBLE. THEY SHOULD ONLY IMPACT NECESSARY CODE RELEVANT TO THE TASK AND NOTHING ELSE. IT SHOULD IMPACT AS LITTLE CODE AS POSSIBLE. YOUR GOAL IS TO NOT INTRODUCE ANY BUGS. IT'S ALL ABOUT SIMPLICITY
-9. Clean up as you go.  Delete dead code, update JSDOC, make sure tests are created and updated
+9. Clean up as you go. Delete dead code, update JSDOC, make sure tests are created and updated
 10. Use appropriate Nx patterns
 11. Prefer shared components and shared libraries, always be sure what you are trying to make isn't already in a shared folder
 12. Don't be afraid to disagree and say no. Always present your reasoning based on best practices. Recommend safer and simpler alternatives.
-13. Respect typescript script enforcement.  Do not work around this but use it correctly.
+13. Respect typescript script enforcement. Do not work around this but use it correctly.
 
 ## Todo Management
 
@@ -24,6 +24,43 @@ This file defines conventions Claude (and contributors) must follow when working
 15. When asked to "add" todos, ADD them to the existing list, don't create a new file
 16. Mark todos as complete as you finish them, keep incomplete ones visible
 17. If a todo seems outdated or irrelevant, ASK before removing it
+
+## Sanity CMS
+
+- **CRITICAL**: Always work in the `development` dataset locally
+- Never directly edit `production` dataset in Sanity Studio
+- Use `scripts/sync-to-production.sh` to safely sync dev → prod
+- Always backup production before syncing: `npx sanity dataset export production sanity/backups/prod-$(date +%Y%m%d).tar.gz`
+- Check timestamps before overwriting: Compare `_updatedAt` between datasets
+- Complete workflow documented in `sanity/WORKFLOW.md`
+
+### Environment Variables
+
+```bash
+# Local development (.env.local)
+NEXT_PUBLIC_SANITY_DATASET=development
+
+# Vercel production
+NEXT_PUBLIC_SANITY_DATASET=production
+```
+
+### Common Commands
+
+```bash
+# Query content
+npx sanity documents query '*[_type == "siteSettings"]' --dataset development
+
+# Delete documents
+npx sanity documents delete <doc-id> --dataset development
+
+# Export dataset
+npx sanity dataset export development backup.tar.gz
+
+# Import dataset
+npx sanity dataset import backup.ndjson production --replace
+```
+
+## Supabase
 
 - **CRITICAL**: Follow Supabase migration procedures in `supabase/CLAUDE.md`
 - Use `supabase db push --db-url` for applying migrations to remote databases

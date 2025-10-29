@@ -135,6 +135,24 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
         </div>
       </section>
 
+      {/* Success Stories */}
+      <section className="mb-16">
+        <div className="mx-auto max-w-4xl text-center">
+          <h2 className="mb-4 text-3xl font-bold">
+            {settings?.successStoriesTitle || 'Success Stories'}
+          </h2>
+          <p className="mb-12 text-lg text-muted-foreground">
+            {settings?.successStoriesSubtitle ||
+              "See how we've helped Congolese businesses grow through strategic support"}
+          </p>
+          <Button size="lg" asChild>
+            <Link href={`/${locale}/case-studies`}>
+              {settings?.viewAllCaseStudies || 'View All Case Studies'}
+            </Link>
+          </Button>
+        </div>
+      </section>
+
       {/* CTA */}
       <BusinessAssessmentCTA variant="card" />
     </div>
