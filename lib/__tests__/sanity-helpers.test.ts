@@ -20,7 +20,7 @@ describe('getSiteSettings', () => {
       siteTitle: 'Kilalo',
     }
 
-    vi.mocked(client.fetch).mockResolvedValue(mockSettings)
+    vi.mocked(client.fetch).mockResolvedValue(mockSettings as never)
 
     const result = await getSiteSettings('en')
 
@@ -38,7 +38,7 @@ describe('getSiteSettings', () => {
       siteTitle: 'Kilalo',
     }
 
-    vi.mocked(client.fetch).mockResolvedValue(mockSettings)
+    vi.mocked(client.fetch).mockResolvedValue(mockSettings as never)
 
     const result = await getSiteSettings('fr')
 
@@ -50,7 +50,7 @@ describe('getSiteSettings', () => {
   })
 
   it('returns undefined when no settings found', async () => {
-    vi.mocked(client.fetch).mockResolvedValue(undefined)
+    vi.mocked(client.fetch).mockResolvedValue(undefined as never)
 
     const result = await getSiteSettings('en')
 
@@ -58,7 +58,7 @@ describe('getSiteSettings', () => {
   })
 
   it('passes locale parameter correctly', async () => {
-    vi.mocked(client.fetch).mockResolvedValue({})
+    vi.mocked(client.fetch).mockResolvedValue({} as never)
 
     await getSiteSettings('custom-locale')
 
