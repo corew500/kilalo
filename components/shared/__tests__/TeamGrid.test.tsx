@@ -130,7 +130,9 @@ describe('TeamGrid', () => {
       name: 'View profile of John Doe, CEO & Founder',
     })
     fireEvent.click(card)
-    expect(screen.getByText('John has 15 years of experience in technology and entrepreneurship.')).toBeInTheDocument()
+    expect(
+      screen.getByText('John has 15 years of experience in technology and entrepreneurship.')
+    ).toBeInTheDocument()
   })
 
   it('opens dialog when Enter key is pressed on card', () => {
@@ -139,7 +141,9 @@ describe('TeamGrid', () => {
       name: 'View profile of John Doe, CEO & Founder',
     })
     fireEvent.keyDown(card, { key: 'Enter' })
-    expect(screen.getByText('John has 15 years of experience in technology and entrepreneurship.')).toBeInTheDocument()
+    expect(
+      screen.getByText('John has 15 years of experience in technology and entrepreneurship.')
+    ).toBeInTheDocument()
   })
 
   it('opens dialog when Space key is pressed on card', () => {
@@ -148,7 +152,9 @@ describe('TeamGrid', () => {
       name: 'View profile of John Doe, CEO & Founder',
     })
     fireEvent.keyDown(card, { key: ' ' })
-    expect(screen.getByText('John has 15 years of experience in technology and entrepreneurship.')).toBeInTheDocument()
+    expect(
+      screen.getByText('John has 15 years of experience in technology and entrepreneurship.')
+    ).toBeInTheDocument()
   })
 
   it('displays member bio in dialog', () => {
@@ -157,7 +163,9 @@ describe('TeamGrid', () => {
       name: 'View profile of John Doe, CEO & Founder',
     })
     fireEvent.click(card)
-    expect(screen.getByText('John has 15 years of experience in technology and entrepreneurship.')).toBeInTheDocument()
+    expect(
+      screen.getByText('John has 15 years of experience in technology and entrepreneurship.')
+    ).toBeInTheDocument()
   })
 
   it('displays expertise tags when provided', () => {
@@ -189,7 +197,7 @@ describe('TeamGrid', () => {
   })
 
   it('displays LinkedIn link when provided', () => {
-    const { container } = render(<TeamGrid members={[mockMemberWithSocial]} />)
+    render(<TeamGrid members={[mockMemberWithSocial]} />)
     const card = screen.getByRole('button')
     fireEvent.click(card)
     const linkedinLink = document.querySelector('a[href*="linkedin"]')
@@ -200,7 +208,7 @@ describe('TeamGrid', () => {
   })
 
   it('displays Twitter link when provided', () => {
-    const { container } = render(<TeamGrid members={[mockMemberWithSocial]} />)
+    render(<TeamGrid members={[mockMemberWithSocial]} />)
     const card = screen.getByRole('button')
     fireEvent.click(card)
     const twitterLink = document.querySelector('a[href*="twitter"]')
@@ -211,7 +219,7 @@ describe('TeamGrid', () => {
   })
 
   it('does not display social links section when socialLinks is undefined', () => {
-    const { container } = render(<TeamGrid members={[mockMemberWithExpertise]} />)
+    render(<TeamGrid members={[mockMemberWithExpertise]} />)
     const card = screen.getByRole('button')
     fireEvent.click(card)
     expect(document.querySelector('a[href*="linkedin"]')).toBeNull()
@@ -238,13 +246,15 @@ describe('TeamGrid', () => {
   })
 
   it('renders all member data in dialog when fully populated', () => {
-    const { container } = render(<TeamGrid members={[mockMemberWithSocial]} />)
+    render(<TeamGrid members={[mockMemberWithSocial]} />)
     const card = screen.getByRole('button')
     fireEvent.click(card)
 
     expect(screen.getAllByText('John Doe').length).toBeGreaterThan(0)
     expect(screen.getAllByText('CEO & Founder').length).toBeGreaterThan(0)
-    expect(screen.getByText('John has 15 years of experience in technology and entrepreneurship.')).toBeInTheDocument()
+    expect(
+      screen.getByText('John has 15 years of experience in technology and entrepreneurship.')
+    ).toBeInTheDocument()
     expect(screen.getByText('Expertise')).toBeInTheDocument()
     expect(screen.getByText('Leadership')).toBeInTheDocument()
     expect(document.querySelector('a[href*="linkedin"]')).not.toBeNull()

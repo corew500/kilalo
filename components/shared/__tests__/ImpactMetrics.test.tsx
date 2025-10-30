@@ -52,7 +52,7 @@ describe('ImpactMetrics', () => {
     mockGetSiteSettings.mockResolvedValue(mockSettings)
 
     const result = await ImpactMetrics({ locale: 'en' })
-    const { container } = render(result as never)
+    render(result as never)
 
     expect(screen.getByText('150', { exact: false })).toBeInTheDocument()
     expect(screen.getByText('250')).toBeInTheDocument()
@@ -65,7 +65,7 @@ describe('ImpactMetrics', () => {
     mockGetSiteSettings.mockResolvedValue(mockSettings)
 
     const result = await ImpactMetrics({ locale: 'en' })
-    const { container } = render(result as never)
+    render(result as never)
 
     expect(screen.getByText('Businesses Supported')).toBeInTheDocument()
     expect(screen.getByText('Hekima Sessions')).toBeInTheDocument()
@@ -91,8 +91,8 @@ describe('ImpactMetrics', () => {
     const result = await ImpactMetrics({ locale: 'en' })
     const { container } = render(result as never)
 
-    const metricsWithPlus = Array.from(container.querySelectorAll('.text-teal')).filter(
-      (el) => el.textContent?.includes('+')
+    const metricsWithPlus = Array.from(container.querySelectorAll('.text-teal')).filter((el) =>
+      el.textContent?.includes('+')
     )
     expect(metricsWithPlus.length).toBe(2)
   })
@@ -128,7 +128,7 @@ describe('ImpactMetrics', () => {
     mockGetSiteSettings.mockResolvedValue({})
 
     const result = await ImpactMetrics({ locale: 'en' })
-    const { container } = render(result as never)
+    render(result as never)
 
     expect(screen.getByText('Businesses Supported')).toBeInTheDocument()
     expect(screen.getByText('Hekima Sessions')).toBeInTheDocument()
@@ -163,7 +163,7 @@ describe('ImpactMetrics', () => {
     mockGetSiteSettings.mockResolvedValue(mockSettings)
 
     const result = await ImpactMetrics({ locale: 'en' })
-    const { container } = render(result as never)
+    render(result as never)
 
     expect(screen.getByText('150', { exact: false })).toBeInTheDocument()
     const zeroValues = screen.getAllByText('0')
