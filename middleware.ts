@@ -6,8 +6,17 @@ import { routing } from './i18n/routing'
 const handleI18nRouting = createMiddleware(routing)
 
 export async function middleware(request: NextRequest) {
-  // Skip i18n routing for Sanity Studio and Service Worker
-  if (request.nextUrl.pathname.startsWith('/studio') || request.nextUrl.pathname === '/sw.js') {
+  const pathname = request.nextUrl.pathname
+
+  // Serve Service Worker directly from public folder
+  if (pathname === '/sw.js') {
+    const url = request.nextUrl.clone()
+    url.pathname = '/sw.js'
+    return NextResponse.rewrite(url)
+  }
+
+  // Skip i18n routing for Sanity Studio
+  if (pathname.startsWith('/studio')) {
     return NextResponse.next()
   }
 
