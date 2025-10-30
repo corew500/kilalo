@@ -8,6 +8,7 @@ import { getSiteSettings } from '@/lib/sanity-helpers'
 import { siteConfig } from '@/lib/seo'
 import type { SanityVenture } from '@/types/sanity'
 import Link from 'next/link'
+import { getTranslations } from 'next-intl/server'
 
 export async function generateMetadata({
   params,
@@ -107,6 +108,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
   const { locale } = await params
   const { ventures } = await getFeaturedData()
   const settings = await getSiteSettings(locale)
+  const t = await getTranslations('Common')
 
   return (
     <>
@@ -294,6 +296,10 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                         : undefined
                     }
                     locale={locale}
+                    translations={{
+                      readCaseStudy: t('readCaseStudy'),
+                      learnMore: t('learnMore'),
+                    }}
                   />
                 ))}
               </div>

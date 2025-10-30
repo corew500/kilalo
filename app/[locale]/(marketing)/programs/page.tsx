@@ -9,6 +9,7 @@ import { siteConfig } from '@/lib/seo'
 import { getSiteSettings } from '@/lib/sanity-helpers'
 import type { SanityEvent } from '@/types/sanity'
 import Link from 'next/link'
+import { getTranslations } from 'next-intl/server'
 
 async function getProgramsData() {
   const data = await client.fetch(`
@@ -125,6 +126,7 @@ export default async function ProgramsPage({ params }: { params: Promise<{ local
   const { locale } = await params
   const { v2sProgram, upcomingEvents, pastEvents } = await getProgramsData()
   const settings = await getSiteSettings(locale)
+  const t = await getTranslations('Common')
 
   return (
     <div className="container py-16 md:py-24">
@@ -360,6 +362,13 @@ export default async function ProgramsPage({ params }: { params: Promise<{ local
                   registrationUrl={event.registrationUrl}
                   status={event.status}
                   speakers={event.speakers}
+                  translations={{
+                    upcoming: t('upcoming'),
+                    recorded: t('recorded'),
+                    speakers: t('speakers'),
+                    registerNow: t('registerNow'),
+                    watchRecording: t('watchRecording'),
+                  }}
                 />
               ))}
             </div>

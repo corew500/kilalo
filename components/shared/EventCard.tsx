@@ -1,8 +1,5 @@
-'use client'
-
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { useTranslations } from 'next-intl'
 
 interface EventCardProps {
   title: string
@@ -13,6 +10,13 @@ interface EventCardProps {
   recordingUrl?: string | undefined
   status: string
   speakers?: string[] | Array<{ name: string; title: string }> | undefined
+  translations: {
+    upcoming: string
+    recorded: string
+    speakers: string
+    registerNow: string
+    watchRecording: string
+  }
 }
 
 export function EventCard({
@@ -24,8 +28,8 @@ export function EventCard({
   recordingUrl,
   status,
   speakers,
+  translations,
 }: EventCardProps) {
-  const t = useTranslations('Common')
   const eventDate = new Date(date)
   const isUpcoming = status === 'upcoming'
   const isPast = status === 'completed'
@@ -47,12 +51,12 @@ export function EventCard({
           </div>
           {isUpcoming && (
             <span className="inline-flex items-center rounded-full bg-orange/10 px-3 py-1 text-xs font-medium text-orange">
-              {t('upcoming')}
+              {translations.upcoming}
             </span>
           )}
           {isPast && recordingUrl && (
             <span className="inline-flex items-center rounded-full bg-teal/10 px-3 py-1 text-xs font-medium text-teal">
-              {t('recorded')}
+              {translations.recorded}
             </span>
           )}
         </div>
@@ -62,7 +66,7 @@ export function EventCard({
 
         {speakers && speakers.length > 0 && (
           <div className="mb-4">
-            <p className="mb-2 text-sm font-medium">{t('speakers')}:</p>
+            <p className="mb-2 text-sm font-medium">{translations.speakers}:</p>
             {speakers.map((speaker, index) => (
               <p key={index} className="text-sm text-muted-foreground">
                 {typeof speaker === 'string' ? speaker : `${speaker.name} - ${speaker.title}`}
@@ -91,7 +95,7 @@ export function EventCard({
           {isUpcoming && registrationUrl && (
             <Button asChild className="w-full bg-teal hover:bg-teal/90">
               <a href={registrationUrl} target="_blank" rel="noopener noreferrer">
-                {t('registerNow')}
+                {translations.registerNow}
                 <span className="sr-only"> (opens in new tab)</span>
               </a>
             </Button>
@@ -99,7 +103,7 @@ export function EventCard({
           {isPast && recordingUrl && (
             <Button variant="outline" asChild className="w-full">
               <a href={recordingUrl} target="_blank" rel="noopener noreferrer">
-                {t('watchRecording')} →<span className="sr-only"> (opens in new tab)</span>
+                {translations.watchRecording} →<span className="sr-only"> (opens in new tab)</span>
               </a>
             </Button>
           )}

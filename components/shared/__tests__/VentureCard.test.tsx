@@ -2,16 +2,11 @@ import { describe, it, expect, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import { VentureCard } from '../VentureCard'
 
-// Mock next-intl
-vi.mock('next-intl', () => ({
-  useTranslations: () => (key: string) => {
-    const translations: Record<string, string> = {
-      readCaseStudy: 'Read Case Study',
-      learnMore: 'Learn More',
-    }
-    return translations[key] || key
-  },
-}))
+// Default translations for tests
+const defaultTranslations = {
+  readCaseStudy: 'Read Case Study',
+  learnMore: 'Learn More',
+}
 
 // Mock Next.js Image
 vi.mock('next/image', () => ({
@@ -54,6 +49,7 @@ describe('VentureCard', () => {
     description: 'A test venture description',
     tagline: 'Test tagline',
     locale: 'en',
+    translations: defaultTranslations,
   }
 
   it('renders venture name and tagline', () => {

@@ -10,6 +10,7 @@ import { siteConfig } from '@/lib/seo'
 import { getSiteSettings } from '@/lib/sanity-helpers'
 import type { SanityEvent, SanityPost } from '@/types/sanity'
 import Link from 'next/link'
+import { getTranslations } from 'next-intl/server'
 
 async function getCommunityData() {
   const data = await client.fetch(`
@@ -110,6 +111,7 @@ export default async function CommunityPage({ params }: { params: Promise<{ loca
   const { locale } = await params
   const { upcomingEvents, pastEvents, recentPosts } = await getCommunityData()
   const settings = await getSiteSettings(locale)
+  const t = await getTranslations('Common')
 
   return (
     <div className="container py-16 md:py-24">
@@ -156,6 +158,13 @@ export default async function CommunityPage({ params }: { params: Promise<{ loca
                   registrationUrl={event.registrationUrl}
                   status={event.status}
                   speakers={event.speakers}
+                  translations={{
+                    upcoming: t('upcoming'),
+                    recorded: t('recorded'),
+                    speakers: t('speakers'),
+                    registerNow: t('registerNow'),
+                    watchRecording: t('watchRecording'),
+                  }}
                 />
               ))}
             </div>
@@ -179,6 +188,13 @@ export default async function CommunityPage({ params }: { params: Promise<{ loca
                   recordingUrl={event.recordingUrl}
                   status={event.status}
                   speakers={event.speakers}
+                  translations={{
+                    upcoming: t('upcoming'),
+                    recorded: t('recorded'),
+                    speakers: t('speakers'),
+                    registerNow: t('registerNow'),
+                    watchRecording: t('watchRecording'),
+                  }}
                 />
               ))}
             </div>

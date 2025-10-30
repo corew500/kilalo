@@ -1,5 +1,3 @@
-'use client'
-
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
@@ -7,7 +5,6 @@ import Image from 'next/image'
 import imageUrlBuilder from '@sanity/image-url'
 import type { SanityImageSource } from '@sanity/image-url/lib/types/types'
 import { client } from '@/sanity/lib/client'
-import { useTranslations } from 'next-intl'
 
 const builder = imageUrlBuilder(client)
 
@@ -35,6 +32,10 @@ interface VentureCardProps {
       }
     | undefined
   locale: string
+  translations: {
+    readCaseStudy: string
+    learnMore: string
+  }
 }
 
 export function VentureCard({
@@ -49,9 +50,8 @@ export function VentureCard({
   featured,
   caseStudy,
   locale,
+  translations,
 }: VentureCardProps) {
-  const t = useTranslations('Common')
-
   return (
     <Card className="group flex h-full flex-col overflow-hidden transition-all hover:shadow-lg">
       <CardHeader className="pb-4">
@@ -100,12 +100,12 @@ export function VentureCard({
           {caseStudy ? (
             <Button variant="outline" asChild className="w-full">
               <Link href={`/${locale}/case-studies/${caseStudy.slug.current}`}>
-                {t('readCaseStudy')} →
+                {translations.readCaseStudy} →
               </Link>
             </Button>
           ) : (
             <Button variant="ghost" asChild className="w-full">
-              <Link href={`/${locale}/ventures/${slug}`}>{t('learnMore')} →</Link>
+              <Link href={`/${locale}/ventures/${slug}`}>{translations.learnMore} →</Link>
             </Button>
           )}
         </div>

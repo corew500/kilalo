@@ -1,20 +1,15 @@
-import { describe, it, expect, vi } from 'vitest'
+import { describe, it, expect } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import { EventCard } from '../EventCard'
 
-// Mock next-intl
-vi.mock('next-intl', () => ({
-  useTranslations: () => (key: string) => {
-    const translations: Record<string, string> = {
-      upcoming: 'Upcoming',
-      recorded: 'Recorded',
-      speakers: 'Speakers',
-      registerNow: 'Register Now',
-      watchRecording: 'Watch Recording',
-    }
-    return translations[key] || key
-  },
-}))
+// Default translations for tests
+const defaultTranslations = {
+  upcoming: 'Upcoming',
+  recorded: 'Recorded',
+  speakers: 'Speakers',
+  registerNow: 'Register Now',
+  watchRecording: 'Watch Recording',
+}
 
 describe('EventCard', () => {
   const baseProps = {
@@ -22,6 +17,7 @@ describe('EventCard', () => {
     description: 'Event description',
     date: '2025-12-15T10:00:00Z',
     status: 'upcoming',
+    translations: defaultTranslations,
   }
 
   it('renders event title', () => {

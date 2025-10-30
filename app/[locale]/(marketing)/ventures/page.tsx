@@ -4,6 +4,7 @@ import { BusinessAssessmentCTA } from '@/components/shared/BusinessAssessmentCTA
 import { getLocalizedField } from '@/lib/i18n-helpers'
 import { getSiteSettings } from '@/lib/sanity-helpers'
 import type { SanityVenture } from '@/types/sanity'
+import { getTranslations } from 'next-intl/server'
 
 async function getVentures() {
   const data = await client.fetch(`
@@ -51,6 +52,7 @@ export default async function VenturesPage({ params }: { params: Promise<{ local
   const { locale } = await params
   const settings = await getSiteSettings(locale)
   const ventures = await getVentures()
+  const t = await getTranslations('Common')
 
   return (
     <div className="container py-16 md:py-24">
@@ -89,6 +91,10 @@ export default async function VenturesPage({ params }: { params: Promise<{ local
                   : undefined
               }
               locale={locale}
+              translations={{
+                readCaseStudy: t('readCaseStudy'),
+                learnMore: t('learnMore'),
+              }}
             />
           ))}
         </div>
