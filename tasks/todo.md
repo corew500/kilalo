@@ -7,13 +7,13 @@
 
 ## 📊 Project Health
 
-| Metric | Status |
-|--------|--------|
-| **TypeScript** | ✅ 0 errors (strict mode) |
-| **Tests** | ✅ 210 passing (117 unit + 93 E2E) |
-| **Build** | ✅ Passing |
+| Metric            | Status                             |
+| ----------------- | ---------------------------------- |
+| **TypeScript**    | ✅ 0 errors (strict mode)          |
+| **Tests**         | ✅ 210 passing (117 unit + 93 E2E) |
+| **Build**         | ✅ Passing                         |
 | **i18n Coverage** | ✅ 100% (206 fields × 2 languages) |
-| **Deployment** | ✅ Live on Vercel |
+| **Deployment**    | ✅ Live on Vercel                  |
 
 ---
 
@@ -23,10 +23,19 @@
 
 **Required For**: Member portal, protected content, user management
 
-- [ ] **Database Schema**
-  - [ ] Create `profiles` table (id, full_name, avatar_url, bio, created_at)
-  - [ ] Set up Row Level Security (RLS) policies
-  - [ ] Create database migrations in `supabase/migrations/`
+- [x] **Database Schema** ✅
+  - [x] Create `profiles` table (id, full_name, avatar_url, bio, created_at, updated_at)
+  - [x] Set up Row Level Security (RLS) policies
+  - [x] Create database migrations in `supabase/migrations/20251030_create_profiles.sql`
+  - [x] Apply migrations to dev and prod databases
+  - [x] Generate TypeScript types: `types/supabase.ts`
+- [x] **Supabase Infrastructure** ✅
+  - [x] Upgrade Supabase CLI to v2.54.11
+  - [x] Link to development project (mwaqvfysmlsplxpqppji)
+  - [x] Link to production project (gzsiuzszehzkkapcgkar)
+  - [x] Create Supabase client utilities (`lib/supabase/`)
+  - [x] Add environment variables to Vercel (dev, preview, prod)
+  - [x] Configure `.env.local` with all keys
 - [ ] **Supabase Configuration**
   - [ ] Configure email authentication in Supabase Dashboard
   - [ ] Customize email templates (signup, magic link, reset password)
@@ -42,7 +51,6 @@
 - [ ] **Utilities & Middleware**
   - [ ] Update middleware for auth state checks
   - [ ] Create protected route utilities in `lib/auth/`
-  - [ ] Generate Supabase TypeScript types: `npx supabase gen types typescript`
 - [ ] **Testing**
   - [ ] Test signup flow (email verification)
   - [ ] Test login flow
@@ -51,6 +59,7 @@
   - [ ] Add E2E tests for auth flows
 
 **Reference**: [.claude/skills/supabase-auth.md](.claude/skills/supabase-auth.md)
+**Documentation**: [docs/SUPABASE_SETUP.md](../docs/SUPABASE_SETUP.md)
 
 ---
 
@@ -64,13 +73,16 @@
 - [x] **Bundle Analysis** - 3.8MB isolated to /studio ✅
 
 **Results**:
+
 - 5 English pages: 100/100/100/100 (perfect scores)
 - French pages: 73-75/96/100/92-100 (need optimization)
 
 **Outstanding**:
+
 - [ ] Fix French page performance (LCP 6.8-7.0s → <2.5s target)
 
 **Documentation**:
+
 - [Phase 10 Audit Report](../docs/PHASE_10_PERFORMANCE_AUDIT.md)
 - [Production vs Localhost](../docs/PRODUCTION_VS_LOCALHOST_COMPARISON.md)
 - [French Performance Analysis](../docs/FRENCH_PERFORMANCE_ANALYSIS.md)
@@ -181,16 +193,19 @@
 ## 📚 Documentation & Resources
 
 ### Developer Guides
+
 - [DEVELOPER_GUIDE.md](../DEVELOPER_GUIDE.md) - Architecture & features
 - [ARCHITECTURE.md](../docs/02-ARCHITECTURE.md) - System design
 - [TESTING.md](../docs/TESTING.md) - Testing practices
 - [TRANSLATION_WORKFLOW.md](../docs/TRANSLATION_WORKFLOW.md) - i18n workflow
 
 ### Code Conventions
+
 - [CLAUDE.md](../CLAUDE.md) - Development rules & conventions
 - [sanity/WORKFLOW.md](../sanity/WORKFLOW.md) - CMS workflow
 
 ### Claude Skills (AI Assistance)
+
 - [sanity-query.md](../.claude/skills/sanity-query.md) - GROQ query patterns
 - [next-intl-translation.md](../.claude/skills/next-intl-translation.md) - i18n patterns
 - [form-validation.md](../.claude/skills/form-validation.md) - Form handling
@@ -201,6 +216,7 @@
 - [playwright-e2e.md](../.claude/skills/playwright-e2e.md) - E2E testing
 
 ### Reports & Audits
+
 - [setup-verification-report.md](setup-verification-report.md) - Setup completeness
 - [phase-10-production-readiness-report.md](phase-10-production-readiness-report.md) - Performance
 - [translation-audit-report.md](translation-audit-report.md) - i18n coverage
