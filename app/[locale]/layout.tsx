@@ -5,7 +5,6 @@ import { NextIntlClientProvider } from 'next-intl'
 import { getMessages } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 import { routing } from '@/i18n/routing'
-import { CookieConsentBanner } from '@/components/shared/CookieConsentBanner'
 import '../globals.css'
 
 const inter = Inter({
@@ -100,10 +99,7 @@ export default async function LocaleLayout({ children, params }: Props) {
             `,
           }}
         />
-        <NextIntlClientProvider messages={messages}>
-          {children}
-          <CookieConsentBanner />
-        </NextIntlClientProvider>
+        <NextIntlClientProvider messages={messages}>{children}</NextIntlClientProvider>
       </body>
     </html>
   )

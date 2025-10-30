@@ -6,17 +6,8 @@ import { routing } from './i18n/routing'
 const handleI18nRouting = createMiddleware(routing)
 
 export async function middleware(request: NextRequest) {
-  const pathname = request.nextUrl.pathname
-
-  // Serve Service Worker directly from public folder
-  if (pathname === '/sw.js') {
-    const url = request.nextUrl.clone()
-    url.pathname = '/sw.js'
-    return NextResponse.rewrite(url)
-  }
-
   // Skip i18n routing for Sanity Studio
-  if (pathname.startsWith('/studio')) {
+  if (request.nextUrl.pathname.startsWith('/studio')) {
     return NextResponse.next()
   }
 
@@ -34,6 +25,6 @@ export const config = {
   // - API routes
   // - _next (Next.js internals)
   // - _vercel (Vercel internals)
-  // Note: We explicitly handle sw.js in middleware, so don't exclude it here
-  matcher: ['/((?!api|_next|_vercel|.*\\..*).*)', '/sw.js'],
+  // - Files with extensions (e.g. favicon.ico)
+  matcher: ['/((?!api|_next|_vercel|.*\\..*).*)'],
 }
