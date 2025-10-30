@@ -65,6 +65,18 @@ npx sanity dataset import backup.ndjson production --replace
 - **CRITICAL**: Follow Supabase migration procedures in `supabase/CLAUDE.md`
 - Use `supabase db push --db-url` for applying migrations to remote databases
 
+## Vercel Deployments
+
+- **CRITICAL**: ALWAYS verify deployments with CLI after pushing code
+- **NEVER** assume deployments succeeded based on `curl` responses (old deployments may still be serving)
+- After every push:
+  1. Wait 90 seconds: `sleep 90`
+  2. Check status: `vercel ls | head -20`
+  3. Inspect latest: `vercel inspect <deployment-url>`
+  4. If error: `vercel logs <deployment-url>`
+- See [docs/VERCEL_DEPLOYMENT.md](docs/VERCEL_DEPLOYMENT.md) for complete workflow
+- Common issue: Platform-specific packages (e.g., `@rollup/rollup-darwin-arm64`) in `package-lock.json` cause Linux build failures
+
 ## Git & Workflow
 
 - Commits follow: `type(scope): subject`
