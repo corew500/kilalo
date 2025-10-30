@@ -34,7 +34,6 @@ export const config = {
   // - API routes
   // - _next (Next.js internals)
   // - _vercel (Vercel internals)
-  // - Service Worker (sw.js)
-  // - Files with extensions (e.g. favicon.ico)
-  matcher: ['/((?!api|_next|_vercel|sw\\.js|.*\\..*).*)'],
+  // Note: We explicitly handle sw.js in middleware, so don't exclude it here
+  matcher: ['/((?!api|_next|_vercel|.*\\..*).*)', '/sw.js'],
 }
