@@ -16,14 +16,46 @@
 
 - ✅ Phase 1-3: Translation infrastructure, content population, and full implementation
 - ✅ Phase 9: Code quality improvements (types, error fixes)
-- 🔄 In Progress: Playwright E2E testing setup
-- ⏳ Next Up: Vitest unit tests, documentation, production readiness
+- 🔄 In Progress: Vitest unit testing setup
+- ⏳ Next Up: Playwright E2E tests, documentation, production readiness
 
 ---
 
 ## 🔄 IN PROGRESS
 
-### Playwright E2E Testing Setup (ACTIVE)
+### Vitest Unit Testing Setup (ACTIVE - Session 2025-10-29)
+
+**Plan:** See tasks/vitest-implementation-plan.md for full details
+
+#### Installation & Configuration
+
+- [ ] Install Vitest dependencies (vitest, @vitest/ui, @testing-library/react, @testing-library/jest-dom, jsdom, happy-dom)
+- [ ] Create vitest.config.ts with Next.js configuration
+- [ ] Add test scripts to package.json (test, test:ui, test:coverage)
+
+#### Write Test Files
+
+- [ ] Create lib/**tests**/i18n-helpers.test.ts
+  - [ ] Test getLocalizedField() - various locales, fallbacks, edge cases
+  - [ ] Test groqProjectFields() - single/multiple fields, empty array
+  - [ ] Test groqProjectLocale() - en/fr locales, empty array
+  - [ ] Target: 90%+ coverage, 15+ tests
+- [ ] Create lib/**tests**/sanity-helpers.test.ts
+  - [ ] Test getSiteSettings() with mock Sanity client
+  - [ ] Test en/fr locale handling
+  - [ ] Test error handling
+  - [ ] Target: 80%+ coverage, 5+ tests
+
+#### Verification
+
+- [ ] Run npm test and verify all tests pass
+- [ ] Generate coverage report
+- [ ] Verify 85%+ overall coverage on utilities
+- [ ] Document results
+
+---
+
+### Playwright E2E Testing Setup (PAUSED)
 
 #### Playwright Setup
 
