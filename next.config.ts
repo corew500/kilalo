@@ -12,6 +12,8 @@ const nextConfig: NextConfig = {
         pathname: '/images/**',
       },
     ],
+    formats: ['image/avif', 'image/webp'], // Prefer modern formats
+    minimumCacheTTL: 60, // Cache images for 60 seconds minimum
   },
 }
 

@@ -1,9 +1,18 @@
 import type { Metadata } from 'next'
+import { Inter } from 'next/font/google'
 import { NextIntlClientProvider } from 'next-intl'
 import { getMessages } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 import { routing } from '@/i18n/routing'
 import '../globals.css'
+
+const inter = Inter({
+  subsets: ['latin', 'latin-ext'], // latin-ext includes French characters (é, è, ê, ç, à, etc.)
+  display: 'swap', // Prevent flash of invisible text (FOIT)
+  weight: ['400', '500', '600', '700'],
+  preload: true,
+  variable: '--font-inter',
+})
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://kilalo.com'),
@@ -64,7 +73,11 @@ export default async function LocaleLayout({ children, params }: Props) {
 
   return (
     <html lang={locale} suppressHydrationWarning>
-      <body className="antialiased">
+      <head>
+        <link rel="preconnect" href="https://cdn.sanity.io" />
+        <link rel="dns-prefetch" href="https://cdn.sanity.io" />
+      </head>
+      <body className={`${inter.className} antialiased`}>
         <NextIntlClientProvider messages={messages}>{children}</NextIntlClientProvider>
       </body>
     </html>
