@@ -1,0 +1,201 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e1]:
+  - generic [ref=e2]:
+    - link "Skip to main content" [ref=e3] [cursor=pointer]:
+      - /url: "#main-content"
+    - banner [ref=e4]:
+      - navigation [ref=e5]:
+        - link "Kilalo" [active] [ref=e6] [cursor=pointer]:
+          - /url: /fr
+          - img "Kilalo" [ref=e7]
+        - generic [ref=e8]:
+          - link "Accueil" [ref=e9] [cursor=pointer]:
+            - /url: /fr
+          - link "À propos" [ref=e10] [cursor=pointer]:
+            - /url: /fr/about
+          - link "Programmes" [ref=e11] [cursor=pointer]:
+            - /url: /fr/programs
+          - link "Services" [ref=e12] [cursor=pointer]:
+            - /url: /fr/services
+          - link "Entreprises" [ref=e13] [cursor=pointer]:
+            - /url: /fr/ventures
+          - link "Communauté" [ref=e14] [cursor=pointer]:
+            - /url: /fr/community
+          - link "Contact" [ref=e15] [cursor=pointer]:
+            - /url: /fr/contact
+        - button "Switch to English" [ref=e17] [cursor=pointer]: EN
+    - main [ref=e18]:
+      - generic [ref=e21]:
+        - heading "Développer des solutions à but lucratif pour lutter contre la pauvreté et la faim en RDC" [level=1] [ref=e22]
+        - paragraph [ref=e23]: Un studio de venture aidant les entrepreneurs congolais à apporter structure, clarté et croissance à leurs entreprises grâce à notre système Vision & Structure éprouvé.
+        - generic [ref=e24]:
+          - link "Commencer avec une évaluation gratuite" [ref=e25] [cursor=pointer]:
+            - /url: /work-with-us
+          - link "Explorer le programme V2S" [ref=e26] [cursor=pointer]:
+            - /url: /programs
+      - generic [ref=e31]:
+        - generic [ref=e32]:
+          - heading "Ce que nous faisons" [level=2] [ref=e33]
+          - paragraph [ref=e34]: Trois façons dont nous soutenons les entrepreneurs congolais
+        - generic [ref=e35]:
+          - generic [ref=e36]:
+            - img [ref=e38]
+            - heading "Programmes" [level=3] [ref=e40]
+            - paragraph [ref=e41]: Programme intensif V2S de 16 semaines et webinaires mensuels Hekima Time
+            - link "Explorer les programmes →" [ref=e42] [cursor=pointer]:
+              - /url: /programs
+          - generic [ref=e43]:
+            - img [ref=e45]
+            - heading "Services" [level=3] [ref=e47]
+            - paragraph [ref=e48]: Structuration d'entreprise, stratégie et soutien pratique
+            - link "Explorer les services →" [ref=e49] [cursor=pointer]:
+              - /url: /services
+          - generic [ref=e50]:
+            - img [ref=e52]
+            - heading "Communauté" [level=3] [ref=e54]
+            - paragraph [ref=e55]: Réseau d'entrepreneurs, ressources gratuites et événements mensuels
+            - link "Rejoindre la communauté →" [ref=e56] [cursor=pointer]:
+              - /url: /community
+      - generic [ref=e59]:
+        - generic [ref=e60]:
+          - heading "Histoires de réussite" [level=2] [ref=e61]
+          - paragraph [ref=e62]: Des entreprises congolaises créant un impact social et économique mesurable
+        - generic [ref=e63]:
+          - generic [ref=e64]:
+            - generic [ref=e65]:
+              - generic [ref=e67]: Featured
+              - generic [ref=e68]: Provapac Agro-Food
+              - generic [ref=e69]: Renforcer les chaînes d'approvisionnement alimentaire locales
+            - generic [ref=e70]:
+              - generic [ref=e72]:
+                - generic [ref=e73]: agro food
+                - generic [ref=e74]: •
+                - generic [ref=e75]: Goma, North Kivu
+              - paragraph [ref=e76]: Développement d'une chaîne d'approvisionnement intégrée reliant les agriculteurs aux transformateurs et détaillants, avec infrastructure de stockage frigorifique et systèmes de contrôle qualité. A augmenté le revenu des agriculteurs de 45% et réduit les pertes après récolte de 60%.
+              - generic [ref=e77]: Augmentation de 45% du revenu des agriculteurs
+              - link "En savoir plus →" [ref=e79] [cursor=pointer]:
+                - /url: /fr/ventures/provapac
+          - generic [ref=e80]:
+            - generic [ref=e81]:
+              - generic [ref=e83]: Featured
+              - generic [ref=e84]: Butasoya
+              - generic [ref=e85]: Réinventer la consommation de soja
+            - generic [ref=e86]:
+              - generic [ref=e88]:
+                - generic [ref=e89]: food beverage
+                - generic [ref=e90]: •
+                - generic [ref=e91]: Goma, North Kivu
+              - paragraph [ref=e92]: Produits alimentaires et boissons à base de soja adaptés localement, avec une image de marque forte et des campagnes d'éducation communautaire sur les bienfaits nutritionnels. A atteint plus de 5 000 consommateurs avec 8 gammes de produits.
+              - generic [ref=e93]: Plus de 5 000 consommateurs atteints
+              - link "En savoir plus →" [ref=e95] [cursor=pointer]:
+                - /url: /fr/ventures/butasoya
+          - generic [ref=e96]:
+            - generic [ref=e97]:
+              - generic [ref=e99]: Featured
+              - generic [ref=e100]: Justice Bot
+              - generic [ref=e101]: Accès juridique alimenté par l'IA
+            - generic [ref=e102]:
+              - generic [ref=e104]:
+                - generic [ref=e105]: legal tech
+                - generic [ref=e106]: •
+                - generic [ref=e107]: Goma, North Kivu
+              - paragraph [ref=e108]: Chatbot alimenté par l'IA fournissant des informations juridiques en français et en swahili, guidant les utilisateurs à travers les processus juridiques courants et les mettant en relation avec des services d'aide juridique. A servi plus de 10 000 utilisateurs avec une note de satisfaction de 4,5/5.
+              - generic [ref=e109]: Plus de 10 000 utilisateurs servis
+              - link "En savoir plus →" [ref=e111] [cursor=pointer]:
+                - /url: /fr/ventures/justice-bot
+          - generic [ref=e112]:
+            - generic [ref=e113]:
+              - generic [ref=e115]: Featured
+              - generic [ref=e116]: NNP_DRC
+              - generic [ref=e117]: Narration multimédia pour la croissance des entreprises
+            - generic [ref=e118]:
+              - generic [ref=e120]:
+                - generic [ref=e121]: media
+                - generic [ref=e122]: •
+                - generic [ref=e123]: Goma, North Kivu
+              - paragraph [ref=e124]: Studio de contenu multimédia spécialisé dans la narration authentique pour les entreprises congolaises à travers la vidéo, la photographie et le contenu des médias sociaux. A réalisé une croissance des revenus de 3x en 12 mois.
+              - generic [ref=e125]: Croissance des revenus de 3x
+              - link "En savoir plus →" [ref=e127] [cursor=pointer]:
+                - /url: /fr/ventures/nnp-drc
+        - link "Voir toutes les entreprises →" [ref=e129] [cursor=pointer]:
+          - /url: /ventures
+      - generic [ref=e132]:
+        - generic [ref=e133]:
+          - heading "Comment pouvons-nous vous aider ?" [level=2] [ref=e134]
+          - paragraph [ref=e135]: Que vous soyez un entrepreneur, un investisseur ou un expert — il y a une place pour vous
+        - generic [ref=e136]:
+          - generic [ref=e137]:
+            - img [ref=e139]
+            - heading "Pour les entrepreneurs" [level=3] [ref=e141]
+            - paragraph [ref=e142]: Prêt à développer votre entreprise ? Commencez par une évaluation gratuite pour voir si V2S vous convient.
+            - link "Obtenir une évaluation gratuite" [ref=e143] [cursor=pointer]:
+              - /url: /work-with-us#entrepreneurs
+          - generic [ref=e144]:
+            - img [ref=e146]
+            - heading "Pour les partenaires et investisseurs" [level=3] [ref=e148]
+            - paragraph [ref=e149]: Investir dans l'impact. Explorer les opportunités de partenariat et les modèles de co-investissement.
+            - link "Explorer les partenariats" [ref=e150] [cursor=pointer]:
+              - /url: /work-with-us#partners
+          - generic [ref=e151]:
+            - img [ref=e153]
+            - heading "Pour les mentors et experts" [level=3] [ref=e155]
+            - paragraph [ref=e156]: Partagez votre expertise. Contribuez au programme V2S ou intervenez lors de Hekima Time.
+            - link "Rejoindre notre réseau" [ref=e157] [cursor=pointer]:
+              - /url: /work-with-us#mentors
+      - generic [ref=e161]:
+        - heading "Prêt à Développer Votre Entreprise ?" [level=3] [ref=e162]
+        - paragraph [ref=e163]: Commencez par une évaluation commerciale gratuite pour voir si le Programme V2S vous convient.
+        - link "Planifier une Évaluation Gratuite" [ref=e164] [cursor=pointer]:
+          - /url: /work-with-us
+    - contentinfo [ref=e165]:
+      - generic [ref=e166]:
+        - generic [ref=e167]:
+          - generic [ref=e168]:
+            - heading "Kilalo" [level=2] [ref=e169]
+            - paragraph [ref=e170]: Construire des entreprises évolutives en RDC
+          - generic [ref=e171]:
+            - heading "Liens Rapides" [level=3] [ref=e172]
+            - list [ref=e173]:
+              - listitem [ref=e174]:
+                - link "À propos" [ref=e175] [cursor=pointer]:
+                  - /url: /fr/about
+              - listitem [ref=e176]:
+                - link "Programmes" [ref=e177] [cursor=pointer]:
+                  - /url: /fr/programs
+              - listitem [ref=e178]:
+                - link "Entreprises" [ref=e179] [cursor=pointer]:
+                  - /url: /fr/ventures
+              - listitem [ref=e180]:
+                - link "Communauté" [ref=e181] [cursor=pointer]:
+                  - /url: /fr/community
+              - listitem [ref=e182]:
+                - link "Blogue" [ref=e183] [cursor=pointer]:
+                  - /url: /fr/blog
+              - listitem [ref=e184]:
+                - link "Contact" [ref=e185] [cursor=pointer]:
+                  - /url: /fr/contact
+          - generic [ref=e186]:
+            - heading "Légal" [level=3] [ref=e187]
+            - list [ref=e188]:
+              - listitem [ref=e189]:
+                - link "Politique de Confidentialité" [ref=e190] [cursor=pointer]:
+                  - /url: /fr/legal/privacy
+              - listitem [ref=e191]:
+                - link "Conditions d'Utilisation" [ref=e192] [cursor=pointer]:
+                  - /url: /fr/legal/terms
+          - generic [ref=e193]:
+            - heading "Connectez-vous Avec Nous" [level=3] [ref=e194]
+            - generic [ref=e195]:
+              - link "Twitter" [ref=e196] [cursor=pointer]:
+                - /url: https://twitter.com/kilalo
+                - img [ref=e197]
+              - link "LinkedIn" [ref=e199] [cursor=pointer]:
+                - /url: https://linkedin.com/company/kilalo
+                - img [ref=e200]
+        - paragraph [ref=e203]: © 2025 Kilalo. Tous droits réservés.
+  - button "Open Next.js Dev Tools" [ref=e209] [cursor=pointer]:
+    - img [ref=e210]
+  - alert [ref=e214]: Autonomiser les entrepreneurs RDC | Kilalo | Kilalo
+```

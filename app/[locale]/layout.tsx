@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import Script from 'next/script'
 import { NextIntlClientProvider } from 'next-intl'
 import { getMessages } from 'next-intl/server'
 import { notFound } from 'next/navigation'
@@ -50,6 +51,10 @@ export const metadata: Metadata = {
   verification: {
     google: 'ADD_LATER_FROM_SEARCH_CONSOLE',
   },
+  other: {
+    // Resource hints for faster CDN connections
+    'x-dns-prefetch-control': 'on',
+  },
 }
 
 type Props = {
@@ -74,11 +79,26 @@ export default async function LocaleLayout({ children, params }: Props) {
 
   return (
     <html lang={locale} suppressHydrationWarning>
-      <head>
-        <link rel="preconnect" href="https://cdn.sanity.io" />
-        <link rel="dns-prefetch" href="https://cdn.sanity.io" />
-      </head>
       <body className={`${inter.className} antialiased`}>
+        <Script
+          id="preconnect-sanity"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function(){
+                var l1 = document.createElement('link');
+                l1.rel = 'preconnect';
+                l1.href = 'https://cdn.sanity.io';
+                l1.crossOrigin = 'anonymous';
+                document.head.appendChild(l1);
+                var l2 = document.createElement('link');
+                l2.rel = 'dns-prefetch';
+                l2.href = 'https://cdn.sanity.io';
+                document.head.appendChild(l2);
+              })();
+            `,
+          }}
+        />
         <NextIntlClientProvider messages={messages}>{children}</NextIntlClientProvider>
       </body>
     </html>

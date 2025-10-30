@@ -69,6 +69,7 @@ export function VentureCard({
               alt={logo.alt || `${name} company logo`}
               width={200}
               height={100}
+              loading="lazy"
               className="object-contain transition-transform group-hover:scale-105"
             />
           </div>
