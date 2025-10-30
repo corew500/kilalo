@@ -8,10 +8,11 @@ import '../globals.css'
 
 const inter = Inter({
   subsets: ['latin', 'latin-ext'], // latin-ext includes French characters (é, è, ê, ç, à, etc.)
-  display: 'swap', // Prevent flash of invisible text (FOIT)
-  weight: ['400', '500', '600', '700'],
+  display: 'optional', // Use web font only if already cached, fallback to system font for fast LCP
+  weight: ['400', '600'], // Reduced from 4 to 2 weights for faster loading
   preload: true,
   variable: '--font-inter',
+  adjustFontFallback: true, // Minimize layout shift when fonts load
 })
 
 export const metadata: Metadata = {
