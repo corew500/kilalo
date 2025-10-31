@@ -77,6 +77,22 @@ npx sanity dataset import backup.ndjson production --replace
 - See [docs/VERCEL_DEPLOYMENT.md](docs/VERCEL_DEPLOYMENT.md) for complete workflow
 - Common issue: Platform-specific packages (e.g., `@rollup/rollup-darwin-arm64`) in `package-lock.json` cause Linux build failures
 
+## Testing Requirements
+
+- **CRITICAL**: Tests are NOT optional - they are REQUIRED for every feature
+- **Test-First Mentality**: Write tests as you build features, not after
+- **Every commit with new components/features MUST include tests**:
+  - **Vitest unit tests** for all new components
+  - **Playwright E2E tests** for all new user flows
+- **Test Coverage Standards**:
+  - Components: Test rendering, user interactions, edge cases
+  - Forms: Test validation, submission, error states
+  - Pages: Test data fetching, auth redirects, role-based rendering
+  - E2E: Test complete user journeys (signup → login → feature usage)
+- **Run tests before committing**: `npm test` (unit) and `npm run test:e2e` (E2E)
+- **Documentation**: See [docs/TESTING.md](docs/TESTING.md) for testing patterns
+- **Claude Skills**: [vitest-testing.md](.claude/skills/vitest-testing.md), [playwright-e2e.md](.claude/skills/playwright-e2e.md)
+
 ## Git & Workflow
 
 - Commits follow: `type(scope): subject`
@@ -85,6 +101,7 @@ npx sanity dataset import backup.ndjson production --replace
   - Have descriptive titles
   - Reference related issues
   - Pass CI and receive review approval
+  - Include tests for all new features
 
 ## AI Usage
 

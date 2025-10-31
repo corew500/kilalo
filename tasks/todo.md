@@ -1,7 +1,7 @@
 # Kilalo Project - Development Tasks
 
 **Last Updated**: October 31, 2025
-**Status**: Active Development - Auth Complete, Building Member Portal
+**Status**: Active Development - Member Portal Phase 2 Complete
 
 ---
 
@@ -74,27 +74,14 @@
 
 ---
 
-### Type Generation & Code Quality
+### Type Generation & Code Quality ✅
 
 **Required For**: Type safety, developer experience
 
 - [x] **Sanity TypeGen** ✅
-  - [x] Run `npx sanity@latest typegen generate`
-  - [x] Verify types in `sanity.types.ts`
-  - [x] Update GROQ queries if needed
 - [x] **Supabase TypeGen** ✅
-  - [x] Run `npx supabase gen types typescript --project-id [id] > types/supabase.ts`
-  - [x] Import types in database queries
-  - [x] Verify profile types match schema
 - [x] **Code Cleanup** ✅
-  - [x] Review and fix ESLint warnings (down to 0 warnings)
-  - [x] Remove obsolete migration scripts
-  - [x] Add JSDoc to `types/sanity.ts` (10 interfaces)
-  - [x] Configure ESLint ignores for coverage and generated files
 - [x] **Prettier Configuration** ✅
-  - [x] Verify Prettier is installed and configured
-  - [x] Add `.prettierrc` if missing
-  - [x] Ensure Tailwind plugin is configured
 
 ---
 
@@ -107,7 +94,7 @@
 - [x] Review all page content for accuracy ✅
 - [x] Verify no Lorem Ipsum or placeholder text ✅
 - [x] Verify SEO metadata on all pages ✅
-- [x] Add SEO fields to all Sanity content types (venture, caseStudy, post, event, program) ✅
+- [x] Add SEO fields to all Sanity content types ✅
 - [x] Add structured data (JSON-LD) to all marketing pages ✅
 - [x] Create XML sitemap ✅
 - [x] Fix OG image dimensions (1200x630) ✅
@@ -115,120 +102,94 @@
 - [ ] Test ISR revalidation on Sanity content updates
 - [ ] Submit to Google Search Console
 
-**Completed Pages with Structured Data**:
-
-- Homepage (Organization + Website schemas)
-- About (Organization + Breadcrumb)
-- Programs (Breadcrumb)
-- Ventures (CollectionPage + Breadcrumb)
-- Services (Breadcrumb)
-- Community (CollectionPage + Breadcrumb)
-- Contact (Organization + Breadcrumb)
-
-**Documentation**: [lib/structured-data.ts](../lib/structured-data.ts), [sanity/schemaTypes/seoFields.ts](../sanity/schemaTypes/seoFields.ts)
-
 ---
 
 ### Member Portal 🚧
 
-**Status**: IN PROGRESS - Auth complete, building portal
+**Status**: IN PROGRESS - Phase 2 Complete, Phase 3 Next
 
-Based on site analysis, Kilalo serves multiple user types:
+**Phase 1: Profile System & Database Schema** ✅
 
-1. **Entrepreneurs** - Business owners in programs (V&S, Hekima Time)
-2. **Mentors/Advisors** - Providing guidance and support
-3. **Community Members** - Engaged in events and learning
+- [x] Design extended profiles table schema ✅
+- [x] Create migration for extended profiles ✅
+- [x] Update TypeScript types ✅
+- [x] Apply migration to remote database ✅
 
-**Phase 1: Profile System & Database Schema**
+**Phase 2: Core Member Portal** ✅
 
-- [ ] Design extended profiles table schema
-  - [ ] Add `user_type` enum (entrepreneur, mentor, community_member, admin)
-  - [ ] Add `company_name`, `company_stage`, `industry` (for entrepreneurs)
-  - [ ] Add `expertise_areas[]`, `availability` (for mentors)
-  - [ ] Add `linkedin_url`, `twitter_url`, `website`
-  - [ ] Add `phone`, `location`, `languages[]`
-- [ ] Create migration for extended profiles
-- [ ] Update TypeScript types
+- [x] Create member portal layout with auth redirect ✅
+- [x] Create MemberSidebar with role-based navigation ✅
+- [x] Create MemberHeader with mobile menu & logout ✅
+- [x] Update dashboard with user type detection ✅
 
-**Phase 2: Core Member Portal**
+**Phase 3: Profile & Settings Pages** (NEXT)
 
-- [x] Create `app/[locale]/(member)/` route group
-- [x] Create basic dashboard page
-- [ ] Create shared layout with sidebar navigation
 - [ ] Create profile management page
   - [ ] View/edit basic info (name, bio, avatar)
   - [ ] Edit contact details (email, phone, location)
   - [ ] Edit social links (LinkedIn, Twitter, website)
-- [ ] Create settings page (email preferences, language, password)
+  - [ ] Edit company info (for entrepreneurs)
+  - [ ] Edit expertise/availability (for mentors)
+  - [ ] Privacy settings management
+- [ ] Create settings page
+  - [ ] Email preferences
+  - [ ] Language preference
+  - [ ] Password change
+  - [ ] Account deletion
 
-**Phase 3: User Type Specific Features**
+**Phase 4: User Type Specific Features**
 
 - [ ] **Entrepreneur Portal**
   - [ ] Company profile section
   - [ ] Program enrollment status
   - [ ] Mentor matching/requests
-  - [ ] Resources & tools dashboard
 - [ ] **Mentor Portal**
   - [ ] Expertise & availability management
   - [ ] Mentee connections
   - [ ] Session scheduling
 - [ ] **Community Portal**
   - [ ] Event registrations
-  - [ ] Learning resources
   - [ ] Community directory
 
-**Phase 4: Testing & Polish**
+**Phase 5: Testing & Polish**
 
 - [ ] Add unit tests for portal components
+  - [ ] MemberSidebar component tests
+  - [ ] MemberHeader component tests
+  - [ ] Dashboard page tests
+  - [ ] Profile management tests
+  - [ ] Settings page tests
 - [ ] Add E2E tests for member flows
+  - [ ] Dashboard navigation test
+  - [ ] Profile edit flow test
+  - [ ] Settings update flow test
+  - [ ] Role-based navigation test
+  - [ ] Mobile menu interaction test
 - [ ] Add i18n translations for all portal content
 - [ ] Security audit of RLS policies
 
 ---
 
-### Additional Testing
+## 🔧 LOW PRIORITY
 
-**Improves**: Test coverage, confidence
+### Additional Testing
 
 - [ ] Add E2E test for contact form submission
 - [x] Add E2E test for mobile menu navigation ✅
 - [ ] Add E2E test for 404 error handling
 - [x] Add E2E test for language switching ✅
-- [ ] Add unit tests for page components (if complex logic)
-- [ ] Set up MSW (Mock Service Worker) for API mocking - optional
-
----
-
-## 🔧 LOW PRIORITY
 
 ### Documentation Updates
 
-- [ ] Update README.md with:
-  - [ ] Complete environment variables section
-  - [ ] Testing instructions
-  - [ ] Translation workflow summary
-  - [ ] Deployment checklist
-- [ ] Create `CONTRIBUTING.md` for contributors
-- [ ] Document VSCode recommended settings in `.vscode/settings.json`
-- [ ] Update `sanity/WORKFLOW.md` with translation references
-- [ ] Create API documentation for custom endpoints
-
----
+- [ ] Update README.md with member portal info
+- [ ] Create CONTRIBUTING.md
+- [ ] Document VSCode recommended settings
 
 ### Infrastructure & DevOps
 
-- [ ] **Staging Environment** (optional)
-  - [ ] Create `staging` branch
-  - [ ] Configure staging deployment on Vercel
-  - [ ] Document staging workflow
-- [ ] **Monitoring** (future)
-  - [ ] Set up error tracking (Sentry/LogRocket)
-  - [ ] Configure uptime monitoring (BetterUptime/Pingdom)
-  - [ ] Set up performance monitoring
-- [ ] **Maintenance**
-  - [ ] Schedule dependency updates (Dependabot/Renovate)
-  - [ ] Document backup strategy for Sanity/Supabase
-  - [ ] Create deployment runbook
+- [ ] Set up staging environment (optional)
+- [ ] Configure error tracking (Sentry/LogRocket)
+- [ ] Set up performance monitoring
 
 ---
 
@@ -236,48 +197,29 @@ Based on site analysis, Kilalo serves multiple user types:
 
 ### Developer Guides
 
-- [DEVELOPER_GUIDE.md](../DEVELOPER_GUIDE.md) - Architecture & features
-- [ARCHITECTURE.md](../docs/02-ARCHITECTURE.md) - System design
-- [TESTING.md](../docs/TESTING.md) - Testing practices
-- [TRANSLATION_WORKFLOW.md](../docs/TRANSLATION_WORKFLOW.md) - i18n workflow
+- [DEVELOPER_GUIDE.md](../DEVELOPER_GUIDE.md)
+- [ARCHITECTURE.md](../docs/02-ARCHITECTURE.md)
+- [TESTING.md](../docs/TESTING.md)
 
-### Code Conventions
+### Claude Skills
 
-- [CLAUDE.md](../CLAUDE.md) - Development rules & conventions
-- [sanity/WORKFLOW.md](../sanity/WORKFLOW.md) - CMS workflow
-
-### Claude Skills (AI Assistance)
-
-- [sanity-query.md](../.claude/skills/sanity-query.md) - GROQ query patterns
-- [next-intl-translation.md](../.claude/skills/next-intl-translation.md) - i18n patterns
-- [form-validation.md](../.claude/skills/form-validation.md) - Form handling
-- [supabase-auth.md](../.claude/skills/supabase-auth.md) - Auth patterns
-- [seo-metadata.md](../.claude/skills/seo-metadata.md) - SEO helpers
-- [component-generation.md](../.claude/skills/component-generation.md) - UI patterns
-- [vitest-testing.md](../.claude/skills/vitest-testing.md) - Unit testing
-- [playwright-e2e.md](../.claude/skills/playwright-e2e.md) - E2E testing
+- [supabase-auth.md](../.claude/skills/supabase-auth.md)
+- [vitest-testing.md](../.claude/skills/vitest-testing.md)
+- [playwright-e2e.md](../.claude/skills/playwright-e2e.md)
 
 ### Reports & Audits
 
-- [setup-verification-report.md](setup-verification-report.md) - Setup completeness
-- [phase-10-production-readiness-report.md](phase-10-production-readiness-report.md) - Performance
-- [translation-audit-report.md](translation-audit-report.md) - i18n coverage
+- [member-portal-plan.md](member-portal-plan.md)
 
 ---
 
-## 🚀 Next Steps Recommendation
+## 🚀 Next Steps
 
-**For immediate production readiness:**
-
-1. ✅ Run performance and accessibility audits → Fix critical issues
-2. ⚠️ Complete authentication implementation → Enables member portal
-3. 📝 Generate all TypeScript types → Better DX
-4. 🔍 Final content and SEO review → Marketing ready
-5. 🧪 Add missing E2E tests → Confidence for deployment
-
-**Estimated Time**: 1-2 weeks to production-ready
+1. ✅ Phase 1: Database schema → Complete
+2. ✅ Phase 2: Core UI → Complete
+3. 🚧 Phase 3: Profile & settings pages → Next
+4. 🧪 Phase 5: Tests → Critical before deployment
 
 ---
 
-**Last Review**: October 30, 2025
-**Next Review**: After authentication implementation
+**Last Review**: October 31, 2025
