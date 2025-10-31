@@ -330,6 +330,25 @@ vercel env add {VAR_NAME} production
 vercel env add {VAR_NAME} preview
 ```
 
+#### Deployment Protection (401 Unauthorized)
+
+**Error**: E2E tests fail with HTTP 401 when accessing preview deployments
+
+**Cause**: Vercel Deployment Protection is enabled, requiring authentication
+
+**Fix**: Disable protection in Vercel Dashboard
+
+1. Go to: `https://vercel.com/{org}/{project}/settings/deployment-protection`
+2. Change from "Vercel Authentication" to "Standard Protection"
+3. Or disable protection entirely for public access
+4. Verify: `curl -I https://{staging-url}` should return HTTP 200
+
+**Recommended Settings**:
+
+- Production: No protection (public)
+- Staging: Standard protection (public but not indexed)
+- Feature branches: Vercel authentication (team only)
+
 ### Best Practices
 
 1. **Always test builds locally** before pushing:
@@ -345,6 +364,16 @@ vercel env add {VAR_NAME} preview
 4. **Use preview deployments** to test changes before merging to staging
 
 5. **Keep deployment skill updated** with new error patterns and solutions
+
+6. **Verify staging is accessible** for E2E tests:
+
+   ```bash
+   curl -I https://kilalo-git-staging-corey-wests-projects.vercel.app/en
+   # Should return HTTP 200, not 401
+
+   # Run E2E tests against staging
+   TEST_ENV=staging npx playwright test staging-deployment
+   ```
 
 ---
 
