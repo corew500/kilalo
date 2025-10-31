@@ -1,5 +1,6 @@
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
+import LanguagePreference from '@/components/member/LanguagePreference'
 
 export default async function SettingsPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
@@ -51,12 +52,10 @@ export default async function SettingsPage({ params }: { params: Promise<{ local
           </div>
         </div>
 
-        {/* Preferences - Placeholder for next step */}
+        {/* Preferences */}
         <div className="rounded-lg bg-white p-6 shadow">
           <h2 className="mb-4 text-xl font-semibold text-gray-900">Preferences</h2>
-          <p className="text-sm text-gray-600">
-            Language and notification preferences will be added here.
-          </p>
+          <LanguagePreference currentLocale={locale} />
         </div>
 
         {/* Security - Placeholder */}
