@@ -4,7 +4,7 @@
 
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9.3-blue?logo=typescript)](https://www.typescriptlang.org/)
 [![Next.js](https://img.shields.io/badge/Next.js-16.0-black?logo=next.js)](https://nextjs.org/)
-[![Tests](https://img.shields.io/badge/tests-210%20passing-success)](https://github.com/corew500/kilalo)
+[![Tests](https://img.shields.io/badge/tests-278%20passing-success)](https://github.com/corew500/kilalo)
 [![i18n](https://img.shields.io/badge/i18n-100%25%20covered-success)](https://github.com/corew500/kilalo)
 
 ---
@@ -24,6 +24,7 @@ npm run dev
 ```
 
 **Access Points**:
+
 - 🌐 **Website**: http://localhost:3000
 - 🎨 **Sanity Studio**: http://localhost:3000/studio
 - 🇬🇧 **English**: http://localhost:3000/en
@@ -38,6 +39,7 @@ npm run dev
 Start here for technical documentation:
 
 **Main Guides**:
+
 - 📖 **[Developer Guide](DEVELOPER_GUIDE.md)** - Complete architecture, features & patterns
 - 🏗️ **[Architecture Overview](docs/02-ARCHITECTURE.md)** - System design & data flow
 - 🧪 **[Testing Guide](docs/TESTING.md)** - Unit & E2E testing practices
@@ -45,6 +47,7 @@ Start here for technical documentation:
 - 📝 **[Code Conventions](CLAUDE.md)** - Development rules & best practices
 
 **Setup Guides** (in `/docs`):
+
 - [Next.js Setup](docs/03-SETUP-NEXTJS.md)
 - [Tailwind + shadcn/ui](docs/04-SETUP-TAILWIND-SHADCN.md)
 - [TypeScript + ESLint](docs/05-SETUP-TYPESCRIPT-ESLINT.md)
@@ -82,17 +85,17 @@ AI-friendly code patterns and examples:
 
 ## 🏗️ Tech Stack
 
-| Category | Technology | Purpose |
-|----------|-----------|---------|
-| **Framework** | [Next.js 16](https://nextjs.org/) | React framework with App Router |
-| **Language** | [TypeScript 5.9](https://www.typescriptlang.org/) | Type-safe JavaScript |
-| **Styling** | [Tailwind CSS 3.4](https://tailwindcss.com/) | Utility-first CSS |
-| **Components** | [shadcn/ui](https://ui.shadcn.com/) | Accessible UI components |
-| **CMS** | [Sanity](https://www.sanity.io/) | Headless content management |
-| **Database** | [Supabase](https://supabase.com/) | PostgreSQL + Auth |
-| **i18n** | [next-intl](https://next-intl-docs.vercel.app/) | Internationalization |
-| **Testing** | [Vitest](https://vitest.dev/) + [Playwright](https://playwright.dev/) | Unit + E2E tests |
-| **Deployment** | [Vercel](https://vercel.com/) | Hosting & edge functions |
+| Category       | Technology                                                            | Purpose                         |
+| -------------- | --------------------------------------------------------------------- | ------------------------------- |
+| **Framework**  | [Next.js 16](https://nextjs.org/)                                     | React framework with App Router |
+| **Language**   | [TypeScript 5.9](https://www.typescriptlang.org/)                     | Type-safe JavaScript            |
+| **Styling**    | [Tailwind CSS 3.4](https://tailwindcss.com/)                          | Utility-first CSS               |
+| **Components** | [shadcn/ui](https://ui.shadcn.com/)                                   | Accessible UI components        |
+| **CMS**        | [Sanity](https://www.sanity.io/)                                      | Headless content management     |
+| **Database**   | [Supabase](https://supabase.com/)                                     | PostgreSQL + Auth               |
+| **i18n**       | [next-intl](https://next-intl-docs.vercel.app/)                       | Internationalization            |
+| **Testing**    | [Vitest](https://vitest.dev/) + [Playwright](https://playwright.dev/) | Unit + E2E tests                |
+| **Deployment** | [Vercel](https://vercel.com/)                                         | Hosting & edge functions        |
 
 ---
 
@@ -103,13 +106,15 @@ kilalo/
 ├── app/                       # Next.js App Router
 │   ├── [locale]/              # Localized routes (en, fr)
 │   │   ├── (marketing)/       # Public pages
-│   │   ├── (auth)/            # Auth pages (future)
+│   │   ├── (auth)/            # Auth pages (login, signup)
 │   │   └── (member)/          # Protected pages (future)
+│   ├── auth/callback/         # Auth callback handler
 │   └── studio/                # Embedded Sanity Studio
 │
 ├── components/
 │   ├── ui/                    # shadcn/ui primitives
 │   ├── marketing/             # Header, Footer, navigation
+│   ├── auth/                  # Login, Signup forms
 │   └── shared/                # Reusable components
 │
 ├── lib/                       # Utilities
@@ -138,10 +143,10 @@ kilalo/
 ### Colors
 
 ```typescript
-teal:   '#215965'  // Primary brand color
-orange: '#F39200'  // CTAs and accents
-forest: '#21654f'  // Supporting color
-navy:   '#213765'  // Supporting color
+teal: '#215965' // Primary brand color
+orange: '#F39200' // CTAs and accents
+forest: '#21654f' // Supporting color
+navy: '#213765' // Supporting color
 ```
 
 ### Typography
@@ -162,6 +167,7 @@ navy:   '#213765'  // Supporting color
 **Add New Translations**:
 
 1. Add to `messages/en.json`:
+
    ```json
    {
      "ComponentName": {
@@ -171,6 +177,7 @@ navy:   '#213765'  // Supporting color
    ```
 
 2. Add to `messages/fr.json`:
+
    ```json
    {
      "ComponentName": {
@@ -218,6 +225,7 @@ npx sanity@latest typegen generate  # Generate Sanity types
 Access at **http://localhost:3000/studio**
 
 **Content Types**:
+
 - **Programs**: V2S, workshops, direct support
 - **Events**: Hekima Time sessions, webinars
 - **Ventures**: Portfolio companies
@@ -228,6 +236,7 @@ Access at **http://localhost:3000/studio**
 - **Site Settings**: Global configuration (206 fields)
 
 **Workflow**:
+
 1. Edit content in Studio
 2. Save draft (optional)
 3. Publish → Triggers webhook → Vercel revalidates
@@ -240,25 +249,34 @@ See [Sanity Workflow](sanity/WORKFLOW.md) for details.
 
 ### Test Coverage
 
-| Type | Count | Status |
-|------|-------|--------|
-| **Unit Tests** | 117 | ✅ Passing |
-| **E2E Tests** | 93 executions | ✅ Passing |
-| **Total** | 210 | ✅ All passing |
+| Type           | Count          | Status         |
+| -------------- | -------------- | -------------- |
+| **Unit Tests** | 140            | ✅ Passing     |
+| **E2E Tests**  | 138 executions | ✅ Passing     |
+| **Total**      | 278            | ✅ All passing |
+
+**Covered Components**: ImpactMetrics, BusinessAssessmentCTA, VentureCard, EventCard, TeamGrid, LoginForm, SignupForm
+
+**E2E Test Suites**: Navigation, Locale Switching, Sanity CMS Integration, Auth Flows
 
 ### Running Tests
 
 ```bash
+# All tests
+npm test                       # Run all unit tests
+
 # Unit tests (Vitest)
-npm run test:unit
+npm run test:unit              # Run unit tests
 npm run test:unit:watch        # Watch mode
-npm run test:unit:coverage     # With coverage
+npm run test:coverage          # With coverage report
 
 # E2E tests (Playwright)
-npm run test:e2e
+npm run test:e2e               # Run all E2E tests
 npm run test:e2e:ui            # Interactive UI
 npm run test:e2e:debug         # Debug mode
 ```
+
+**Pre-push Hook**: Tests run automatically before pushing to remote (configured in `.husky/pre-push`)
 
 See [Testing Guide](docs/TESTING.md) for details.
 
@@ -290,6 +308,7 @@ NEXT_PUBLIC_SITE_URL=https://kilalo.org
 **Status**: ✅ Live
 
 **Automatic Deployments**:
+
 - Push to `main` → Production deployment
 - Open PR → Preview deployment
 - Sanity publish → ISR revalidation via webhook
@@ -300,16 +319,18 @@ See [Deployment Guide](docs/11-SETUP-DEPLOYMENT.md) for details.
 
 ## 📖 Key Pages
 
-| Page | Path | Description |
-|------|------|-------------|
-| **Homepage** | `/` | Mission, impact metrics, featured ventures |
-| **About** | `/about` | Our story, V2S approach, team |
-| **Programs** | `/programs` | V2S Program (16 weeks, 8 tools), Hekima Time |
-| **Ventures** | `/ventures` | Portfolio companies + case studies |
-| **Community** | `/community` | Events, blog, network |
+| Page             | Path            | Description                                        |
+| ---------------- | --------------- | -------------------------------------------------- |
+| **Homepage**     | `/`             | Mission, impact metrics, featured ventures         |
+| **About**        | `/about`        | Our story, V2S approach, team                      |
+| **Programs**     | `/programs`     | V2S Program (16 weeks, 8 tools), Hekima Time       |
+| **Ventures**     | `/ventures`     | Portfolio companies + case studies                 |
+| **Community**    | `/community`    | Events, blog, network                              |
 | **Work With Us** | `/work-with-us` | Three audiences (Entrepreneurs, Partners, Mentors) |
-| **Services** | `/services` | Consultation, advisory services |
-| **Contact** | `/contact` | WhatsApp, offices (Goma, Kinshasa) |
+| **Services**     | `/services`     | Consultation, advisory services                    |
+| **Contact**      | `/contact`      | WhatsApp, offices (Goma, Kinshasa)                 |
+| **Login**        | `/login`        | User authentication                                |
+| **Sign Up**      | `/signup`       | New user registration                              |
 
 ---
 
@@ -343,6 +364,7 @@ See [Deployment Guide](docs/11-SETUP-DEPLOYMENT.md) for details.
 - **GitHub**: [github.com/corew500/kilalo](https://github.com/corew500/kilalo)
 
 **Offices**:
+
 - **Goma**: N°18 Av. Du Lac, Kyeshero, Goma, Nord-Kivu, DRC
 - **Kinshasa**: [Address TBD]
 
@@ -350,14 +372,14 @@ See [Deployment Guide](docs/11-SETUP-DEPLOYMENT.md) for details.
 
 ## 📊 Project Status
 
-| Metric | Status |
-|--------|--------|
-| **TypeScript Errors** | 0 |
-| **Tests Passing** | 210/210 |
-| **Build Status** | ✅ Passing |
-| **i18n Coverage** | 100% |
-| **Deployment** | ✅ Live |
-| **Setup Complete** | 7/14 phases |
+| Metric                | Status         |
+| --------------------- | -------------- |
+| **TypeScript Errors** | 0              |
+| **Tests Passing**     | 278/278        |
+| **Build Status**      | ✅ Passing     |
+| **i18n Coverage**     | 100%           |
+| **Deployment**        | ✅ Live        |
+| **Authentication**    | ✅ UI Complete |
 
 See [Current Tasks](tasks/todo.md) for active development work.
 

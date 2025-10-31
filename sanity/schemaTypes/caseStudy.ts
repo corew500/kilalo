@@ -1,4 +1,5 @@
 import { defineField, defineType } from 'sanity'
+import { seoFields } from './seoFields'
 
 export const caseStudy = defineType({
   name: 'caseStudy',
@@ -209,6 +210,7 @@ export const caseStudy = defineType({
       description: 'Highlight this case study',
       initialValue: false,
     }),
+    ...seoFields,
   ],
   orderings: [
     {

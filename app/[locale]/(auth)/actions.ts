@@ -32,7 +32,7 @@ export async function login(
   }
 
   revalidatePath('/', 'layout')
-  redirect(`/${locale}`)
+  redirect(`/${locale}/dashboard`)
 }
 
 export async function signup(
@@ -93,5 +93,33 @@ export async function resetPassword(locale: string, email: string): Promise<Auth
   return {
     success: true,
     message: t('messages.resetEmailSent'),
+  }
+}
+
+export async function resendConfirmationEmail(
+  locale: string,
+  email: string
+): Promise<AuthFormState> {
+  const t = await getTranslations('Auth')
+  const supabase = await createClient()
+
+  const { error } = await supabase.auth.resend({
+    type: 'signup',
+    email,
+    options: {
+      emailRedirectTo: `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/${locale}/auth/callback`,
+    },
+  })
+
+  if (error) {
+    return {
+      error: error.message || t('errors.resendFailed'),
+      success: false,
+    }
+  }
+
+  return {
+    success: true,
+    message: t('messages.confirmationEmailSent'),
   }
 }

@@ -1,17 +1,29 @@
 import type { SanityImageSource } from '@sanity/image-url/lib/types/types'
 
 // Base types
+
+/**
+ * Sanity slug type containing the current slug string
+ */
 export interface SanitySlug {
   _type: 'slug'
   current: string
   [key: string]: unknown
 }
 
+/**
+ * Sanity image with optional alt text for accessibility
+ */
 export type SanityImageWithAlt = SanityImageSource & {
   alt?: string
 }
 
 // Venture types
+
+/**
+ * Venture/business supported by Kilalo
+ * Contains bilingual content (English/French) for name, description, and tagline
+ */
 export interface SanityVenture {
   _id: string
   nameEn: string
@@ -32,6 +44,10 @@ export interface SanityVenture {
   [key: string]: unknown
 }
 
+/**
+ * Reference to a case study document
+ * Used when ventures link to their case studies
+ */
 export interface SanityCaseStudyReference {
   _id: string
   titleEn: string
@@ -40,6 +56,10 @@ export interface SanityCaseStudyReference {
   [key: string]: unknown
 }
 
+/**
+ * Full case study document showcasing venture impact and outcomes
+ * Contains bilingual challenge descriptions and impact highlights
+ */
 export interface SanityCaseStudy {
   _id: string
   titleEn: string
@@ -63,6 +83,11 @@ export interface SanityCaseStudy {
 }
 
 // Event types
+
+/**
+ * Event document (Hekima Time webinars, workshops, etc.)
+ * Contains bilingual content and event status tracking
+ */
 export interface SanityEvent {
   _id: string
   titleEn: string
@@ -82,6 +107,11 @@ export interface SanityEvent {
 }
 
 // Team member types
+
+/**
+ * Team member profile
+ * Contains bilingual bio, role, and expertise information
+ */
 export interface SanityTeamMember {
   _id: string
   name: string
@@ -101,6 +131,11 @@ export interface SanityTeamMember {
 }
 
 // Blog post types
+
+/**
+ * Blog post document
+ * Supports bilingual content with title, excerpt, and categories
+ */
 export interface SanityPost {
   _id: string
   title: string
@@ -121,6 +156,11 @@ export interface SanityPost {
 }
 
 // Program types
+
+/**
+ * Program document (V2S, Hekima Time, etc.)
+ * Contains bilingual content for program details, curriculum, and testimonials
+ */
 export interface SanityProgram {
   _id: string
   nameEn: string

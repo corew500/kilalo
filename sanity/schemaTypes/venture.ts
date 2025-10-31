@@ -1,4 +1,5 @@
 import { defineField, defineType } from 'sanity'
+import { seoFields } from './seoFields'
 
 export const venture = defineType({
   name: 'venture',
@@ -134,6 +135,7 @@ export const venture = defineType({
       type: 'number',
       validation: (Rule) => Rule.required().integer().min(0),
     }),
+    ...seoFields,
   ],
   orderings: [
     {

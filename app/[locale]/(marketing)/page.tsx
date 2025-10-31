@@ -6,6 +6,11 @@ import { Button } from '@/components/ui/button'
 import { getLocalizedField } from '@/lib/i18n-helpers'
 import { getSiteSettings } from '@/lib/sanity-helpers'
 import { siteConfig } from '@/lib/seo'
+import {
+  generateOrganizationSchema,
+  generateWebsiteSchema,
+  renderJsonLd,
+} from '@/lib/structured-data'
 import type { SanityVenture } from '@/types/sanity'
 import Link from 'next/link'
 import { getTranslations } from 'next-intl/server'
@@ -110,10 +115,19 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
   const settings = await getSiteSettings(locale)
   const t = await getTranslations('Common')
 
+  const organizationSchema = generateOrganizationSchema(locale)
+  const websiteSchema = generateWebsiteSchema(locale)
+
   return (
     <>
+      {/* Structured Data for SEO */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={renderJsonLd(organizationSchema)}
+      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={renderJsonLd(websiteSchema)} />
       {/* Hero Section - DRC Focused */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-background via-teal/5 to-background py-20 md:py-32">
+      <section className="relative overflow-hidden py-20 md:py-32">
         <div className="container">
           <div className="mx-auto max-w-4xl space-y-8 text-center">
             <h1 className="text-4xl font-bold tracking-tight sm:text-6xl">
@@ -151,11 +165,6 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
               </Button>
             </div>
           </div>
-        </div>
-
-        {/* Background decoration */}
-        <div className="absolute inset-0 -z-10 overflow-hidden">
-          <div className="absolute left-1/2 top-0 ml-[calc(50%-30rem)] aspect-[1155/678] w-[72.1875rem] -translate-x-1/2 bg-gradient-to-tr from-teal/20 to-orange/20 opacity-30 blur-3xl" />
         </div>
       </section>
 

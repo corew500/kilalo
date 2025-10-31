@@ -57,7 +57,7 @@ export default function SignupForm({ locale }: SignupFormProps) {
       } else if (result.success) {
         setSuccess(result.message || t('messages.checkEmail'))
       }
-    } catch (err) {
+    } catch {
       setError(t('errors.unexpectedError'))
     } finally {
       setIsLoading(false)

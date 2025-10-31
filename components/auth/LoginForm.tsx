@@ -44,9 +44,19 @@ export default function LoginForm({ locale }: LoginFormProps) {
     try {
       const result = await login(locale, data.email, data.password)
       if (result.error) {
+        // Check if error is related to email confirmation
+        const errorLower = result.error.toLowerCase()
+        if (
+          errorLower.includes('email') &&
+          (errorLower.includes('confirm') || errorLower.includes('verif'))
+        ) {
+          // Redirect to resend confirmation page
+          window.location.href = `/${locale}/resend-confirmation?email=${encodeURIComponent(data.email)}`
+          return
+        }
         setError(result.error)
       }
-    } catch (err) {
+    } catch {
       setError(t('errors.unexpectedError'))
     } finally {
       setIsLoading(false)

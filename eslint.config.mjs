@@ -7,6 +7,8 @@ export default tseslint.config(
       'node_modules/**',
       'out/**',
       'build/**',
+      'coverage/**',
+      'sanity.types.ts',
       '*.config.js',
       '*.config.mjs',
       '*.config.ts',

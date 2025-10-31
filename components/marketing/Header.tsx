@@ -49,6 +49,16 @@ export function Header() {
 
         {/* Right side actions */}
         <div className="flex items-center gap-4">
+          {/* Auth buttons - Desktop */}
+          <div className="hidden md:flex md:items-center md:gap-2">
+            <Button variant="ghost" size="sm" asChild>
+              <Link href={`/${locale}/login`}>{t('login')}</Link>
+            </Button>
+            <Button size="sm" className="bg-orange hover:bg-orange/90" asChild>
+              <Link href={`/${locale}/signup`}>{t('signup')}</Link>
+            </Button>
+          </div>
+
           {/* Language switcher */}
           <Button
             variant="ghost"
@@ -104,11 +114,22 @@ export function Header() {
                 {item.name}
               </Link>
             ))}
-            <div className="flex flex-col gap-2 pt-4">
+            <div className="flex flex-col gap-2 border-t pt-4">
+              <Button variant="ghost" size="sm" asChild className="w-full">
+                <Link href={`/${locale}/login`} onClick={() => setMobileMenuOpen(false)}>
+                  {t('login')}
+                </Link>
+              </Button>
+              <Button size="sm" className="w-full bg-orange hover:bg-orange/90" asChild>
+                <Link href={`/${locale}/signup`} onClick={() => setMobileMenuOpen(false)}>
+                  {t('signup')}
+                </Link>
+              </Button>
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={toggleLocale}
+                className="w-full"
                 aria-label={locale === 'en' ? 'Switch to French' : 'Switch to English'}
                 aria-current={locale === 'en' ? 'true' : 'false'}
               >

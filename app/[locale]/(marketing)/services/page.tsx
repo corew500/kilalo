@@ -4,6 +4,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { getSiteSettings } from '@/lib/sanity-helpers'
 import Link from 'next/link'
 import { Metadata } from 'next'
+import { generateBreadcrumbSchema, renderJsonLd } from '@/lib/structured-data'
+import { siteConfig } from '@/lib/seo'
 
 export async function generateMetadata({
   params,
@@ -51,110 +53,118 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
     },
   ]
 
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: locale === 'en' ? 'Home' : 'Accueil', url: `${siteConfig.url}/${locale}` },
+    { name: locale === 'en' ? 'Services' : 'Services' },
+  ])
+
   return (
-    <div className="container py-16 md:py-24">
-      {/* Hero */}
-      <div className="mx-auto mb-16 max-w-3xl text-center">
-        <h1 className="mb-4 text-4xl font-bold tracking-tight sm:text-5xl">
-          {settings?.servicesHeroTitle || 'Direct Support Services'}
-        </h1>
-        <p className="text-lg text-muted-foreground">
-          {settings?.servicesHeroDescription ||
-            'Need hands-on help with specific challenges? We offer targeted support services for businesses at any stage.'}
-        </p>
-      </div>
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={renderJsonLd(breadcrumbSchema)} />
+      <div className="container py-16 md:py-24">
+        {/* Hero */}
+        <div className="mx-auto mb-16 max-w-3xl text-center">
+          <h1 className="mb-4 text-4xl font-bold tracking-tight sm:text-5xl">
+            {settings?.servicesHeroTitle || 'Direct Support Services'}
+          </h1>
+          <p className="text-lg text-muted-foreground">
+            {settings?.servicesHeroDescription ||
+              'Need hands-on help with specific challenges? We offer targeted support services for businesses at any stage.'}
+          </p>
+        </div>
 
-      {/* Services Grid */}
-      <section className="mb-16">
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-          {services.map((service, index) => (
-            <Card key={index} className="text-center transition-shadow hover:shadow-lg">
-              <CardHeader>
-                <div className="mx-auto mb-4 inline-flex h-12 w-12 items-center justify-center rounded-full bg-teal/10">
-                  <svg
-                    className="h-6 w-6 text-teal"
-                    fill="none"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path d={service.icon} />
-                  </svg>
+        {/* Services Grid */}
+        <section className="mb-16">
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+            {services.map((service, index) => (
+              <Card key={index} className="text-center transition-shadow hover:shadow-lg">
+                <CardHeader>
+                  <div className="mx-auto mb-4 inline-flex h-12 w-12 items-center justify-center rounded-full bg-teal/10">
+                    <svg
+                      className="h-6 w-6 text-teal"
+                      fill="none"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path d={service.icon} />
+                    </svg>
+                  </div>
+                  <CardTitle>{service.title}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-sm text-muted-foreground">{service.description}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+
+          <div className="mt-12 text-center">
+            <Button size="lg" variant="outline" asChild>
+              <Link href="/contact">Schedule a Consultation</Link>
+            </Button>
+          </div>
+        </section>
+
+        {/* How It Works */}
+        <section className="-mx-4 mb-16 rounded-lg bg-muted/30 px-4 py-16 md:-mx-8 md:px-8">
+          <div className="mx-auto max-w-4xl">
+            <h2 className="mb-12 text-center text-3xl font-bold">How It Works</h2>
+            <div className="grid gap-8 md:grid-cols-3">
+              <div className="text-center">
+                <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-full bg-teal/10">
+                  <span className="text-xl font-bold text-teal">1</span>
                 </div>
-                <CardTitle>{service.title}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-muted-foreground">{service.description}</p>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-
-        <div className="mt-12 text-center">
-          <Button size="lg" variant="outline" asChild>
-            <Link href="/contact">Schedule a Consultation</Link>
-          </Button>
-        </div>
-      </section>
-
-      {/* How It Works */}
-      <section className="-mx-4 mb-16 rounded-lg bg-muted/30 px-4 py-16 md:-mx-8 md:px-8">
-        <div className="mx-auto max-w-4xl">
-          <h2 className="mb-12 text-center text-3xl font-bold">How It Works</h2>
-          <div className="grid gap-8 md:grid-cols-3">
-            <div className="text-center">
-              <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-full bg-teal/10">
-                <span className="text-xl font-bold text-teal">1</span>
+                <h3 className="mb-2 text-lg font-semibold">Consultation</h3>
+                <p className="text-sm text-muted-foreground">
+                  We assess your specific needs and challenges
+                </p>
               </div>
-              <h3 className="mb-2 text-lg font-semibold">Consultation</h3>
-              <p className="text-sm text-muted-foreground">
-                We assess your specific needs and challenges
-              </p>
-            </div>
-            <div className="text-center">
-              <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-full bg-teal/10">
-                <span className="text-xl font-bold text-teal">2</span>
+              <div className="text-center">
+                <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-full bg-teal/10">
+                  <span className="text-xl font-bold text-teal">2</span>
+                </div>
+                <h3 className="mb-2 text-lg font-semibold">Custom Plan</h3>
+                <p className="text-sm text-muted-foreground">
+                  We design a targeted support package for your business
+                </p>
               </div>
-              <h3 className="mb-2 text-lg font-semibold">Custom Plan</h3>
-              <p className="text-sm text-muted-foreground">
-                We design a targeted support package for your business
-              </p>
-            </div>
-            <div className="text-center">
-              <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-full bg-teal/10">
-                <span className="text-xl font-bold text-teal">3</span>
+              <div className="text-center">
+                <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-full bg-teal/10">
+                  <span className="text-xl font-bold text-teal">3</span>
+                </div>
+                <h3 className="mb-2 text-lg font-semibold">Implementation</h3>
+                <p className="text-sm text-muted-foreground">
+                  Hands-on support to solve your challenge
+                </p>
               </div>
-              <h3 className="mb-2 text-lg font-semibold">Implementation</h3>
-              <p className="text-sm text-muted-foreground">
-                Hands-on support to solve your challenge
-              </p>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Success Stories */}
-      <section className="mb-16">
-        <div className="mx-auto max-w-4xl text-center">
-          <h2 className="mb-4 text-3xl font-bold">
-            {settings?.successStoriesTitle || 'Success Stories'}
-          </h2>
-          <p className="mb-12 text-lg text-muted-foreground">
-            {settings?.successStoriesSubtitle ||
-              "See how we've helped Congolese businesses grow through strategic support"}
-          </p>
-          <Button size="lg" asChild>
-            <Link href={`/${locale}/case-studies`}>
-              {settings?.viewAllCaseStudies || 'View All Case Studies'}
-            </Link>
-          </Button>
-        </div>
-      </section>
+        {/* Success Stories */}
+        <section className="mb-16">
+          <div className="mx-auto max-w-4xl text-center">
+            <h2 className="mb-4 text-3xl font-bold">
+              {settings?.successStoriesTitle || 'Success Stories'}
+            </h2>
+            <p className="mb-12 text-lg text-muted-foreground">
+              {settings?.successStoriesSubtitle ||
+                "See how we've helped Congolese businesses grow through strategic support"}
+            </p>
+            <Button size="lg" asChild>
+              <Link href={`/${locale}/case-studies`}>
+                {settings?.viewAllCaseStudies || 'View All Case Studies'}
+              </Link>
+            </Button>
+          </div>
+        </section>
 
-      {/* CTA */}
-      <BusinessAssessmentCTA variant="card" settings={settings} />
-    </div>
+        {/* CTA */}
+        <BusinessAssessmentCTA variant="card" settings={settings} />
+      </div>
+    </>
   )
 }

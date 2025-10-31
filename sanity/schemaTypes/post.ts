@@ -1,4 +1,5 @@
 import { defineField, defineType } from 'sanity'
+import { seoFields } from './seoFields'
 
 export const post = defineType({
   name: 'post',
@@ -246,6 +247,7 @@ export const post = defineType({
         },
       ],
     }),
+    ...seoFields,
   ],
   orderings: [
     {
