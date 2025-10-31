@@ -1,6 +1,7 @@
 import createMiddleware from 'next-intl/middleware'
-import { NextResponse, type NextRequest } from 'next/server'
+import { type NextRequest } from 'next/server'
 import { routing } from './i18n/routing'
+import { updateSession } from '@/lib/supabase/middleware'
 
 // Create the i18n middleware
 const handleI18nRouting = createMiddleware(routing)
@@ -8,14 +9,14 @@ const handleI18nRouting = createMiddleware(routing)
 export async function middleware(request: NextRequest) {
   // Skip i18n routing for Sanity Studio
   if (request.nextUrl.pathname.startsWith('/studio')) {
-    return NextResponse.next()
+    return updateSession(request)
   }
 
-  // Handle i18n routing
+  // Handle i18n routing first
   const response = handleI18nRouting(request)
 
-  // Note: Supabase auth middleware will be added when auth features are implemented
-  // For now, just handle i18n routing
+  // Update Supabase session
+  await updateSession(request)
 
   return response
 }

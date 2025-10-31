@@ -94,5 +94,55 @@
     "title": "Page Not Found",
     "description": "The page you're looking for doesn't exist.",
     "backHome": "Back to Home"
+  },
+  "Auth": {
+    "pages": {
+      "login": {
+        "title": "Sign In",
+        "description": "Sign in to your Kilalo account",
+        "heading": "Welcome back",
+        "subheading": "Sign in to access your account"
+      },
+      "signup": {
+        "title": "Create Account",
+        "description": "Create your Kilalo account",
+        "heading": "Create your account",
+        "subheading": "Join the Kilalo community"
+      }
+    },
+    "fields": {
+      "email": "Email",
+      "password": "Password",
+      "confirmPassword": "Confirm Password",
+      "fullName": "Full Name"
+    },
+    "actions": {
+      "signIn": "Sign In",
+      "signingIn": "Signing in...",
+      "signOut": "Sign Out",
+      "createAccount": "Create Account",
+      "creatingAccount": "Creating account..."
+    },
+    "links": {
+      "forgotPassword": "Forgot password?",
+      "signUp": "Sign up",
+      "signIn": "Sign in",
+      "backToHome": "Back to home"
+    },
+    "prompts": {
+      "noAccount": "Don't have an account?",
+      "haveAccount": "Already have an account?"
+    },
+    "messages": {
+      "checkEmail": "Check your email to confirm your account",
+      "checkSpam": "If you don't see the email, check your spam folder",
+      "resetEmailSent": "Password reset instructions sent to your email"
+    },
+    "errors": {
+      "loginFailed": "Invalid email or password",
+      "signupFailed": "Failed to create account",
+      "resetFailed": "Failed to send reset email",
+      "unexpectedError": "An unexpected error occurred"
+    }
   }
 }

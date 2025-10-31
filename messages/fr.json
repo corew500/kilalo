@@ -122,5 +122,55 @@
     "title": "Page Introuvable",
     "description": "La page que vous recherchez n'existe pas.",
     "backHome": "Retour à l'Accueil"
+  },
+  "Auth": {
+    "pages": {
+      "login": {
+        "title": "Se Connecter",
+        "description": "Connectez-vous à votre compte Kilalo",
+        "heading": "Bienvenue",
+        "subheading": "Connectez-vous pour accéder à votre compte"
+      },
+      "signup": {
+        "title": "Créer un Compte",
+        "description": "Créez votre compte Kilalo",
+        "heading": "Créez votre compte",
+        "subheading": "Rejoignez la communauté Kilalo"
+      }
+    },
+    "fields": {
+      "email": "Courriel",
+      "password": "Mot de Passe",
+      "confirmPassword": "Confirmer le Mot de Passe",
+      "fullName": "Nom Complet"
+    },
+    "actions": {
+      "signIn": "Se Connecter",
+      "signingIn": "Connexion en cours...",
+      "signOut": "Se Déconnecter",
+      "createAccount": "Créer un Compte",
+      "creatingAccount": "Création du compte..."
+    },
+    "links": {
+      "forgotPassword": "Mot de passe oublié ?",
+      "signUp": "S'inscrire",
+      "signIn": "Se connecter",
+      "backToHome": "Retour à l'accueil"
+    },
+    "prompts": {
+      "noAccount": "Vous n'avez pas de compte ?",
+      "haveAccount": "Vous avez déjà un compte ?"
+    },
+    "messages": {
+      "checkEmail": "Vérifiez votre courriel pour confirmer votre compte",
+      "checkSpam": "Si vous ne voyez pas le courriel, vérifiez votre dossier spam",
+      "resetEmailSent": "Instructions de réinitialisation envoyées à votre courriel"
+    },
+    "errors": {
+      "loginFailed": "Courriel ou mot de passe invalide",
+      "signupFailed": "Échec de la création du compte",
+      "resetFailed": "Échec de l'envoi du courriel de réinitialisation",
+      "unexpectedError": "Une erreur inattendue s'est produite"
+    }
   }
 }
