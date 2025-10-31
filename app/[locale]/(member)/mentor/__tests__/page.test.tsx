@@ -23,9 +23,8 @@ describe('MentorPage', () => {
     id: 'user-123',
     user_type: 'mentor',
     expertise_areas: 'Technology, Finance',
-    availability: 'Weekends',
-    years_of_experience: '10',
-    max_mentees: '5',
+    mentor_availability: 'available',
+    years_experience: 10,
   }
 
   beforeEach(() => {
@@ -105,9 +104,8 @@ describe('MentorPage', () => {
     expect(screen.getByText('Mentor Portal')).toBeInTheDocument()
     expect(screen.getByText('Expertise & Availability')).toBeInTheDocument()
     expect(screen.getByText('Technology, Finance')).toBeInTheDocument()
-    expect(screen.getByText('Weekends')).toBeInTheDocument()
+    expect(screen.getByText('available')).toBeInTheDocument()
     expect(screen.getByText('10')).toBeInTheDocument()
-    expect(screen.getByText('5')).toBeInTheDocument()
   })
 
   it('shows "Not set" for missing mentor data', async () => {
@@ -122,9 +120,8 @@ describe('MentorPage', () => {
               data: {
                 ...mockProfile,
                 expertise_areas: null,
-                availability: null,
-                years_of_experience: null,
-                max_mentees: null,
+                mentor_availability: null,
+                years_experience: null,
               },
             }),
           }),
@@ -139,7 +136,7 @@ describe('MentorPage', () => {
     render(component)
 
     const notSetElements = screen.getAllByText('Not set')
-    expect(notSetElements.length).toBeGreaterThanOrEqual(4)
+    expect(notSetElements.length).toBeGreaterThanOrEqual(3)
   })
 
   it('renders mentee connections placeholder', async () => {

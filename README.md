@@ -4,7 +4,7 @@
 
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9.3-blue?logo=typescript)](https://www.typescriptlang.org/)
 [![Next.js](https://img.shields.io/badge/Next.js-16.0-black?logo=next.js)](https://nextjs.org/)
-[![Tests](https://img.shields.io/badge/tests-278%20passing-success)](https://github.com/corew500/kilalo)
+[![Tests](https://img.shields.io/badge/tests-360%20passing-success)](https://github.com/corew500/kilalo)
 [![i18n](https://img.shields.io/badge/i18n-100%25%20covered-success)](https://github.com/corew500/kilalo)
 
 ---
@@ -27,6 +27,7 @@ npm run dev
 
 - 🌐 **Website**: http://localhost:3000
 - 🎨 **Sanity Studio**: http://localhost:3000/studio
+- 👤 **Member Portal**: http://localhost:3000/en/dashboard
 - 🇬🇧 **English**: http://localhost:3000/en
 - 🇫🇷 **French**: http://localhost:3000/fr
 
@@ -42,6 +43,7 @@ Start here for technical documentation:
 
 - 📖 **[Developer Guide](DEVELOPER_GUIDE.md)** - Complete architecture, features & patterns
 - 🏗️ **[Architecture Overview](docs/02-ARCHITECTURE.md)** - System design & data flow
+- 👤 **[Member Portal](docs/MEMBER_PORTAL.md)** - Role-based portal documentation
 - 🧪 **[Testing Guide](docs/TESTING.md)** - Unit & E2E testing practices
 - 🌍 **[Translation Workflow](docs/TRANSLATION_WORKFLOW.md)** - i18n implementation
 - 📝 **[Code Conventions](CLAUDE.md)** - Development rules & best practices
@@ -62,6 +64,7 @@ Start here for technical documentation:
 
 AI-friendly code patterns and examples:
 
+- [Member Portal Development](.claude/skills/member-portal.md)
 - [Sanity Query Patterns](.claude/skills/sanity-query.md)
 - [Translation Management](.claude/skills/next-intl-translation.md)
 - [Form Validation](.claude/skills/form-validation.md)
