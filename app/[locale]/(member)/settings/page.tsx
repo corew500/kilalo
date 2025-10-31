@@ -2,6 +2,7 @@ import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import LanguagePreference from '@/components/member/LanguagePreference'
 import SecuritySection from '@/components/member/SecuritySection'
+import DangerZone from '@/components/member/DangerZone'
 
 export default async function SettingsPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
@@ -62,14 +63,8 @@ export default async function SettingsPage({ params }: { params: Promise<{ local
         {/* Security */}
         <SecuritySection />
 
-        {/* Danger Zone - Placeholder */}
-        <div className="rounded-lg border-2 border-red-200 bg-red-50 p-6">
-          <h2 className="mb-2 text-xl font-semibold text-red-900">Danger Zone</h2>
-          <p className="mb-4 text-sm text-red-700">
-            Once you delete your account, there is no going back. Please be certain.
-          </p>
-          <p className="text-sm text-gray-600">Account deletion will be added here.</p>
-        </div>
+        {/* Danger Zone */}
+        <DangerZone locale={locale} />
       </div>
     </div>
   )
