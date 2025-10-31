@@ -1,0 +1,14 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "🧪 Running tests before push..."
+
+# Run unit tests
+echo "Running unit tests..."
+npm test -- --run || exit 1
+
+# Run E2E tests
+echo "Running E2E tests..."
+npm run test:e2e || exit 1
+
+echo "✅ All tests passed! Pushing to remote..."
