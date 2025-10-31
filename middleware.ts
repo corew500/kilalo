@@ -1,24 +1,47 @@
 import createMiddleware from 'next-intl/middleware'
-import { type NextRequest } from 'next/server'
+import { createServerClient } from '@supabase/ssr'
+import { type NextRequest, NextResponse } from 'next/server'
 import { routing } from './i18n/routing'
-import { updateSession } from '@/lib/supabase/middleware'
+import type { Database } from '@/types/supabase'
 
 // Create the i18n middleware
 const handleI18nRouting = createMiddleware(routing)
 
 export async function middleware(request: NextRequest) {
-  // Skip i18n routing for Sanity Studio
-  if (request.nextUrl.pathname.startsWith('/studio')) {
-    return updateSession(request)
-  }
+  // Handle i18n routing first (this also handles /studio)
+  const i18nResponse = handleI18nRouting(request)
 
-  // Handle i18n routing first
-  const response = handleI18nRouting(request)
+  // Create Supabase client and refresh session
+  let supabaseResponse = NextResponse.next({ request })
 
-  // Update Supabase session
-  await updateSession(request)
+  const supabase = createServerClient<Database>(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      cookies: {
+        getAll() {
+          return request.cookies.getAll()
+        },
+        setAll(cookiesToSet) {
+          cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value))
+          supabaseResponse = NextResponse.next({ request })
+          cookiesToSet.forEach(({ name, value, options }) =>
+            supabaseResponse.cookies.set(name, value, options)
+          )
+        },
+      },
+    }
+  )
 
-  return response
+  // Refresh session if expired
+  await supabase.auth.getUser()
+
+  // Merge Supabase cookies into i18n response
+  supabaseResponse.cookies.getAll().forEach((cookie) => {
+    i18nResponse.cookies.set(cookie.name, cookie.value)
+  })
+
+  return i18nResponse
 }
 
 export const config = {
