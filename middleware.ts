@@ -36,10 +36,13 @@ export async function middleware(request: NextRequest) {
   // Refresh session if expired
   await supabase.auth.getUser()
 
-  // Merge Supabase cookies into i18n response
-  supabaseResponse.cookies.getAll().forEach((cookie) => {
-    i18nResponse.cookies.set(cookie.name, cookie.value)
-  })
+  // Merge Supabase cookies into i18n response (if any were set)
+  const supabaseCookies = supabaseResponse.cookies.getAll()
+  if (supabaseCookies.length > 0) {
+    supabaseCookies.forEach((cookie) => {
+      i18nResponse.cookies.set(cookie)
+    })
+  }
 
   return i18nResponse
 }

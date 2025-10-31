@@ -4,7 +4,6 @@ import Link from 'next/link'
 import { useTranslations, useLocale } from 'next-intl'
 import { Button } from '@/components/ui/button'
 import { useState } from 'react'
-import Image from 'next/image'
 
 export function Header() {
   const t = useTranslations('Navigation')
@@ -32,14 +31,7 @@ export function Header() {
       <nav className="container flex h-16 items-center justify-between">
         {/* Logo */}
         <Link href={`/${locale}`} className="flex items-center space-x-2">
-          <Image
-            src="/kilalo-logo.png"
-            alt="Kilalo"
-            width={120}
-            height={40}
-            className="h-10 w-auto"
-            priority
-          />
+          <span className="text-2xl font-bold text-teal">kilalo</span>
         </Link>
 
         {/* Desktop Navigation */}
