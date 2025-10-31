@@ -53,10 +53,7 @@ test.describe('Navigation - English', () => {
     await page.goto('/en/about')
 
     // Click logo to go home
-    await page
-      .getByRole('link')
-      .filter({ has: page.getByAltText('Kilalo') })
-      .click()
+    await page.getByRole('link', { name: 'kilalo' }).click()
     await expect(page).toHaveURL(/\/en$/)
   })
 
@@ -124,10 +121,7 @@ test.describe('Navigation - French', () => {
     await page.goto('/fr/about')
 
     // Click logo to go home
-    await page
-      .getByRole('link')
-      .filter({ has: page.getByAltText('Kilalo') })
-      .click()
+    await page.getByRole('link', { name: 'kilalo' }).click()
     await expect(page).toHaveURL(/\/fr$/)
   })
 })
