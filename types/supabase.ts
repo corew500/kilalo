@@ -6,59 +6,218 @@ export type Database = {
   __InternalSupabase: {
     PostgrestVersion: '13.0.5'
   }
-  graphql_public: {
-    Tables: {
-      [_ in never]: never
-    }
-    Views: {
-      [_ in never]: never
-    }
-    Functions: {
-      graphql: {
-        Args: {
-          extensions?: Json
-          operationName?: string
-          query?: string
-          variables?: Json
-        }
-        Returns: Json
-      }
-    }
-    Enums: {
-      [_ in never]: never
-    }
-    CompositeTypes: {
-      [_ in never]: never
-    }
-  }
   public: {
     Tables: {
+      event_registrations: {
+        Row: {
+          attended_at: string | null
+          created_at: string
+          event_id: string
+          id: string
+          registered_at: string
+          status: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          attended_at?: string | null
+          created_at?: string
+          event_id: string
+          id?: string
+          registered_at?: string
+          status?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          attended_at?: string | null
+          created_at?: string
+          event_id?: string
+          id?: string
+          registered_at?: string
+          status?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'event_registrations_user_id_fkey'
+            columns: ['user_id']
+            isOneToOne: false
+            referencedRelation: 'profiles'
+            referencedColumns: ['id']
+          },
+        ]
+      }
+      mentor_connections: {
+        Row: {
+          created_at: string
+          focus_areas: string[] | null
+          id: string
+          mentee_id: string
+          mentor_id: string
+          notes: string | null
+          status: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          focus_areas?: string[] | null
+          id?: string
+          mentee_id: string
+          mentor_id: string
+          notes?: string | null
+          status?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          focus_areas?: string[] | null
+          id?: string
+          mentee_id?: string
+          mentor_id?: string
+          notes?: string | null
+          status?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'mentor_connections_mentee_id_fkey'
+            columns: ['mentee_id']
+            isOneToOne: false
+            referencedRelation: 'profiles'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'mentor_connections_mentor_id_fkey'
+            columns: ['mentor_id']
+            isOneToOne: false
+            referencedRelation: 'profiles'
+            referencedColumns: ['id']
+          },
+        ]
+      }
       profiles: {
         Row: {
           avatar_url: string | null
           bio: string | null
+          company_name: string | null
+          company_stage: string | null
           created_at: string
+          expertise_areas: string[] | null
           full_name: string | null
           id: string
+          industry: string | null
+          is_verified: boolean | null
+          languages: string[] | null
+          linkedin_url: string | null
+          location: string | null
+          mentor_availability: string | null
+          phone: string | null
+          profile_visibility: string | null
+          show_email: boolean | null
+          show_phone: boolean | null
+          twitter_url: string | null
           updated_at: string
+          user_type: string | null
+          website: string | null
+          years_experience: number | null
         }
         Insert: {
           avatar_url?: string | null
           bio?: string | null
+          company_name?: string | null
+          company_stage?: string | null
           created_at?: string
+          expertise_areas?: string[] | null
           full_name?: string | null
           id: string
+          industry?: string | null
+          is_verified?: boolean | null
+          languages?: string[] | null
+          linkedin_url?: string | null
+          location?: string | null
+          mentor_availability?: string | null
+          phone?: string | null
+          profile_visibility?: string | null
+          show_email?: boolean | null
+          show_phone?: boolean | null
+          twitter_url?: string | null
           updated_at?: string
+          user_type?: string | null
+          website?: string | null
+          years_experience?: number | null
         }
         Update: {
           avatar_url?: string | null
           bio?: string | null
+          company_name?: string | null
+          company_stage?: string | null
           created_at?: string
+          expertise_areas?: string[] | null
           full_name?: string | null
           id?: string
+          industry?: string | null
+          is_verified?: boolean | null
+          languages?: string[] | null
+          linkedin_url?: string | null
+          location?: string | null
+          mentor_availability?: string | null
+          phone?: string | null
+          profile_visibility?: string | null
+          show_email?: boolean | null
+          show_phone?: boolean | null
+          twitter_url?: string | null
           updated_at?: string
+          user_type?: string | null
+          website?: string | null
+          years_experience?: number | null
         }
         Relationships: []
+      }
+      program_enrollments: {
+        Row: {
+          cohort: string | null
+          completed_at: string | null
+          created_at: string
+          enrolled_at: string
+          id: string
+          program_id: string
+          status: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          cohort?: string | null
+          completed_at?: string | null
+          created_at?: string
+          enrolled_at?: string
+          id?: string
+          program_id: string
+          status?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          cohort?: string | null
+          completed_at?: string | null
+          created_at?: string
+          enrolled_at?: string
+          id?: string
+          program_id?: string
+          status?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'program_enrollments_user_id_fkey'
+            columns: ['user_id']
+            isOneToOne: false
+            referencedRelation: 'profiles'
+            referencedColumns: ['id']
+          },
+        ]
       }
     }
     Views: {
@@ -192,9 +351,6 @@ export type CompositeTypes<
     : never
 
 export const Constants = {
-  graphql_public: {
-    Enums: {},
-  },
   public: {
     Enums: {},
   },
