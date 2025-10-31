@@ -64,6 +64,7 @@ Start here for technical documentation:
 
 AI-friendly code patterns and examples:
 
+- [Deployment & Environments](.claude/skills/deployment.md)
 - [Member Portal Development](.claude/skills/member-portal.md)
 - [Sanity Query Patterns](.claude/skills/sanity-query.md)
 - [Translation Management](.claude/skills/next-intl-translation.md)
