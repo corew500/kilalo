@@ -11,6 +11,12 @@ vi.mock('@/lib/supabase/server', () => ({
 // Mock next/navigation
 vi.mock('next/navigation', () => ({
   redirect: vi.fn(),
+  useRouter: vi.fn(() => ({
+    push: vi.fn(),
+    replace: vi.fn(),
+    refresh: vi.fn(),
+  })),
+  usePathname: vi.fn(() => '/en/settings'),
 }))
 
 describe('SettingsPage', () => {
