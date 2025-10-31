@@ -1,6 +1,7 @@
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import LanguagePreference from '@/components/member/LanguagePreference'
+import SecuritySection from '@/components/member/SecuritySection'
 
 export default async function SettingsPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
@@ -58,11 +59,8 @@ export default async function SettingsPage({ params }: { params: Promise<{ local
           <LanguagePreference currentLocale={locale} />
         </div>
 
-        {/* Security - Placeholder */}
-        <div className="rounded-lg bg-white p-6 shadow">
-          <h2 className="mb-4 text-xl font-semibold text-gray-900">Security</h2>
-          <p className="text-sm text-gray-600">Password management will be added here.</p>
-        </div>
+        {/* Security */}
+        <SecuritySection />
 
         {/* Danger Zone - Placeholder */}
         <div className="rounded-lg border-2 border-red-200 bg-red-50 p-6">
