@@ -38,13 +38,23 @@ vercel
 # Deploy to production (main branch)
 vercel --prod
 
-# View deployments
+# View deployments (most recent 20)
 vercel ls
 
-# View deployment logs
+# Check deployment status
+vercel inspect {deployment-url}
+# Status values: ● Building, ● Ready, ● Error
+
+# View deployment logs (only works for Ready deployments)
 vercel logs {deployment-url}
 
-# Get deployment URL
+# View build errors (works for Error deployments)
+vercel inspect {deployment-url} --logs
+
+# Monitor deployment after push
+# Wait 10s for deployment to start, then check status
+sleep 10 && vercel ls | head -25
+# Then inspect specific deployment
 vercel inspect {deployment-url}
 ```
 
@@ -231,10 +241,110 @@ git push origin main
 
 **Post-deployment**:
 
-1. Monitor for errors
-2. Check analytics
-3. Verify critical paths
-4. Monitor database load
+1. **Check deployment status** (REQUIRED):
+
+   ```bash
+   # Wait for deployment to start
+   sleep 10 && vercel ls | head -25
+
+   # Get the most recent deployment URL and inspect it
+   vercel inspect {deployment-url}
+
+   # If status is ● Error, view build logs
+   vercel inspect {deployment-url} --logs
+   ```
+
+2. Monitor for errors
+3. Check analytics
+4. Verify critical paths
+5. Monitor database load
+
+---
+
+## Deployment Monitoring (CRITICAL)
+
+**⚠️ ALWAYS check deployment status after pushing to main or staging branches.**
+
+### Monitoring Workflow
+
+```bash
+# 1. After git push, wait for deployment to start
+sleep 10 && vercel ls | head -25
+
+# 2. Check the status of the most recent deployment
+# Look for one of these statuses:
+# ● Building - Deployment in progress
+# ● Ready - Deployment successful
+# ● Error - Deployment failed
+
+# 3. If status is "Building", wait and check again
+sleep 30 && vercel inspect {deployment-url}
+
+# 4. If status is "Error", view build logs immediately
+vercel inspect {deployment-url} --logs
+
+# 5. If status is "Ready", verify the deployment
+curl -I {deployment-url}
+```
+
+### Common Deployment Errors
+
+#### Route Conflicts
+
+**Error**: `You cannot have two parallel pages that resolve to the same path`
+
+**Cause**: Multiple pages in different route groups resolve to the same URL
+
+- Example: `app/[locale]/(marketing)/community/page.tsx` and `app/[locale]/(member)/community/page.tsx` both resolve to `/[locale]/community`
+
+**Fix**: Rename one of the pages to a different path
+
+```bash
+mv app/[locale]/(member)/community app/[locale]/(member)/hub
+```
+
+#### Build Failures
+
+**Error**: Build exits with non-zero status
+
+**Cause**: TypeScript errors, missing dependencies, or build script issues
+
+**Fix**:
+
+1. Run build locally: `npm run build`
+2. Fix all TypeScript errors
+3. Ensure all dependencies are installed
+4. Commit and push fix
+
+#### Missing Environment Variables
+
+**Error**: Runtime errors about missing env vars
+
+**Cause**: Environment variables not configured in Vercel
+
+**Fix**:
+
+```bash
+# Add missing variable
+vercel env add {VAR_NAME} production
+vercel env add {VAR_NAME} preview
+```
+
+### Best Practices
+
+1. **Always test builds locally** before pushing:
+
+   ```bash
+   npm run build
+   ```
+
+2. **Monitor deployments** after every push to main/staging
+
+3. **Check error logs immediately** if deployment fails
+
+4. **Use preview deployments** to test changes before merging to staging
+
+5. **Keep deployment skill updated** with new error patterns and solutions
 
 ---
 
