@@ -21,7 +21,19 @@ const BASE_URL =
       ? PRODUCTION_URL
       : 'http://localhost:3000'
 
+// Vercel Protection Bypass secret for E2E tests
+const BYPASS_SECRET = process.env.VERCEL_AUTOMATION_BYPASS_SECRET
+
 test.describe('Staging Deployment Verification', () => {
+  // Set bypass header for protected deployments
+  test.beforeEach(async ({ page }) => {
+    if (BYPASS_SECRET) {
+      await page.setExtraHTTPHeaders({
+        'x-vercel-protection-bypass': BYPASS_SECRET,
+      })
+    }
+  })
+
   test.describe('Critical Pages Load', () => {
     test('homepage loads successfully (English)', async ({ page }) => {
       const response = await page.goto(`${BASE_URL}/en`)
