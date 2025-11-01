@@ -52,6 +52,7 @@ export const config = {
   // - API routes
   // - _next (Next.js internals)
   // - _vercel (Vercel internals)
+  // - /studio (Sanity Studio)
   // - Files with extensions (e.g. favicon.ico)
-  matcher: ['/((?!api|_next|_vercel|.*\\..*).*)'],
+  matcher: ['/((?!api|_next|_vercel|studio|.*\\..*).*)'],
 }
