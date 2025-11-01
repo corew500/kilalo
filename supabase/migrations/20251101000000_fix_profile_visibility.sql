@@ -3,8 +3,10 @@
 -- Created: 2025-11-01
 -- Description: Replace overly permissive profile SELECT policy with privacy-respecting policies
 
--- Drop the insecure policy
+-- Drop existing policies
 DROP POLICY IF EXISTS "Public profiles are viewable by everyone" ON public.profiles;
+DROP POLICY IF EXISTS "Members can view member-only profiles" ON public.profiles;
+DROP POLICY IF EXISTS "Users can view their own profile" ON public.profiles;
 
 -- Public profiles are viewable by everyone (even anonymous)
 CREATE POLICY "Public profiles are viewable by everyone"
